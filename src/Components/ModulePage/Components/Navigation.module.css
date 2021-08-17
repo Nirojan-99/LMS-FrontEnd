@@ -1,0 +1,45 @@
+.week{
+    list-style-type: none;
+    text-align: center;
+    font-family:'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.week li div{
+    margin: auto;
+    width: 80%;
+    padding: 6px 2px;
+    font-size: 1.1rem;
+    color: #046666;
+    border: 3px solid #E2A500;
+    border-radius: 2px;
+    font-weight: 600;
+}
+.week li{
+    margin-bottom: 10px;
+}
+.week li a{
+    text-decoration: none;
+}
+.week li a:hover div{
+    background-color: #D8D8D8;
+}
+.week li a:focus div{
+    background-color: #D8D8D8;
+}
+.line{
+    margin: 2rem 0;
+    /* width: 95%; */
+    height: 1px;
+    background-color: rgb(134, 133, 133);
+}
+@import url("https://fonts.googleapis.com");
+
+
+
+
+
+
+
+
+

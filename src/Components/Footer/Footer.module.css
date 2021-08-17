@@ -1,0 +1,136 @@
+.footer_logo {
+  width: 9rem;
+  margin: 3rem 0 0 3rem;
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+}
+.footer {
+  display: flex;
+  background-color: #088f8f;
+  height: 17rem;
+  /* position: absolute; */
+  position: relative;
+  bottom: 0px;
+}
+
+.box1 {
+  background-color: #088f8f;
+  width: 40%;
+}
+.box2 {
+  background-color: #088f8f;
+  width: 40%;
+}
+
+.box3 {
+  background-color: #088f8f;
+  width: 40%;
+}
+.link_head {
+  color: #fff;
+  font-family: "roboto";
+  font-size: 1rem;
+  margin-left: 3rem;
+  padding-top: 0.5rem;
+  letter-spacing: 0.2rem;
+}
+.footer_links {
+  margin-left: 0.5rem;
+  list-style-type: none;
+  font-family: cursive;
+  transition: all 0.5s ease-in;
+}
+.calendar {
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  background-color: rgba(78, 188, 207, 0);
+}
+.box0 {
+  background-color: #088f8f;
+  width: 10%;
+}
+.footer_copyR {
+  background-color: #046666;
+}
+.footer_copyR ul {
+  margin: 0;
+  margin-bottom: 4px;
+  display: inline-block;
+  list-style-type: none;
+}
+.footer_copyR ul li {
+  display: inline-block;
+  padding: 0 20px;
+  font-size: 0.8rem;
+}
+.footer_copyR ul li:first-child {
+  padding: 0px;
+}
+.footer_copyR ul li a {
+  text-decoration: none;
+  color: #e2a500;
+}
+.footer_links li a{
+  text-decoration: none;
+  color: #333;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+.social_media{
+  list-style-type: none;
+  display: inline-flex;
+  margin: 20px;
+}
+
+.social_media img{
+  margin: 5px;
+  height: 2rem;
+  width: 2rem;
+  background-color: #C9D0D9;
+  padding: 8px;
+}
+.social_media img:hover{
+  background-color:#c8bc14 ;
+  transform: scale(1.1);
+  transition-property: all;
+  transition-duration: .5s;
+}
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+  .footer {
+    display: unset;
+  }
+  .box1,
+  .box2,
+  .box3 {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid rgba(184, 184, 184, 0.486);
+  }
+  .box1 {
+    align-items: center;
+    display: flex;
+  }
+  .link_head {
+    padding-top: 4rem;
+    margin-left: 4rem;
+  }
+  .box0 {
+    display: none;
+  }
+  .footer_copyR {
+    text-align: center;
+  }
+  .footer_copyR ul li:last-child{
+    padding-left: 0;
+  }
+  .calendar{
+    margin: 0;
+  }
+}
