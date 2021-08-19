@@ -1,0 +1,86 @@
+.CardView{
+    border-radius: 20px;
+
+    width: 45%;
+    background-color: #ddd;
+    padding: 20px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+.title{
+    margin: 0px;
+    text-transform: uppercase;
+    font-family: roboto;
+    font-size: 27px;
+    color: #046666;
+}
+.line{
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+    height: 1px;
+    border-width: 0;
+    color: #046666;
+    background-color: #046666;
+}
+.lables{
+    font-family: "open sans";
+    font-weight: bold;
+    font-size: 15px;
+    color:#046666 ;
+}
+.formContainer{
+    padding-left: 6rem;
+    padding-right: 6rem;
+}
+.inputs{
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #046666;
+    font-family: roboto;
+    font-size: 1rem;
+    outline: none;
+    color: #333;
+    background-color: #eee;
+}
+.textArea{
+    resize: vertical;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 150px;
+    overflow: scroll;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #046666;
+    font-family: roboto;
+    font-size: 1rem;
+    outline: none;
+    color: #333;
+    background-color: #eee;
+}
+.inputs:last-child{
+    background-color: #333;
+}
+.save{
+    margin: auto;
+    margin-top: 25px;
+    padding: 3px 15px;
+    display: flex;
+    background-color: transparent;
+    border: 2px solid #14B6C8;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+    color: #14B6C8;
+}
+.save:hover{
+    cursor: pointer;
+    background-color: #14B6C8;
+    color: #333;
+    transition-property: all;
+    transition-duration: .5s;
+}

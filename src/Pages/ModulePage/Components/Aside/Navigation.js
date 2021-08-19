@@ -28,7 +28,7 @@ const weeks = ["week1","week2","week3"];
       })}
 
       <li><a href="#"><div>Week 1</div></a></li>
-            <li><a href="#"><div>Week 1</div></a></li>
+            <li><a href="#1"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>

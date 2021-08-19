@@ -1,5 +1,6 @@
-import Aside from "./Components/Aside";
-import classes from './ModulePage.module.css'
+import Aside from "./Components/Aside/Aside";
+import classes from "./ModulePage.module.css";
+import Weeks from "./Weeks";
 
 const ModulePage = () => {
   return (
@@ -8,7 +9,7 @@ const ModulePage = () => {
         <Aside />
       </div>
       <div className={classes.main_side}>
-    
+        <Weeks />
       </div>
     </main>
   );
