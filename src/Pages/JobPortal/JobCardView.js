@@ -2,11 +2,26 @@ import classes from "./JobCardView.module.css";
 import jobimg from "../../Assets/job.jpg";
 import edit from "../../Assets/edit.svg";
 import deleteIcon from "../../Assets/delete.svg";
+import DeletePopup from "../../Components/DeletePopup/DeletePopup"
+import { useState } from "react";
 
 
 const JobCardView = (props) => {
+  const [onDelete , setOnDelete] = useState(false)
+
+  const clickH = () => {
+    setOnDelete((state) => !state);
+  };
+  const hide = () => {
+    setOnDelete((state) => !state);
+  };
+  const deleteMaterial = (id)=>{
+    console.log(id)
+  }
+
   return (
     <div className={classes.card}>
+      {onDelete && <DeletePopup hide={hide} onDelete={()=>deleteMaterial("id")}/>}
       <img src={jobimg} className={classes.jobPoster}></img>
       <div className={classes.jobname}>{props.jobName}</div>
       <div className={classes.companyname}>{props.jobName}</div>
@@ -26,7 +41,7 @@ const JobCardView = (props) => {
 
       <div className={classes.icon_container}>
         <a href={`job_portal/editJob/jobID`}><img src={edit} className={classes.icons}/></a>
-        <a><img src={deleteIcon} className={classes.icons}/></a>
+        <a><img src={deleteIcon} className={classes.icons} onClick={clickH}/></a>
       </div>
     </div>
   );
