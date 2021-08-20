@@ -23,3 +23,39 @@
     height: auto;
     background-color: #14B6C8;
 }
+.addNew{
+ color: #088F8F;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 85%;
+  font-weight: 800;
+  font-family: "open sans";
+  font-size: 16px;
+  text-align: left;
+
+
+}
+.line {
+  margin-top: 10px;
+  width: 90%;
+  height: 1px;
+  border-width: 0;
+  margin-bottom: 30px;
+  color: gray;
+  background-color: rgba(128, 128, 128, 0.658);
+}
+.add:hover{
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: #088F8F;
+  color: #fff;
+  transition-property: all;
+  transition-duration: .5s;
+}
+.add{
+  padding: 3px;
+  border-radius: 10px;
+  background-color: #088f8f00;
+}

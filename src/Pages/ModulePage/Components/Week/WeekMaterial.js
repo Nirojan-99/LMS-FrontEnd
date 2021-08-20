@@ -32,7 +32,7 @@ const WeekContainer = (props) => {
         </span>
         <span className={classes.right_items}>
           <span className={classes.icons}>
-            <a href="insight/:moduleCode">
+            <a href="./insight/moduleCode">
               <img src={insight1} className={classes.img_buttons}></img>
             </a>
             <a href="material/:materialID">

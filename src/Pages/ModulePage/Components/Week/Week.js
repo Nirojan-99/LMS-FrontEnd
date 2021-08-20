@@ -8,6 +8,8 @@ const Week = (props) => {
         Week 1
       </div>
        <WeekContainer/>
+       <div className={classes.addNew}><a href="select_type/1" className={classes.add}>Add New</a></div>
+       <hr className={classes.line}></hr>
     </div>
      
   </div>;
