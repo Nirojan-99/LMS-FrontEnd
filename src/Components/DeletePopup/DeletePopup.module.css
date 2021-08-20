@@ -1,0 +1,66 @@
+.container {
+  padding: 15px;
+
+  position: fixed;
+  height: 25%;
+  top: 30vh;
+  left: 35%;
+  width: 30%;
+  z-index: 100;
+  overflow: hidden;
+  background-color: #14b6c8;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
+}
+.title{
+    text-transform: capitalize;
+    margin: 10px;
+    color: red;
+    font-family: roboto;
+    font-size: 25px;
+}
+.buttons{
+    margin: 70px 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.deleteButton{
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px;
+    outline: 0px;
+    background-color: rgba(255, 0, 0, 0.74);
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 17px;
+    font-family: "open sans";
+}
+.cancel{
+    font-weight: bolder;
+    border: 0px;
+    outline: 0px;
+    border-color: transparent;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 17px;
+    font-family: "open sans";
+}
+.cancel:hover {
+    cursor: pointer;
+    color: #000000;
+    transition-property: all;
+    transition-duration: .5s;
+}
+.deleteButton:hover{
+    cursor: pointer;
+    background-color: red;
+    transition-property: all;
+    transition-duration: .5s;
+}

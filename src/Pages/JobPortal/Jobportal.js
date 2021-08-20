@@ -9,6 +9,7 @@ const JobPortal = () => {
     "data scientist",
     "Q/A engineer",
     "UI/UX engineer",
+    "civil engineer"
   ];
   return (
     <>

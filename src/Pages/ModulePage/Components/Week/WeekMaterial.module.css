@@ -66,3 +66,6 @@
 .right_items {
   margin-right: 25px;
 }
+.popup{
+  position: absolute;
+}
