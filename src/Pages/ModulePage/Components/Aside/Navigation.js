@@ -34,11 +34,11 @@ const weeks = ["week1","week2","week3"];
             <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
       <hr className={classes.line}></hr>
-      <li>
+      {/* <li>
         <a href="#">
-          <div>Notes</div>
+          <a href="../../notes"><div>Notes</div></a>
         </a>
-      </li>
+      </li> */}
       <li>
         <a href="#">
           <div>Grades</div>

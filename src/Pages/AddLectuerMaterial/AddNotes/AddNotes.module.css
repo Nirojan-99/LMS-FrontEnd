@@ -33,6 +33,8 @@
     margin-top: 10px;
     margin-bottom: 20px;
     width: 100%;
+    height: 150px;
+    resize: vertical;
     padding: 9px;
     border: 2px solid #088f8f;
     outline: 0;
@@ -84,4 +86,16 @@
     font-weight: 700;
     font-size: 15px;
     color: #088f8f;
+  }
+  .inputs_text{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    resize: vertical;
+    padding: 9px;
+    border: 2px solid #088f8f;
+    outline: 0;
+    font-size: 15px;
+    background-color: transparent;
+  
   }
