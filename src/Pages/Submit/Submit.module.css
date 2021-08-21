@@ -1,0 +1,80 @@
+.container {
+  background-color: #eee;
+  width: 50%;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 15px;
+  border-radius: 10px;
+}
+.title {
+  font-family: roboto;
+  font-size: 20px;
+  color: #088f8f;
+  padding-left: 25px;
+  margin: 0;
+  letter-spacing: 1px;
+}
+.line {
+  margin-top: 10px;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: gray;
+  background-color: rgba(128, 128, 128, 0.658);
+}
+.box {
+  position: relative;
+  margin: auto;
+  background-color: #757575;
+  width: 60%;
+  border-radius: 20px;
+  height: 200px;
+}
+.inputs {
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+}
+.inputs img {
+  margin-top: 30px;
+}
+.inputsA {
+  position: absolute;
+  top: 0px;
+  border-radius: 10px;
+  background-color: red;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  color: #1b1b1b;
+  opacity: 0;
+}
+.details {
+  font-weight: 600;
+
+ 
+  width: 60%;
+  margin: auto;
+  color: teal;
+  margin-top: 20px;
+}
+.btn {
+    margin-top: 20px;
+  margin: auto;
+  width: 15%;
+  margin-left: 42.5%;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid #14b6c8;
+  color: #14b6c8;
+  font-family: roboto;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #14b6c8;
+  color: #333;
+  transition: all 0.5s;
+}

@@ -8,11 +8,14 @@
     padding: 20px;
 }
 .title{
+   
     font-family: roboto;
   font-size: 20px;
   color: #088f8f;
   padding-left: 25px;
   margin: 0;
+  margin-top: 10.5px;
+  margin-bottom: 7.5px;
   letter-spacing: 1px;
 }
 .line {
@@ -29,17 +32,7 @@
     font-size: 15px;
     color: #088f8f;
   }
-  .inputs {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 9px;
-    border: 2px solid #088f8f;
-    outline: 0;
-    font-size: 15px;
-    background-color: transparent;
   
-  }
   .form_container {
     width: 80%;
     margin: auto;
@@ -84,4 +77,31 @@
     font-weight: 700;
     font-size: 15px;
     color: #088f8f;
+  }
+  .inputs{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 9px;
+    border: 2px solid #088f8f;
+    outline: 0;
+    font-size: 15px;
+    background-color: transparent;
+  
+  }
+  .title_div{
+      vertical-align: baseline;
+      display: flex;
+      justify-content: space-between;
+  }
+  .iconM {
+      padding: 6px;
+    width: 35px;
+    height: 35px;
+  }
+  .iconM:hover{
+      transition: all .5s;
+      cursor: pointer;
+      background-color: #088f8f;
+      border-radius: 10px;
   }

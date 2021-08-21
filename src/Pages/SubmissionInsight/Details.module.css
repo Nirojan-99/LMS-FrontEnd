@@ -1,0 +1,30 @@
+.container{
+    width: 70%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.line {
+    width: 70%;
+    margin-top: 10px;
+    height: 1px;
+    border-width: 0;
+    background-color: rgba(114, 114, 114, 0.747);
+  }
+  .container div{
+      font-family: "open sans";
+      size: 13px;
+      font-weight: 600;
+
+  }
+  .link{
+    color: #006FFF;
+  }
+  .link:hover{
+      cursor: pointer;
+ 
+  }
+  .status{
+      color: #333;
+  }
