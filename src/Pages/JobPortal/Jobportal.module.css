@@ -10,6 +10,7 @@
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    border-radius: 20px;
 }
 .jobCard{
     margin: auto;
@@ -20,20 +21,23 @@
     justify-content: space-around;
 }
 .addJob{
-    color: #fff;
-    font-size: 30px;
-    background-color: #046666;
-    border-radius: 15px;
-    margin: 80px 20px;
-    width: 25%;
-    display: flexbox;
-text-align: center;
-vertical-align: middle;
+    margin: auto;
+    text-align: center;
+margin-top: 20px;
+margin-bottom: 25px;
 }
-.addJob:hover{
+.addJob a{
+    border-radius: 10px;
+    padding: 5px 15px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 700;
+    background-color: teal;
+}
+.addJob a:hover{
 
     cursor: pointer;
-    background-color: teal;
+    background-color: rgb(2, 107, 107);
 }
 a{
     text-decoration: none;
@@ -47,4 +51,13 @@ a{
 .plusIcon{
     width: 100%;
 
+}
+.loading{
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    font-family: roboto;
 }

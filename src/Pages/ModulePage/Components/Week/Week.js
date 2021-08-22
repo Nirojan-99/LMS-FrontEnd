@@ -2,17 +2,20 @@ import classes from "./Week.module.css";
 import WeekContainer from "./WeekMaterial";
 
 const Week = (props) => {
- 
+  const week = props.row;
 
   return (
     <div className={classes.week_container}>
       <div className={classes.week_box}>
         <div className={classes.week_title} id={props.id}>
-          Week 1
+          {"week  "+props.row.week}
         </div>
-        <WeekContainer />
+        {week.map((row)=>{
+          return <WeekContainer data={row} />
+        })}
+        
         <div className={classes.addNew}>
-          <a href="select_type/1/1" className={classes.add}>
+          <a href={"select_type/"+props.row._id } className={classes.add}>
             Add New
           </a>
         </div>

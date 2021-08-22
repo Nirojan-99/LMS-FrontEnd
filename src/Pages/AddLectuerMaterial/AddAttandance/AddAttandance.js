@@ -1,10 +1,9 @@
 import classes from "./AddAttandance.module.css";
 import { useState } from "react";
+import axios from "axios";
 
 const AddAttandance = (props) => {
-
-  const week = props.match.params.week;
-  const module = props.match.params.module;
+  const week = props.match.params.weekID;
 
   const [visibleRef, setVisibility] = useState("visible");
 
@@ -13,7 +12,24 @@ const AddAttandance = (props) => {
     setVisibility(valueq);
   };
 
-  const onAttandanceSubmit = () => {};
+  const onAttandanceSubmit = (event) => {
+    event.preventDefault()
+    const attandance = {
+      type: "attandance",
+      week: week,
+      title: "attandance",
+      visibility: visibleRef,
+    };
+
+    axios
+      .post("http://localhost:5000/admin/add_attandance", attandance)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  };
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>ATTANDANCE</h2>
@@ -22,7 +38,7 @@ const AddAttandance = (props) => {
         {/* <label for="file" className={classes.labels}>Add File</label><br/>
             <input className={classes.inputs} type="file" id="file" /> */}
         <input
-        //  checked={false}
+          //  checked={false}
           onChange={onRadioClicked}
           value="visible"
           className={classes.radios}
@@ -37,7 +53,6 @@ const AddAttandance = (props) => {
         <br />
 
         <input
-    
           onChange={onRadioClicked}
           value="invisible"
           className={classes.radios}
