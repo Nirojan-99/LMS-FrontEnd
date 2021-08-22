@@ -2,14 +2,15 @@ import Aside from "./Components/Aside/Aside";
 import classes from "./ModulePage.module.css";
 import Weeks from "./Weeks";
 
-const ModulePage = () => {
+const ModulePage = (props) => {
+  const moduleid = props.match.params.moduleID
   return (
     <main className={classes.mainSec}>
       <div className={classes.aside}>
         <Aside />
       </div>
       <div className={classes.main_side}>
-        <Weeks />
+        <Weeks moduleid = {moduleid}/>
       </div>
     </main>
   );

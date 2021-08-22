@@ -9,6 +9,7 @@ const JobSave = (props) => {
 
   const id = props.match.params.jobId;
   const [edit, setEdit] = useState(false);
+  const [btn, setBtn] = useState("save");
 
   useEffect(() => {
     if (!id) {
@@ -38,6 +39,7 @@ const JobSave = (props) => {
   const [jobID, setJobID] = useState();
 
   const onJobSubmit = (event) => {
+     
     event.preventDefault();
 
     const job = {
@@ -48,12 +50,13 @@ const JobSave = (props) => {
       jobDetails: jobdetails,
       jobPoster: jobposter,
     };
-
+    setBtn("Saving...")
     axios
       .post("http://localhost:5000/add_job", job)
       .then((res) => {
         console.log(res.data);
-        history.replace("./");
+        // setBtn("Saved")
+        history.replace("/services/job_portal");
       })
       .catch((er) => {
         console.log(er);
@@ -132,7 +135,7 @@ const JobSave = (props) => {
           className={classes.inputs}
         ></input>
 
-        <button className={classes.save}>SAVE</button>
+        <button className={classes.save}>{btn}</button>
       </form>
     </div>
   );

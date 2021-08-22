@@ -1,26 +1,55 @@
 import classes from "./AddNotes.module.css";
 import { useState } from "react";
-import { useRef } from "react";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const AddNotes = (props) => {
-  const week = props.match.params.week;
-  const module = props.match.params.module;
+  const week = props.match.params.weekID;
+  const history = useHistory();
 
   const [visibleRef, setVisibility] = useState("visible");
-  const notes = useRef();
-  const titleRef = useRef();
+  const [notes, setNotes] = useState();
+  const [loaded, setLoaded] = useState("SAVE");
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
     setVisibility(valueq);
   };
 
+  const notesHandler = (event) => {
+    setNotes(event.target.value);
+  };
+
   const onNotesSubmit = (e) => {
+    setLoaded("SAVING...");
     e.preventDefault();
 
-    console.log(notes.current.value);
-    console.log(titleRef.current.value);
-    console.log(visibleRef);
+    const currentdate = new Date();
+    const date = currentdate.getDate();
+    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+
+    const material = {
+      type: "notes",
+      week: week,
+      title: notes,
+      visibility: visibleRef,
+      date_time: date + "/" + time,
+    };
+
+    axios
+      .post("http://localhost:5000/admin/add_material", material)
+      .then((resp) => {
+        // console.log(resp.data);
+
+        axios
+          .get("http://localhost:5000/admin/get_module?week=" + week)
+          .then((res) => {
+            history.replace("/my-courses/" + res.data[0].module);
+          });
+      })
+      .catch((er) => {
+        console.log(er);
+      });
   };
 
   return (
@@ -28,7 +57,7 @@ const AddNotes = (props) => {
       <h2 className={classes.title}>NOTES</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onNotesSubmit} className={classes.form_container}>
-        <label className={classes.labels} htmlFor="title">
+        {/* <label className={classes.labels} htmlFor="title">
           Title
         </label>
         <br />
@@ -38,12 +67,17 @@ const AddNotes = (props) => {
           id="title"
           type="text"
           required
-        />
+        /> */}
         <label htmlFor="type" className={classes.labels}>
           Add Notes
         </label>
         <br />
-        <textarea required ref={notes} className={classes.inputs}></textarea>
+        <textarea
+          value={notes}
+          onChange={notesHandler}
+          required
+          className={classes.inputs}
+        ></textarea>
         <label className={classes.labels} htmlFor="title">
           Visibility
         </label>
@@ -78,7 +112,7 @@ const AddNotes = (props) => {
         <br />
 
         <button type="submit" className={classes.submit}>
-          SAVE
+          {loaded}
         </button>
       </form>
     </div>

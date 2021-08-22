@@ -51,7 +51,7 @@ const Nav = () => {
             </li>
             <li>
               <NavLink
-                to="/my-courses/s"
+                to="/my-courses/it2020"
                 className={classes.links}
                 activeClassName={classes.activelink}
               >

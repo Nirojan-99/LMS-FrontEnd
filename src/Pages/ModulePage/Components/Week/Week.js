@@ -1,8 +1,27 @@
 import classes from "./Week.module.css";
 import WeekContainer from "./WeekMaterial";
+import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const Week = (props) => {
-  const week = props.row;
+  const week = props.row.contents;
+
+  const [contents,setContents] = useState([])
+  console.log("a"+week)
+
+  useEffect(()=>{
+    axios
+      .get("http://localhost:5000/admin/get_materials?contents=" + week)
+      .then((res) => {
+        console.log(res.data);
+        setContents(res.data)
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  },[])
+
 
   return (
     <div className={classes.week_container}>
@@ -10,7 +29,7 @@ const Week = (props) => {
         <div className={classes.week_title} id={props.id}>
           {"week  "+props.row.week}
         </div>
-        {week.map((row)=>{
+        {contents.map((row)=>{
           return <WeekContainer data={row} />
         })}
         
