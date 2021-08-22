@@ -2,46 +2,65 @@ import classes from "./JobCardView.module.css";
 import jobimg from "../../Assets/job.jpg";
 import edit from "../../Assets/edit.svg";
 import deleteIcon from "../../Assets/delete.svg";
-import DeletePopup from "../../Components/DeletePopup/DeletePopup"
+import DeletePopup from "../../Components/DeletePopup/DeletePopup";
 import { useState } from "react";
-
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const JobCardView = (props) => {
-  const [onDelete , setOnDelete] = useState(false)
 
-  const clickH = () => {
+  const history = useHistory()
+
+  const [onDelete, setOnDelete] = useState(false);
+  const [deleteID, setOnDeleteID] = useState("");
+
+  const clickH = (id) => {
     setOnDelete((state) => !state);
+    setOnDeleteID(id);
   };
   const hide = () => {
     setOnDelete((state) => !state);
   };
-  const deleteMaterial = (id)=>{
-    console.log(id)
-  }
+
+  const deleteMaterial = () => {
+    axios
+      .post("http://localhost:5000/delete_job?id="+deleteID)
+      .then((res) => {
+        //acknogement
+        setOnDelete((state) => !state);
+        history.replace("./job_portal")
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  };
 
   return (
     <div className={classes.card}>
-      {onDelete && <DeletePopup hide={hide} onDelete={()=>deleteMaterial("id")}/>}
+      {onDelete && (
+        <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
+      )}
       <img src={jobimg} className={classes.jobPoster}></img>
-      <div className={classes.jobname}>{props.jobName}</div>
-      <div className={classes.companyname}>{props.jobName}</div>
-      <div className={classes.description}>
-        Video provides a powerful way to help you prove your point. When you
-        click Online Video, you can paste in the embed code for the video you
-        want to add. You can also type a keyword to search online for the video
-        that best fits your document. To make your document look professionally
-        produced, Word provides header, footer, cover page, and text box designs
-        that complement each other. For example, you can add a matching cover
-        page, header, and sidebar. Click Insert and then choose the elements you
-        want from the different galleries.
-      </div>
+      <div className={classes.jobname}>{props.row.name}</div>
+      <div className={classes.companyname}>{props.row.companyName}</div>
+      <div className={classes.description}>{props.row.jobDetails}</div>
       {/* <div>
-          <a href={`job_portal/`+props.jobName} className={classes.viewMore}>VIEW MORE</a>
+          <a href={`/services/job/`+props.row._id} className={classes.viewMore}>VIEW MORE</a>
       </div> */}
 
       <div className={classes.icon_container}>
-        <a href={`job_portal/editJob/jobID`}><img src={edit} className={classes.icons}/></a>
-        <a><img src={deleteIcon} className={classes.icons} onClick={clickH}/></a>
+        <a href={`/services/job_portal/editJob/` + props.row._id}>
+          <img src={edit} className={classes.icons} />
+        </a>
+        <a>
+          <img
+            src={deleteIcon}
+            className={classes.icons}
+            onClick={() => {
+              clickH(props.row._id);
+            }}
+          />
+        </a>
       </div>
     </div>
   );

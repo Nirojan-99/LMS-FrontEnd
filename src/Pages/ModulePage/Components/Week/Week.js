@@ -2,7 +2,7 @@ import classes from "./Week.module.css";
 import WeekContainer from "./WeekMaterial";
 
 const Week = (props) => {
-  const week = props.row.content;
+  const week = props.row;
 
   return (
     <div className={classes.week_container}>

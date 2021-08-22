@@ -43,4 +43,13 @@
   height: auto;
  padding-bottom: 20px;
 }
-
+.loading{
+  font-family: "open sans";
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  margin: auto;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}

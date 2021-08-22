@@ -44,10 +44,13 @@ function App() {
 
         <Route path="/my-courses/select_type/:weekID" exact component={SelectMaterial}/>
         <Route path="/my-courses/:moduleID" exact component={ModulePage}/>
+
         <Route path="/services/job_portal/editJob/:jobId" exact component={JobSave}/>
-        <Route path="/services/job_portal/:jobId" exact component={JobFullView}/>
+        <Route path="/services/job_portal/add_Job" exact component={JobSave}/>
+        <Route path="/services/job/:jobId" exact component={JobFullView}/>
         <Route path="/services/job_portal" exact component={JobPortal}/>
         <Route path="/services" exact component={Services}/>
+
         <Route path="/dashboard" exact />
       </Switch>
       <Footer />

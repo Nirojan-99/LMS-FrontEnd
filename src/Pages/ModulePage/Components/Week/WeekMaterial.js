@@ -23,36 +23,36 @@ const WeekContainer = (props) => {
   switch (props.data.type) {
     case "quiz":
       logo = quiz;
-      edit ="./edit_quiz/"
-      option="./quiz/"+ props.data._id
+      edit = "./edit_quiz/";
+      option = "./quiz/" + props.data._id;
       break;
     case "file":
       logo = pdf;
-      edit ="./edit_file/"
-      option="/file/"+props.data._id
+      edit = "./edit_file/";
+      option = "/file/" + props.data._id;
       break;
     case "submission":
       logo = submit;
-      edit ="edit_submission/"
-      option="./submission/"+props.data._id
+      edit = "edit_submission/";
+      option = "./submission/" + props.data._id;
       break;
     case "link":
       logo = link;
-      edit ="edit_link/"
-      option=props.data.link
+      edit = "edit_link/";
+      option = props.data.link;
       break;
     case "discussion":
-      edit ="edit_discussion/"
-      option="./discussion/"+props.data._id
+      edit = "edit_discussion/";
+      option = "./discussion/" + props.data._id;
       logo = discussion;
       break;
     case "attandance":
-      edit ="edit_attandance/"
-      option="./attandance/"+props.data._id
+      edit = "edit_attandance/";
+      option = "./attandance/" + props.data._id;
       logo = attandance;
       break;
     case "notes":
-      edit ="edit_notes/"
+      edit = "edit_notes/";
       logo = notes;
       break;
   }
@@ -81,7 +81,9 @@ const WeekContainer = (props) => {
 
         <span className={classes.left_items}>
           <img src={logo} className={classes.iconM} />
-          <span className={classes.title}><a href={option}>{props.data.title}</a></span>
+          <span className={classes.title}>
+            <a href={option}>{props.data.title}</a>
+          </span>
           {props.data.visibility === "invisible" && (
             <span className={classes.hidden_popup}>Hidden to Students</span>
           )}
