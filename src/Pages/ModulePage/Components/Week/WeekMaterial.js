@@ -52,6 +52,7 @@ const WeekContainer = (props) => {
       logo = attandance;
       break;
     case "notes":
+      option = null;
       edit = "edit_notes/";
       logo = notes;
       break;

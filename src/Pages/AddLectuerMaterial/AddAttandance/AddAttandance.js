@@ -1,11 +1,15 @@
 import classes from "./AddAttandance.module.css";
 import { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 const AddAttandance = (props) => {
   const week = props.match.params.weekID;
 
+  const history = useHistory();
+
   const [visibleRef, setVisibility] = useState("visible");
+  const [loaded, setLoaded] = useState("Save");
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -13,18 +17,31 @@ const AddAttandance = (props) => {
   };
 
   const onAttandanceSubmit = (event) => {
-    event.preventDefault()
-    const attandance = {
+    setLoaded("Saving...");
+
+    const currentdate = new Date();
+    const date = currentdate.getDate();
+    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+
+    event.preventDefault();
+    const material = {
       type: "attandance",
       week: week,
       title: "attandance",
       visibility: visibleRef,
+      date_time: date + "/" + time,
     };
 
     axios
-      .post("http://localhost:5000/admin/add_attandance", attandance)
-      .then((res) => {
-        console.log(res.data);
+      .post("http://localhost:5000/admin/add_material", material)
+      .then((resp) => {
+        // console.log(resp.data);
+
+        axios
+          .get("http://localhost:5000/admin/get_module?week=" + week)
+          .then((res) => {
+            history.replace("/my-courses/" + res.data[0].module);
+          });
       })
       .catch((er) => {
         console.log(er);
@@ -67,7 +84,7 @@ const AddAttandance = (props) => {
         <br />
 
         <button type="submit" className={classes.submit}>
-          SAVE
+          {loaded}
         </button>
       </form>
     </div>
