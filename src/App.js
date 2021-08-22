@@ -29,12 +29,20 @@ function App() {
         <Route path="/my-courses/attandance/:ID" exact component={Attandance}/>
         <Route path="/my-courses/submisson_insight/:moduleID" exact component={SubmissionInsight}/>
         <Route path="/my-courses/insight/:moduleID" exact component={ModulePageInsights}/>
-        <Route path="/my-courses/add_attandance/:module/:week" exact component={AddAttandance}/>
-        <Route path="/my-courses/add_submission/:module/:week" exact component={AddSubmission}/>
-        <Route path="/my-courses/add_notes/:module/:week" exact component={AddNotes}/>
-        <Route path="/my-courses/add_file/:module/:week" exact component={AddFile}/>
-        <Route path="/my-courses/add_link/:module/:week" exact component={AddLink}/>
-        <Route path="/my-courses/select_type/:module/:week" exact component={SelectMaterial}/>
+
+        <Route path="/my-courses/add_attandance/:weekID" exact component={AddAttandance}/>
+        <Route path="/my-courses/add_submission/:weekID" exact component={AddSubmission}/>
+        <Route path="/my-courses/add_notes/:weekID" exact component={AddNotes}/>
+        <Route path="/my-courses/add_file/:weekID" exact component={AddFile}/>
+        <Route path="/my-courses/add_link/:weekID" exact component={AddLink}/>
+
+        <Route path="/my-courses/edit_attandance/:MaterialID" exact component={AddAttandance}/>
+        <Route path="/my-courses/edit_submission/:MaterialID" exact component={AddSubmission}/>
+        <Route path="/my-courses/edit_notes/:MaterialID" exact component={AddNotes}/>
+        <Route path="/my-courses/edit_file/:MaterialID" exact component={AddFile}/>
+        <Route path="/my-courses/adedit_link/:MaterialID" exact component={AddLink}/>
+
+        <Route path="/my-courses/select_type/:weekID" exact component={SelectMaterial}/>
         <Route path="/my-courses/:moduleID" exact component={ModulePage}/>
         <Route path="/services/job_portal/editJob/:jobId" exact component={JobSave}/>
         <Route path="/services/job_portal/:jobId" exact component={JobFullView}/>

@@ -6,6 +6,15 @@ import axios from "axios";
 const AddFile = (props) => {
   const week = props.match.params.week;
   const module = props.match.params.module;
+  const material = props.match.params.MaterialID;
+
+  if(material){
+    //fetch data
+    console.log("editpage")
+  }
+  else{
+    console.log("addpage")
+  }
 
   const titleRef = useRef();
   const [visibleRef, setVisibility] = useState("visible");
