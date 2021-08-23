@@ -1,0 +1,46 @@
+.back1 {
+    border: 0px;
+    padding: 5px;
+    box-shadow: 2px 3px 8px #888888;
+    border-left: 30px solid #e2a500;
+    background-color: #fff;
+    margin: auto;
+    width: 1100px;
+  }
+  .uiback {
+    list-style-type: none;
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+  }
+  .uiback li a {
+    text-decoration: none;
+    margin-top: 10%;
+    color: #046666;
+    font-weight: bolder;
+    font-size: x-large;
+    font-weight: 900;
+  }
+  .popup{
+    position: absolute;
+    width: 100%;
+    
+  }
+  .img_buttons {
+    margin: auto;
+    margin: 0 2% 0 90%;
+    border-radius: 2px;
+    width: 5%;
+    height: 5%;
+  }
+  .button{
+padding: 20%;
+
+  }
+  .img_buttons:hover {
+    cursor: pointer;
+    background-color: #14B6C8;
+    color: #333;
+    transition-property: all;
+    transition-duration: .5s;
+  }
+  

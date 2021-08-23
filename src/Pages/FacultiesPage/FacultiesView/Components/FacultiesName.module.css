@@ -1,0 +1,42 @@
+.headerback1 {
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    
+  }
+  .back1 {
+    border: 0px;
+    padding: 20px;
+    box-shadow: 2px 3px 8px #888888;
+    border-left: 30px solid #046666;
+    background-color: #fff;
+    margin: 0px;
+    width: 1200px;
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    color: #046666;
+    font-size: xx-large;
+    font-weight: bolder;
+    font-weight: 900; 
+  }
+  .img_buttons{
+    margin: 0%;
+    margin: 0% 0% 3% 95%;
+    border-radius: 10px;
+    width: 5%;
+    height: 5%;
+   
+  
+  
+  
+  }
+  .img_buttons:hover{
+  cursor: pointer;
+  background-color: #c1e9f0;
+/* padding: 1px; */
+  transition-property: all;
+  transition-duration: .5s;
+  }
+
+
+  

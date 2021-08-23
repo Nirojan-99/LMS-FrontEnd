@@ -1,0 +1,49 @@
+.container{
+    padding: 35px;
+    border-radius: 20px;
+    margin: auto;
+    width: 70%;
+    background-color: #eee;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.title{
+    letter-spacing: 1px;
+    margin: 0;
+    font-family: roboto;
+    font-size: xx-large;
+    color: #046666;
+   
+   
+}
+
+.line {
+    margin-top: 10px;
+    width: 100%;
+    height: 1px;
+    border-width: 0;
+    color: gray;
+    background-color: rgba(128, 128, 128, 0.658);
+  }
+  .report_container{
+      
+      width: 65%;
+      margin: auto;
+      margin-top: 30px;
+      display: flex;
+      margin-bottom: 20px;
+      justify-content: space-between;
+  }
+  .report_container span{
+      font-family: roboto;
+     font-weight: bolder;
+      color:#046666 ;
+     font-size: x-large;
+  }
+  .message{
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: red;
+  }

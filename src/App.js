@@ -19,6 +19,19 @@ import Submit from "./Pages/Submit/Submit"
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
+import FacultiesView from "./Pages/FacultiesPage/FacultiesView/FacultiesView";
+import ModuleEnrollmentReport from "./Pages/ModulePageView/ModuleEnrollmentReport/ModuleEnrollmentReport";
+import AddFaculties from "./Pages/FacultiesPage/AddFaculties/AddFaculties";
+import Addcourse from "./Pages/CoursePage/Addcourse/Addcourse";
+import CoursePage from "./Pages/CoursePage/CoursePage";
+import ModulepageView from "./Pages/ModulePageView/ModulepageView/ModulepageView";
+import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule";
+import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
+
+
+
+
+
 
 function App() {
   return (
@@ -41,6 +54,17 @@ function App() {
         <Route path="/services/job_portal" exact component={JobPortal}/>
         <Route path="/services" exact component={Services}/>
         <Route path="/dashboard" exact />
+        <Route path="/faculties" exact component={FacultiesView}/>
+        <Route path="/Addfaculties/semesteryear/semester/Module/:moduleid" exact component={ModuleEnrollmentReport}/>
+        <Route path="/faculties/Addfaculties" exact component={AddFaculties}/>
+        <Route path="/faculties/Addcourse" exact component={Addcourse}/>
+        <Route path="/faculties/semesteryear/:semester" exact component={CoursePage}/>
+        <Route path="/faculties/semesteryear/:semester/Module" exact component={ModulepageView}/>
+        <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
+        <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
+ 
+       
+       
       </Switch>
       <Footer />
     </Router>
