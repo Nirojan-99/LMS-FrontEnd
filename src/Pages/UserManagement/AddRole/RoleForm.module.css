@@ -1,0 +1,162 @@
+.CardView{
+  border-radius: 20px;
+  width: 95%;
+  background-color:#ddd;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.title{
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 27px;
+  color: #046666;
+}
+.line{
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.label{
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 20px;
+  color:#046666 ;
+}
+.formContainer{
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+.inputs{
+  margin-bottom: 20px;
+  width: 95%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1.1rem;
+  outline: none;
+  color: #333;
+  background-color: white;
+  font-weight: bold;
+}
+.textArea{
+  resize: vertical;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 150px;
+  overflow: scroll;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #eee;
+}
+.select{
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #eee;
+  
+}
+
+.inputs:last-child{
+  background-color: #333;
+}
+.add{
+  margin: auto;
+  margin-top: 25px;
+  padding: 5px 15px;
+  background-color: #046666;
+  border: 2px solid #14B6C8;
+  font-family: roboto;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+  margin: 10px;
+  height: 45px;
+  width: 120px;
+  font-weight: bold;
+
+}
+.add:hover{
+  cursor: pointer;
+  background-color: #14B6C8;
+  color: #333;
+  transition-property: all;
+  transition-duration: .5s;
+}
+
+.cancel{
+  margin: auto;
+  margin-top: 25px;
+  margin-left: 15px;
+  padding: 5px 15px;
+  background-color: #046666;
+  border: 2px solid #14B6C8;
+  font-family: roboto;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+  height: 45px;
+  width: 120px;
+  font-weight: bold;
+
+}
+.cancel:hover{
+  cursor: pointer;
+  background-color: #14B6C8;
+  color: #333;
+  transition-property: all;
+  transition-duration: .5s;
+}
+
+.inline {
+  margin-left: 30%;
+}
+
+.invalid_inputs {
+  border: 2px solid #b40e0e;
+  background-color: #fddddd;
+  margin-bottom: 15px;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  font-family: roboto;
+  font-size: 1.1rem;
+  outline: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.errorText {
+  margin-top: -10px;
+  color: #f11010;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.add:disabled{
+  background-color: #ccc;
+  color: #292929;
+  border-color:2px solid black;
+  cursor: not-allowed;
+}

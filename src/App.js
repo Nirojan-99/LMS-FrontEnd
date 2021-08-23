@@ -16,6 +16,10 @@ import AddSubmission from "./Pages/AddLectuerMaterial/AddSubmission/AddSubmissio
 import SubmissionInsight from "./Pages/SubmissionInsight/SubmissionInsight"
 import Attandance from "./Pages/Attandance/Attandance"
 import Submit from "./Pages/Submit/Submit"
+import AddUser from "./Pages/UserManagement/AddUser/AddUser";
+import UserReport from "./Pages/UserManagement/UserReport/UserReport";
+import EditUser from "./Pages/UserManagement/EditUser/EditUser";
+import AddRole from "./Pages/UserManagement/AddRole/NewRole";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -50,6 +54,11 @@ function App() {
         <Route path="/services/job/:jobId" exact component={JobFullView}/>
         <Route path="/services/job_portal" exact component={JobPortal}/>
         <Route path="/services" exact component={Services}/>
+
+        <Route path="/add-user" exact component={AddUser} />
+        <Route path="/user-report" exact component={UserReport}/>
+        <Route path="/edit-user" exact component={EditUser} />
+        <Route path="/add-role" exact component={AddRole}/>
 
         <Route path="/dashboard" exact />
       </Switch>
