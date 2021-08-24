@@ -40,7 +40,7 @@ const JobCardView = (props) => {
       {onDelete && (
         <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
       )}
-      <img src={jobimg} className={classes.jobPoster}></img>
+      <img src={props.row.jobPoster} className={classes.jobPoster}></img>
       <div className={classes.jobname}>{props.row.name}</div>
       <div className={classes.companyname}>{props.row.companyName}</div>
       <div className={classes.description}>{props.row.jobDetails}</div>

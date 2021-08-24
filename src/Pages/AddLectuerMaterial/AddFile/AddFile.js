@@ -33,8 +33,7 @@ const AddFile = (props) => {
     console.log(titleRef.current.value);
     console.log(visibleRef);
     console.log(selectedFile.name);
-    const formData = new FormData();
-    formData.append("File", selectedFile);
+   
     //   axios.post("../../../",{
     //     method: 'POST',
     //     body: formData,

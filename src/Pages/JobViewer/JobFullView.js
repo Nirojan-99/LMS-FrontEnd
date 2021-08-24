@@ -25,7 +25,7 @@ const JobFullView=(props)=>{
 
 
     return(<> {loaded ? <div className={classes.card}>
-        <img src={jobimg} className={classes.jobPoster}></img>
+        <img src={job.jobPoster} className={classes.jobPoster}></img>
         <div className={classes.jobname}>{job.name}</div>
         <div className={classes.companyname}>{job.companyName}</div>
         <div className={classes.description}>
