@@ -65,3 +65,7 @@
 .add:active , .add:visited{
   color:#E2A500 ;
 }
+.loader{
+  display: flex;
+  justify-content: center;
+}

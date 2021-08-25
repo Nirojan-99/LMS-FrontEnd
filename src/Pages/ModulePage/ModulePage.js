@@ -3,14 +3,14 @@ import classes from "./ModulePage.module.css";
 import Weeks from "./Weeks";
 
 const ModulePage = (props) => {
-  const moduleid = props.match.params.moduleID
+  const moduleid = props.match.params.moduleID;
   return (
     <main className={classes.mainSec}>
       <div className={classes.aside}>
         <Aside />
       </div>
       <div className={classes.main_side}>
-        <Weeks moduleid = {moduleid}/>
+        <Weeks moduleid={moduleid} />
       </div>
     </main>
   );

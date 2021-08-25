@@ -23,7 +23,7 @@ const JobSave = (props) => {
           setCompanyName(res.data.companyName);
           setJobName(res.data.name);
           setJobDetails(res.data.jobDetails);
-          // setJobPoster(res.data.companyName)
+          setJobPosterold(res.data.jobPoster)
           setJobID(res.data._id);
         })
         .catch((er) => {
@@ -36,6 +36,7 @@ const JobSave = (props) => {
   const [companyname, setCompanyName] = useState();
   const [jobdetails, setJobDetails] = useState();
   const [jobposter, setJobPoster] = useState();
+  const [jobPoster, setJobPosterold] = useState();
   const [jobID, setJobID] = useState();
 
   const onJobSubmit = (event) => {
@@ -125,7 +126,7 @@ const JobSave = (props) => {
         </label>
         <br />
         <textarea
-          
+          required
           onChange={jobDetailsHandler}
           value={jobdetails}
           id="details"
@@ -134,18 +135,29 @@ const JobSave = (props) => {
         ></textarea>
 
         <label htmlFor="poster" className={classes.lables}>
+        {id && <img className={classes.posterView} src={jobPoster}/>}
           Job Poster :
         </label>
         <br />
-        <input
-        //   required
-          onChange={jobPosterHandler}
-          // value={jobposter}
-          type="file"
-          id="poster"
-          name="companyName"
-          className={classes.inputs}
-        ></input>
+        
+        {id && <input
+        
+        onChange={jobPosterHandler}
+        // value={jobposter}
+        type="file"
+        id="poster"
+        name="companyName"
+        className={classes.inputs}
+      ></input>}
+      {!id && <input
+        
+        onChange={jobPosterHandler}
+        required
+        type="file"
+        id="poster"
+        name="companyName"
+        className={classes.inputs}
+      ></input>}
 
         <button className={classes.save}>{btn}</button>
       </form>
