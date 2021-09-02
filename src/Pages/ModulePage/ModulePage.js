@@ -7,7 +7,7 @@ const ModulePage = (props) => {
   return (
     <main className={classes.mainSec}>
       <div className={classes.aside}>
-        <Aside />
+        <Aside moduleID = {moduleid} />
       </div>
       <div className={classes.main_side}>
         <Weeks moduleid={moduleid} />

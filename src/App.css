@@ -2,6 +2,7 @@
   text-align: center;
 }
 html{
+  scroll-behavior: smooth;
   font-family: 'Open Sans';
   margin: 0px;
   padding: 0px;

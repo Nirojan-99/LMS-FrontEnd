@@ -20,6 +20,7 @@ const WeekContainer = (props) => {
   let option = "";
   let edit = "";
 
+
   switch (props.data.type) {
     case "quiz":
       logo = quiz;

@@ -2,21 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import classes from "./Navigation.module.css";
 
-const Navigation = () => {
-//   const [weeks, setweek] = useState([]);
-//   axios
-//     .get("http://localhost:5000/week")
-//     .then((res) => {
-//       setweek(res.data.week1);
-//       // console.log(res.data.week1)
-//     })
-//     .catch();
+const Navigation = (props) => {
 
-  // const weekM = weeks.map((week1)=>{
-  //     // <li><a href="#"><div key={week1}>{week1}</div></a></li>
-  //     // console.log(week1)
-  // })
-const weeks = ["week1","week2","week3"];
+// const weeks = ["week1","week2","week3"];
+
+const weeks = props.weeks;
   return (
     <ul className={classes.week}>
       {weeks.map((weeksa) => {
@@ -27,12 +17,16 @@ const weeks = ["week1","week2","week3"];
         </li>
       })}
 
-      <li><a href="#"><div>Week 1</div></a></li>
+      {weeks.map((row)=>{
+        return<li><a href={"#"+row.week}><div>Week {row.week}</div></a></li>
+      })}
+
+      {/* <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#1"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
             <li><a href="#"><div>Week 1</div></a></li>
-            <li><a href="#"><div>Week 1</div></a></li>
+            <li><a href="#"><div>Week 1</div></a></li> */}
       <hr className={classes.line}></hr>
       {/* <li>
         <a href="#">
