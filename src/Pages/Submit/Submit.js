@@ -1,25 +1,41 @@
 import classes from "./Submit.module.css";
 import upload from "../../Assets/upload.svg";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 
-const Submit = () => {
+const Submit = (props) => {
+  const materialID = props.match.params.ID;
+  const [selectedFile, setSelectedFile] = useState();
+  const [duedate, setDueDate] = useState();
+  const [maxSize, setMaxSize] = useState();
+  const [status, setStatus] = useState();
+  const [dueTime, setDueTime] = useState("");
 
-    const [selectedFile, setSelectedFile] = useState();
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/admin/get_material?materialID=" + materialID)
+      .then((resp) => {
+        setDueDate(resp.data.deadlineDate);
+     
+        setMaxSize(resp.data.maxSize);
+        setDueTime(resp.data.deadlineTime);
+      });
+  }, [null]);
 
-    const onFileSubmit=()=>{
 
-        const formData = new FormData();
-        formData.append("File", selectedFile);
-        //   axios.post("../../../",{
-    //     method: 'POST',
-    //     body: formData,
-    // })
-    }
 
-    const onFileChanged = (event) => {
-        setSelectedFile(event.target.files[0]);
-        console.log(event.target.files);
-      };
+  const onFileSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("File", selectedFile);
+    console.log("called");
+  };
+
+  const onFileChanged = (event) => {
+    setSelectedFile(event.target.files[0]);
+    console.log(event.target.files);
+  };
 
   return (
     <div className={classes.container}>
@@ -27,18 +43,31 @@ const Submit = () => {
       <hr className={classes.line}></hr>
       <div className={classes.box}>
         <label htmlFor="file" className={classes.inputs}>
-         
-          <img src={upload} /><br/>
-    
+          <img src={upload} />
+          <br />
         </label>
-        <input required onChange={onFileChanged} className={classes.inputsA} type="file" id="file" name="file" />
+        <input
+          required
+          onChange={onFileChanged}
+          className={classes.inputsA}
+          type="file"
+          id="file"
+          name="file"
+        />
       </div>
-      <div  className={classes.details}>
-      <span>Due date : {}</span><br/>
-      <span>Max Size : {}</span><br/>
-      <span>status : {}</span>
+      <div className={classes.details}>
+        <span>Due date : {duedate + " / " + dueTime}</span>
+        <br />
+        <span>Max Size : {maxSize+"Mb"}</span>
+        <br />
+        <span>status : {}</span>
       </div>
-      <button onClick={onFileSubmit} className={classes.btn}>SUBMIT</button>
+      <button
+        onClick={ onFileSubmit}
+        className={classes.btn}
+      >
+        {"SUBMIT"}
+      </button>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const Week = (props) => {
           {"WEEK  " + props.row.week}
         </div>
         { contents.map((row) => {
-          return <WeekContainer  data={row} />;
+          return <WeekContainer week={props.week}  data={row} />;
         })}
         {contents.length === 0 || visibleCount.length === 0? <span className={classes.noMaterials}>No materials available !!</span>:null}
         <div className={classes.loader}>{loaded && <Loader />}</div>

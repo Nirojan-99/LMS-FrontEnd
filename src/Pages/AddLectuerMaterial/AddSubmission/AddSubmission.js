@@ -1,17 +1,59 @@
 import classes from "./AddSubmission.module.css";
 import insight1 from "../../../Assets/bar-graph.svg";
 import { useRef } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { deepStrictEqual } from "assert";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useHistory } from "react-router";
 
 const AddSubmission = (props) => {
-  const week = props.match.params.week;
-  const module = props.match.params.module;
+  const history = useHistory();
+  const week = props.match.params.weekID;
+  const material = props.match.params.MaterialID;
 
-  const dateRef = useRef();
-  const titleRef = useRef();
-  const timeRef = useRef();
-  const sizeRef = useRef();
-  const [visibleRef, setVisibility] = useState("visible");
+  const date1 = new Date();
+  const month = date1.getMonth() + 1;
+  const year = date1.getFullYear();
+  const currentdate1 = date1.getDate();
+
+  useEffect(() => {
+    if (material) {
+      axios
+        .get("http://localhost:5000/admin/get_material?materialID=" + material)
+        .then((resp) => {
+          setVisibility(resp.data.visibility);
+          setTitle(resp.data.title);
+          setDate(resp.data.deadlineDate);
+          setTime(resp.data.deadlineTime);
+          setSize(resp.data.maxSize);
+        });
+    }
+  }, []);
+
+  const [visibleRef, setVisibility] = useState();
+  const [title, setTitle] = useState();
+  const [Sdate, setDate] = useState();
+  const [Stime, setTime] = useState();
+  const [size, setSize] = useState();
+  const [text, setText] = useState("SAVE");
+  const [error, setError] = useState(null);
+
+  const titlehandler = (event) => {
+    setTitle(event.target.value);
+  };
+  const deadLineHandler = (event) => {
+    setDate(event.target.value);
+  };
+  const deadlinetimehandler = (event) => {
+    setTime(event.target.value);
+  };
+  const maxSizehandler = (event) => {
+    setSize(event.target.value);
+  };
+  const clickedHandler = () => {
+    setError(null);
+  };
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -20,26 +62,81 @@ const AddSubmission = (props) => {
 
   const onSubmitted = (e) => {
     e.preventDefault();
+    setText("SAVING..");
 
-    dateRef.current.value.trim();
-    titleRef.current.value.trim();
-    timeRef.current.value.trim();
-    sizeRef.current.value.trim();
+    const currentdate = new Date();
+    const date = currentdate.getDate();
+    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
 
-    console.log(
-      titleRef.current.value,
-      dateRef.current.value,
-      timeRef.current.value,
-      sizeRef.current.value
-    );
-    console.log(visibleRef);
+    const selecetDate = new Date(Sdate);
+
+    if (!title.trim()) {
+      setError("please input a valid title");
+      setText("SAVE");
+    } else if (
+      selecetDate.getFullYear() < year ||
+      (selecetDate.getFullYear() === year &&
+        selecetDate.getMonth() + 1 < month) ||
+      (selecetDate.getMonth() + 1 === month &&
+        selecetDate.getDate() < currentdate1)
+    ) {
+      setError("please select a valid Date");
+      setText("SAVE");
+    } else if (size > 20 || size < 1) {
+      setError("Maximum Size should non negative and less than 20");
+      setText("SAVE");
+    }
+
+    const submissionData = {
+      _id: material ? material : undefined,
+      title: title,
+      deadlineDate: Sdate,
+      deadlineTime: Stime,
+      maxSize: size,
+      visibility: visibleRef,
+      type: "submission",
+      date_time: date + "/" + time,
+      week: week,
+    };
+
+    if (!error) {
+      if (!material) {
+        axios
+          .post("http://localhost:5000/admin/add_submission", submissionData)
+          .then((resp) => {
+            // console.log(resp.data);
+
+            axios
+              .get("http://localhost:5000/admin/get_module?week=" + week)
+              .then((res) => {
+                history.replace("/my-courses/" + res.data[0].module);
+              });
+          })
+          .catch((er) => {
+            console.log(er);
+          });
+      } else {
+        axios
+          .post("http://localhost:5000/admin/edit_submission", submissionData)
+          .then((resp) => {
+            console.log("called");
+            history.goBack()
+          })
+          .catch(() => {});
+      }
+    }
   };
 
   return (
     <div className={classes.container}>
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       <div className={classes.title_div}>
         <h2 className={classes.title}>ADD SUBMISSION</h2>
-        <a href="../../submisson_insight/id"><img src={insight1} className={classes.iconM} /></a>
+        {material && (
+          <a href={"../../submisson_insight/" + material}>
+            <img src={insight1} className={classes.iconM} />
+          </a>
+        )}
       </div>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>
@@ -47,8 +144,9 @@ const AddSubmission = (props) => {
           Title
         </label>
         <input
+          value={title}
+          onChange={titlehandler}
           required
-          ref={titleRef}
           className={classes.inputs}
           id="title"
           name="title"
@@ -59,8 +157,9 @@ const AddSubmission = (props) => {
           Deadline Date
         </label>
         <input
+          value={Sdate}
+          onChange={deadLineHandler}
           required
-          ref={dateRef}
           className={classes.inputs}
           id="date"
           name="date"
@@ -71,19 +170,21 @@ const AddSubmission = (props) => {
           Deadline Time
         </label>
         <input
+          value={Stime}
+          onChange={deadlinetimehandler}
           required
-          ref={timeRef}
           className={classes.inputs}
           name="time"
           id="time"
           type="time"
         ></input>
 
-        <label ref={sizeRef} htmlFor="size" className={classes.labels}>
+        <label htmlFor="size" className={classes.labels}>
           Maximum Size
         </label>
         <input
-        ref={sizeRef}
+          value={size}
+          onChange={maxSizehandler}
           required
           min="1"
           step="0.5"
@@ -101,6 +202,7 @@ const AddSubmission = (props) => {
         <br />
 
         <input
+          checked={material && visibleRef === "visible" && true}
           required
           onChange={onRadioClicked}
           value="visible"
@@ -116,6 +218,7 @@ const AddSubmission = (props) => {
         <br />
 
         <input
+          checked={material && visibleRef === "invisible" && true}
           required
           onChange={onRadioClicked}
           value="invisible"
@@ -131,7 +234,7 @@ const AddSubmission = (props) => {
         <br />
 
         <button type="submit" className={classes.submit}>
-          SAVE
+          {text}
         </button>
       </form>
     </div>

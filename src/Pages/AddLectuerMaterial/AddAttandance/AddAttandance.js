@@ -73,6 +73,7 @@ const AddAttandance = (props) => {
         });
     }
   };
+
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>ATTANDANCE</h2>
@@ -81,8 +82,7 @@ const AddAttandance = (props) => {
         {/* <label for="file" className={classes.labels}>Add File</label><br/>
             <input className={classes.inputs} type="file" id="file" /> */}
         <input
-          //  checked={false}
-          checked={materialID && visibleRef === "visible" ? true : false}
+          checked={materialID && visibleRef === "visible" && true}
           onChange={onRadioClicked}
           value="visible"
           className={classes.radios}
@@ -97,7 +97,7 @@ const AddAttandance = (props) => {
         <br />
 
         <input
-          checked={materialID && visibleRef === "invisible" ? true : false}
+          checked={materialID && visibleRef === "invisible" && true}
           onChange={onRadioClicked}
           value="invisible"
           className={classes.radios}

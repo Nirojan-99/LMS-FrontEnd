@@ -28,7 +28,7 @@ const Weeks = (props) => {
   return (
     <>
       {weeks.map((week) => {
-        return <Week row={week} key={week._id} />;
+        return <Week row={week} week={week._id} key={week._id} />;
       })}
       {Loaded && <div className={classes.loader}><Loader/></div>}
       

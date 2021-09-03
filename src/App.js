@@ -40,7 +40,7 @@ function App() {
         <Route path="/my-courses/edit_submission/:MaterialID" exact component={AddSubmission}/>
         <Route path="/my-courses/edit_notes/:MaterialID" exact component={AddNotes}/>
         <Route path="/my-courses/edit_file/:MaterialID" exact component={AddFile}/>
-        <Route path="/my-courses/adedit_link/:MaterialID" exact component={AddLink}/>
+        <Route path="/my-courses/edit_link/:MaterialID" exact component={AddLink}/>
 
         <Route path="/my-courses/select_type/:weekID" exact component={SelectMaterial}/>
         <Route path="/my-courses/:moduleID" exact component={ModulePage}/>
