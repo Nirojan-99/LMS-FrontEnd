@@ -17,9 +17,21 @@
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 950px) {
   .aside {
     display: none;
   }
+  .main_side {
+    width: 100%;
+  }
     
+}
+.loader{
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 500px) {
+  .mainSec {
+    width: 95%;
+  }
 }

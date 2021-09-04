@@ -1,4 +1,5 @@
 .card{
+    transition: all .4s ease-in-out ;
     background-color: #fff;
     border-radius: 15px;
     margin: 20px;
@@ -56,6 +57,7 @@ text-align: center;
     font-weight: 800;
 }
 .icons{
+    transition: all .3s ease-in-out;
     margin-left: 10px;
     height: 20px;
     padding-bottom: 3px;
@@ -64,11 +66,14 @@ text-align: center;
 .icons:hover{
     transform: scale(1.1);
     transition-property: all;
-    transition-duration: .5s;
     cursor: pointer;
     border-bottom: 3px solid #088F8F;
 }
 .icon_container{
     margin: 10px;
     float: right;
+}
+.card:hover{
+ /* transform: scale(1.06); */
+ box-shadow: 0 0 12px 2px blue;
 }

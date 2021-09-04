@@ -95,6 +95,7 @@
       justify-content: space-between;
   }
   .iconM {
+    transition: all .4s ease-in-out;
       padding: 6px;
     width: 35px;
     height: 35px;

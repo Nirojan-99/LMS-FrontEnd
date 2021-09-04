@@ -61,15 +61,17 @@
   margin-top: 20px;
 }
 .btn {
-    margin-top: 20px;
+   transition: all .3s ease-in;
   margin: auto;
-  width: 15%;
+  width: auto;
   margin-left: 42.5%;
+  font-size: 1.3rem;
   background-color: transparent;
   border-radius: 10px;
   border: 2px solid #14b6c8;
   color: #14b6c8;
   font-family: roboto;
+  margin-top: 40px;
   padding: 4px 10px;
   cursor: pointer;
 }

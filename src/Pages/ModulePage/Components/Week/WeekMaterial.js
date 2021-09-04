@@ -14,11 +14,14 @@ import discussion from "../../../../Assets/discussion.svg";
 import axios from "axios";
 import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const WeekContainer = (props) => {
   let logo = pdf;
   let option = "";
   let edit = "";
+
+  const history = useHistory();
 
   switch (props.data.type) {
     case "quiz":
@@ -29,7 +32,7 @@ const WeekContainer = (props) => {
     case "file":
       logo = pdf;
       edit = "./edit_file/";
-      option = "/file/" + props.data._id;
+      option =  props.data.link;
       break;
     case "submission":
       logo = submit;
@@ -65,8 +68,22 @@ const WeekContainer = (props) => {
     setOnDelete((state) => !state);
   };
   const deleteMaterial = (id) => {
-    setOnDelete((state) => !state);
-    console.log(id);
+    axios
+      .post("http://localhost:5000/admin/delete_material", {
+        id: props.data._id,
+        week: props.week,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (!res.data.error) {
+          window.location.reload();
+          setOnDelete((state) => !state);
+        } else {
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
   };
   return (
     <>

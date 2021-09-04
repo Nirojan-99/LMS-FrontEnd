@@ -23,7 +23,7 @@ const JobSave = (props) => {
           setCompanyName(res.data.companyName);
           setJobName(res.data.name);
           setJobDetails(res.data.jobDetails);
-          // setJobPoster(res.data.companyName)
+          setJobPosterold(res.data.jobPoster);
           setJobID(res.data._id);
         })
         .catch((er) => {
@@ -36,13 +36,12 @@ const JobSave = (props) => {
   const [companyname, setCompanyName] = useState();
   const [jobdetails, setJobDetails] = useState();
   const [jobposter, setJobPoster] = useState();
+  const [jobPoster, setJobPosterold] = useState();
   const [jobID, setJobID] = useState();
 
   const onJobSubmit = (event) => {
-
     const job = new FormData();
-  
-     
+
     event.preventDefault();
 
     const jobdata = {
@@ -55,13 +54,13 @@ const JobSave = (props) => {
     };
 
     job.append("jobPoster", jobposter);
-    job.append("_id" ,jobID ? jobID : undefined)
-    job.append("edit" ,edit)
-    job.append("name" ,jobname)
-    job.append("companyName" ,companyname)
-    job.append("jobDetails" ,jobdetails)
+    job.append("_id", jobID ? jobID : undefined);
+    job.append("edit", edit);
+    job.append("name", jobname);
+    job.append("companyName", companyname);
+    job.append("jobDetails", jobdetails);
 
-    setBtn("Saving...")
+    setBtn("Saving...");
     axios
       .post("http://localhost:5000/add_job", job)
       .then((res) => {
@@ -83,7 +82,7 @@ const JobSave = (props) => {
     setJobDetails(event.target.value);
   };
   const jobPosterHandler = (event) => {
-    console.log(event.target.files[0])
+    console.log(event.target.files[0]);
     setJobPoster(event.target.files[0]);
   };
 
@@ -91,13 +90,16 @@ const JobSave = (props) => {
     <div className={classes.CardView}>
       <h2 className={classes.title}>Add Job</h2>
       <hr className={classes.line}></hr>
-      <form enctype="multipart/form-data" className={classes.formContainer} onSubmit={onJobSubmit}>
+      <form
+        enctype="multipart/form-data"
+        className={classes.formContainer}
+        onSubmit={onJobSubmit}
+      >
         <label htmlFor="name" className={classes.lables}>
           Job Name :
         </label>
         <br />
         <input
-          
           onChange={jobNameHandler}
           value={jobname}
           type="text"
@@ -111,7 +113,6 @@ const JobSave = (props) => {
         </label>
         <br />
         <input
-          
           onChange={companyNameHandler}
           value={companyname}
           type="text"
@@ -125,7 +126,7 @@ const JobSave = (props) => {
         </label>
         <br />
         <textarea
-          
+          required
           onChange={jobDetailsHandler}
           value={jobdetails}
           id="details"
@@ -134,18 +135,31 @@ const JobSave = (props) => {
         ></textarea>
 
         <label htmlFor="poster" className={classes.lables}>
+          {id && <img className={classes.posterView} src={jobPoster} />}
           Job Poster :
         </label>
         <br />
-        <input
-        //   required
-          onChange={jobPosterHandler}
-          // value={jobposter}
-          type="file"
-          id="poster"
-          name="companyName"
-          className={classes.inputs}
-        ></input>
+
+        {id && (
+          <input
+            onChange={jobPosterHandler}
+            // value={jobposter}
+            type="file"
+            id="poster"
+            name="companyName"
+            className={classes.inputs}
+          ></input>
+        )}
+        {!id && (
+          <input
+            onChange={jobPosterHandler}
+            required
+            type="file"
+            id="poster"
+            name="companyName"
+            className={classes.inputs}
+          ></input>
+        )}
 
         <button className={classes.save}>{btn}</button>
       </form>

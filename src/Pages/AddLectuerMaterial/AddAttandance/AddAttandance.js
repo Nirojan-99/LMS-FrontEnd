@@ -1,10 +1,24 @@
 import classes from "./AddAttandance.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 
 const AddAttandance = (props) => {
   const week = props.match.params.weekID;
+  const materialID = props.match.params.MaterialID;
+
+  useEffect(() => {
+    if (materialID) {
+      axios
+        .get(
+          "http://localhost:5000/admin/get_material?materialID=" + materialID
+        )
+        .then((resp) => {
+          console.log(resp.data);
+          setVisibility(resp.data.visibility);
+        });
+    }
+  }, []);
 
   const history = useHistory();
 
@@ -30,23 +44,36 @@ const AddAttandance = (props) => {
       title: "attandance",
       visibility: visibleRef,
       date_time: date + "/" + time,
+      _id: materialID ? materialID : undefined,
     };
 
-    axios
-      .post("http://localhost:5000/admin/add_material", material)
-      .then((resp) => {
-        // console.log(resp.data);
+    if (materialID) {
+      axios
+        .post("http://localhost:5000/admin/update_attandance", material)
+        .then((resp) => {
+          history.goBack();
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    } else {
+      axios
+        .post("http://localhost:5000/admin/add_material", material)
+        .then((resp) => {
+          // console.log(resp.data);
 
-        axios
-          .get("http://localhost:5000/admin/get_module?week=" + week)
-          .then((res) => {
-            history.replace("/my-courses/" + res.data[0].module);
-          });
-      })
-      .catch((er) => {
-        console.log(er);
-      });
+          axios
+            .get("http://localhost:5000/admin/get_module?week=" + week)
+            .then((res) => {
+              history.replace("/my-courses/" + res.data[0].module);
+            });
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    }
   };
+
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>ATTANDANCE</h2>
@@ -55,7 +82,7 @@ const AddAttandance = (props) => {
         {/* <label for="file" className={classes.labels}>Add File</label><br/>
             <input className={classes.inputs} type="file" id="file" /> */}
         <input
-          //  checked={false}
+          checked={materialID && visibleRef === "visible" && true}
           onChange={onRadioClicked}
           value="visible"
           className={classes.radios}
@@ -70,6 +97,7 @@ const AddAttandance = (props) => {
         <br />
 
         <input
+          checked={materialID && visibleRef === "invisible" && true}
           onChange={onRadioClicked}
           value="invisible"
           className={classes.radios}

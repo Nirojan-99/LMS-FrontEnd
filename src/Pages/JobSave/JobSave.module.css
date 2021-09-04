@@ -41,9 +41,10 @@
     padding: 10px;
     margin-top: 10px;
     border: 2px solid #046666;
-    font-family: roboto;
+    font-family: "open sans";
     font-size: 1rem;
     outline: none;
+    font-weight: 700;
     color: #333;
     background-color: #eee;
 }
@@ -56,7 +57,8 @@
     padding: 10px;
     margin-top: 10px;
     border: 2px solid #046666;
-    font-family: roboto;
+    font-family: "open sans";
+    font-weight: 700;
     font-size: 1rem;
     outline: none;
     color: #333;
@@ -83,4 +85,8 @@
     color: #333;
     transition-property: all;
     transition-duration: .5s;
+}
+.posterView{
+    width: 100%;
+    height: auto;
 }

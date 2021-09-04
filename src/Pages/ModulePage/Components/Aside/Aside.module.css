@@ -3,3 +3,8 @@
     background-color: #fff;
     
 }
+@media screen and (max-width: 950px) {
+    .aside {
+      display: none;
+    }
+  }

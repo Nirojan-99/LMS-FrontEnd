@@ -29,12 +29,14 @@ a{
     margin-bottom: 25px;
     padding: 15px;
     border: 2px solid #046666;
+    transition: all .4s ease-in-out;
 }
 .links:hover{
     transition-property: all;
     transition-duration: .5s;
     background-color:#046666;
     color: #fff;
+    transform: scaleX(1.05); 
 }
 .title{
     color:#046666 ;

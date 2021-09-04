@@ -97,3 +97,10 @@
       background-color: #14B6C8;
       color: #333;
   }
+  .viewFile{
+    font-size: .8rem;
+    color: rgb(0, 0, 196);
+    font-family: "open sans";
+    font-weight: 800;
+    margin-bottom: 1.7rem;
+  }

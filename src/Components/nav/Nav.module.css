@@ -34,6 +34,7 @@
   padding: 4px 0px 0px 4px;
 }
 .modal{
+  transition: all .5s ease-in-out;
   background-color: #333;
   z-index: 6;
   position: absolute;
