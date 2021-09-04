@@ -1,0 +1,38 @@
+.main {
+    display: block;
+    margin: auto;
+    width: 85%;
+    background-color: #fff;
+    padding: 5px;
+  }
+
+.main_space{
+  
+    border: 0px;
+    padding: 35px;
+    box-shadow: 2px 3px 8px #888888;
+    border-left: 30px solid #046666;
+    background-color: #fff;
+    margin: 0px;
+    width: 1100px;
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    color: #046666;
+
+  
+}
+.plusIcon{
+  width: 4%;
+  height: 4%;
+} 
+.main_space1{
+margin: 30px;
+}
+ 
+  
+  @media screen and (max-width: 800px) {
+    .aside {
+      display: none;
+    }
+  }
+  

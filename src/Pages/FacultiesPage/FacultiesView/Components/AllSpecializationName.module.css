@@ -1,0 +1,29 @@
+.space {
+    margin: auto;
+    padding: 40px;
+  }
+  .spacemore {
+    padding: 8px;
+  }
+  .plusIcon{
+    width: 5%;
+    height: 5%;
+  } 
+  .addcourse{
+    margin: auto;
+    margin-left: 50px;
+   
+  } 
+  .space_more{
+    border: 0px;
+    padding: 15px;
+    box-shadow: 2px 3px 8px #888888;
+    border-left: 30px solid #e2a500;
+    background-color: #fff;
+    margin: auto;
+    width: 1080px;
+  }
+  .space_more_more{
+    padding: 15px;
+    margin: 0%;
+  }
