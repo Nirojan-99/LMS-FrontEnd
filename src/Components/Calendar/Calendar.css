@@ -1,0 +1,38 @@
+.table {
+    margin: 0 auto 3px;
+    border-radius: 10px;
+    background-color: #14B6C8;
+    height: 25px;
+    width: 280px;
+    align-items: center;
+
+  }
+
+table td:not([align]), table th:not([align]) {
+    text-align: inherit;
+}
+.table th{
+    border: 1px solid #dbdbdb;
+}
+
+.table td, .table th {
+    border-width: 0 0 1px;
+    vertical-align: top;
+    text-align: center;
+    padding-block-start: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: justify;
+    background-color:#14B6C8;
+}
+  
+.today {
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+  }
+  
+.in-prev-month,
+.in-next-month {
+    opacity: 0.5;
+  }

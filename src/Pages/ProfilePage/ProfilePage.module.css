@@ -1,0 +1,25 @@
+.aside {
+  text-align: center;
+  position: relative;
+  width: 20%;
+  border-right: 3px solid #046666;
+}
+.mainSec {
+  display: flex;
+  margin: auto;
+  width: 85%;
+  background-color: #fff;
+}
+.main_side {
+  text-align: center;
+  position: relative;
+  width: 80%;
+}
+
+
+@media screen and (max-width: 800px) {
+  .aside {
+    display: none;
+  }
+    
+}
