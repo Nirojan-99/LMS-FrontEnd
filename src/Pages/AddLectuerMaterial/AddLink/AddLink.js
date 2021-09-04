@@ -45,6 +45,7 @@ const AddLink = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
+    window.location.reload();
   };
 
   const onSubmitted = (event) => {
@@ -59,9 +60,11 @@ const AddLink = (props) => {
     if (!(link.includes("http") || link.includes("https"))) {
       setError("please input a valid link");
       setLoaded("SAVE");
+      return;
     } else if (!title.trim()) {
       setError("please input a valid title");
       setLoaded("SAVE");
+      return
     }
     const material = {
       _id: MaterialID ? MaterialID : undefined,
@@ -75,30 +78,30 @@ const AddLink = (props) => {
     console.log(error)
     if (!error) {
       console.log(error)
-      // if (!MaterialID) {
-      //   axios
-      //     .post("http://localhost:5000/admin/add_material", material)
-      //     .then((resp) => {
-      //       // console.log(resp.data);
+      if (!MaterialID) {
+        axios
+          .post("http://localhost:5000/admin/add_material", material)
+          .then((resp) => {
+            // console.log(resp.data);
 
-      //       axios
-      //         .get("http://localhost:5000/admin/get_module?week=" + week)
-      //         .then((res) => {
-      //           history.replace("/my-courses/" + res.data[0].module);
-      //         });
-      //     })
-      //     .catch((er) => {
-      //       console.log(er);
-      //     });
-      // } else {
-      //   axios
-      //     .post("http://localhost:5000/admin/edit_link", material)
-      //     .then((resp) => {
-      //       console.log("called");
-      //       // history.goBack();
-      //     })
-      //     .catch(() => {});
-      // }
+            axios
+              .get("http://localhost:5000/admin/get_module?week=" + week)
+              .then((res) => {
+                history.replace("/my-courses/" + res.data[0].module);
+              });
+          })
+          .catch((er) => {
+            console.log(er);
+          });
+      } else {
+        axios
+          .post("http://localhost:5000/admin/edit_link", material)
+          .then((resp) => {
+            console.log("called");
+            history.goBack();
+          })
+          .catch(() => {});
+      }
     }
     else{
       return

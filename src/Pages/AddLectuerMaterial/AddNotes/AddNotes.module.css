@@ -40,7 +40,8 @@
     outline: 0;
     font-size: 15px;
     background-color: transparent;
-  
+  font-family: "open sans";
+  font-weight: 600;
   }
   .form_container {
     width: 80%;

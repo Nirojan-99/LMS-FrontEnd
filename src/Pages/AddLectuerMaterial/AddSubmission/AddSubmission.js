@@ -1,7 +1,7 @@
 import classes from "./AddSubmission.module.css";
 import insight1 from "../../../Assets/bar-graph.svg";
 import { useRef } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useCallback } from "react";
 import axios from "axios";
 import { deepStrictEqual } from "assert";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
@@ -27,7 +27,7 @@ const AddSubmission = (props) => {
           setDate(resp.data.deadlineDate);
           setTime(resp.data.deadlineTime);
           setSize(resp.data.maxSize);
-        });
+        }).catch(()=>{});
     }
   }, []);
 
@@ -38,7 +38,7 @@ const AddSubmission = (props) => {
   const [size, setSize] = useState();
   const [text, setText] = useState("SAVE");
   const [error, setError] = useState(null);
-
+ 
   const titlehandler = (event) => {
     setTitle(event.target.value);
   };
@@ -53,6 +53,7 @@ const AddSubmission = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
+    window.location.reload();
   };
 
   const onRadioClicked = (event) => {
@@ -73,6 +74,7 @@ const AddSubmission = (props) => {
     if (!title.trim()) {
       setError("please input a valid title");
       setText("SAVE");
+      return;
     } else if (
       selecetDate.getFullYear() < year ||
       (selecetDate.getFullYear() === year &&
@@ -82,11 +84,13 @@ const AddSubmission = (props) => {
     ) {
       setError("please select a valid Date");
       setText("SAVE");
+      return;
     } else if (size > 20 || size < 1) {
       setError("Maximum Size should non negative and less than 20");
       setText("SAVE");
+      return;
     }
-
+    
     const submissionData = {
       _id: material ? material : undefined,
       title: title,

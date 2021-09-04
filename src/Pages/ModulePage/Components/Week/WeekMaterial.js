@@ -32,7 +32,7 @@ const WeekContainer = (props) => {
     case "file":
       logo = pdf;
       edit = "./edit_file/";
-      option = "/file/" + props.data._id;
+      option =  props.data.link;
       break;
     case "submission":
       logo = submit;
