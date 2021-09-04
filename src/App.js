@@ -21,6 +21,17 @@ import UserReport from "./Pages/UserManagement/UserReport/UserReport";
 import EditUser from "./Pages/UserManagement/EditUser/EditUser";
 import AddRole from "./Pages/UserManagement/AddRole/NewRole";
 
+
+//saya
+import FacultiesView from "./Pages/FacultiesPage/FacultiesView/FacultiesView";
+import ModuleEnrollmentReport from "./Pages/ModulePageView/ModuleEnrollmentReport/ModuleEnrollmentReport";
+import AddFaculties from "./Pages/FacultiesPage/AddFaculties/AddFaculties";
+import Addcourse from "./Pages/CoursePage/Addcourse/Addcourse";
+import CoursePage from "./Pages/CoursePage/CoursePage";
+import ModulepageView from "./Pages/ModulePageView/ModulepageView/ModulepageView";
+import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule";
+import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
+
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -59,6 +70,15 @@ function App() {
         <Route path="/user-report" exact component={UserReport}/>
         <Route path="/edit-user" exact component={EditUser} />
         <Route path="/add-role" exact component={AddRole}/>
+
+        <Route path="/faculties" exact component={FacultiesView}/>
+        <Route path="/Addfaculties/semesteryear/semester/Module/:moduleid" exact component={ModuleEnrollmentReport}/>
+        <Route path="/faculties/Addfaculties" exact component={AddFaculties}/>
+        <Route path="/faculties/Addcourse" exact component={Addcourse}/>
+        <Route path="/faculties/semesteryear/:semester" exact component={CoursePage}/>
+        <Route path="/faculties/semesteryear/:semester/Module" exact component={ModulepageView}/>
+        <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
+        <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
 
         <Route path="/dashboard" exact />
       </Switch>
