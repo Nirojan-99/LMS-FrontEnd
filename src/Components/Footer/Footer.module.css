@@ -13,6 +13,15 @@
   bottom: 0px;
 }
 
+.calendar {
+  padding-top: 5px;
+  padding-bottom: 0px;
+  margin: 20px;
+  text-align: center;
+  background-color: rgba(78, 188, 207, 0);
+  color: #fff;
+}
+
 .box1 {
   background-color: #088f8f;
   width: 40%;
@@ -40,12 +49,7 @@
   font-family: cursive;
   transition: all 0.5s ease-in;
 }
-.calendar {
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
-  background-color: rgba(78, 188, 207, 0);
-}
+
 .box0 {
   background-color: #088f8f;
   width: 10%;

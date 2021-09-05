@@ -32,6 +32,9 @@ import ModulepageView from "./Pages/ModulePageView/ModulepageView/ModulepageView
 import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule";
 import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
 
+//lava
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -79,6 +82,8 @@ function App() {
         <Route path="/faculties/semesteryear/:semester/Module" exact component={ModulepageView}/>
         <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
         <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
+
+        <Route path="/my-profile/:moduleID" exact component={ProfilePage}/>
 
         <Route path="/dashboard" exact />
       </Switch>

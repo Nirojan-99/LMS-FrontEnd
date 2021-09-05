@@ -58,6 +58,15 @@ const Nav = () => {
                 My Courses
               </NavLink>
             </li>
+            <li>
+            <NavLink
+                to="/my-profile/s"
+                className={classes.links}
+                activeClassName={classes.activelink}
+              >
+                My Profile
+              </NavLink>
+            </li>
           </>
         )}
       </ul>
