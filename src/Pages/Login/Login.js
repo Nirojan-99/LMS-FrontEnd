@@ -3,13 +3,12 @@ import std from "../../Assets/std.png";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { login } from "../../Store/auth";
 import { useHistory } from "react-router";
 
 const Login = () => {
   const [email, setEmail] = useState();
-  const [passward, setPassword] = useState();
+  const [password, setPassword] = useState();
   const [unAuth, setUnAuth] = useState(false);
 
   const dispatch = useDispatch();
@@ -20,18 +19,25 @@ const Login = () => {
     if (!email.trim() || !email.includes("@")) {
       setUnAuth(true);
       return;
-    } else if (passward.length < 6) {
+    } else if (password.length < 6) {
       setUnAuth(true);
       return;
     }
     axios
       .post("http://localhost:5000/user/login", {
         email: email,
-        password: passward,
+        password: password,
       })
       .then((res) => {
         if (res.data.auth === true) {
-          dispatch(login({ email: email, type: res.data.details.type }));
+          dispatch(
+            login({
+              email: email,
+              type: res.data.details.type,
+              id: res.data.details._id,
+            })
+          );
+          history.replace("/my-profile/"+ res.data.details._id)
         } else {
           setUnAuth(true);
         }
@@ -89,7 +95,7 @@ const Login = () => {
           </label>
           <br />
           <input
-            value={passward}
+            value={password}
             onChange={passwordGHandler}
             type="password"
             required

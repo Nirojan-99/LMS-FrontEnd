@@ -2,10 +2,11 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 import { useSelector } from "react-redux";
 import classes from "./Nav.module.css";
-import profile1 from "../../Assets/profile1.png"
+import profile1 from "../../Assets/profile1.png";
 
 const Nav = () => {
   const isLogedIn = useSelector((state) => state.loging.isLogedIn);
+  const userID = useSelector((state) => state.loging.userID);
 
   return (
     <div className={classes.container}>
@@ -77,21 +78,12 @@ const Nav = () => {
           )}
         </ul>
       </nav>
-      <div><img className={classes.profile} src={profile1}/></div>
+      {isLogedIn && <div>
+        <a href={"/my-profile/"+userID}>
+          <img className={classes.profile} src={profile1} />
+        </a>
+      </div>}
     </div>
-            <li>
-            <NavLink
-                to="/my-profile/s"
-                className={classes.links}
-                activeClassName={classes.activelink}
-              >
-                My Profile
-              </NavLink>
-            </li>
-          </>
-        )}
-      </ul>
-    </nav>
   );
 };
 export default Nav;

@@ -23,9 +23,7 @@ const WeekContainer = (props) => {
   let edit = "";
 
   const userType = useSelector((state) => state.loging.type);
-  const userEmail = useSelector((state) => state.loging.email);
-
-  const std = "lava";
+  const userEmail = useSelector((state) => state.loging.userMail);
 
   const history = useHistory();
 
@@ -88,7 +86,7 @@ const WeekContainer = (props) => {
       currentdate.getSeconds();
 
     const insightData = {
-      student: std,
+      student: userEmail,
       date_time: datetime,
       material_id: props.data._id,
     };

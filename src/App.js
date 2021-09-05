@@ -83,7 +83,7 @@ function App() {
         <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
         <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
 
-        <Route path="/my-profile/:moduleID" exact component={ProfilePage}/>
+        <Route path="/my-profile/:userID" exact component={ProfilePage}/>
 
         <Route path="/dashboard" exact />
         <Route path="/index" exact component={Login} />

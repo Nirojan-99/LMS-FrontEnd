@@ -6,7 +6,7 @@ const Section2 = () => {
   return (
     <div className={classes.box2}>
       <Fragment>
-        <div className={classes.calendar}>Calender</div>
+        <div className={classes.calendar}></div>
         <div className="container has-text-centered">
           <Calendar />
         </div>

@@ -1,51 +1,77 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
+import { useHistory } from "react-router";
 
-import useCalendar from './useCalendar';
-import './Calendar.css';
-
-
+import useCalendar from "./useCalendar";
+import "./Calendar.css";
 
 const Calendar = () => {
-  const { calendarRows, selectedDate, todayFormatted, daysShort, monthNames, getNextMonth, getPrevMonth } = useCalendar();
+  const history = useHistory()
+  const {
+    calendarRows,
+    selectedDate,
+    todayFormatted,
+    daysShort,
+    monthNames,
+    getNextMonth,
+    getPrevMonth,
+  } = useCalendar();
 
-  const dateClickHandler = date => {
-    console.log(date);
-  }
+  const dateClickHandler = (date) => {
+    history.push("/calendar/"+date)
+  };
 
-  return(
+  const date = "6-9-2021";
+  return (
     <Fragment>
-      <table className="table">
-        <thead>
-          <tr>
-            {daysShort.map(day => (
-              <th key={day}>{day}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {
-            Object.values(calendarRows).map(cols => {
-              return <tr key={cols[0].date}>
-                {cols.map(col => (
-                  col.date === todayFormatted
-                    ? <td key={col.date} className={`${col.classes} today`} onClick={() => dateClickHandler(col.date)}>
-                      {col.value}
-                    </td>
-                    : <td key={col.date} className={col.classes} onClick={() => dateClickHandler(col.date)}>{col.value}</td>
-                ))}
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
+      <a >
+        <table className="table">
+          <thead>
+            <tr>
+              {daysShort.map((day) => (
+                <th key={day}>{day}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(calendarRows).map((cols) => {
+              return (
+                <tr key={cols[0].date}>
+                  {cols.map((col) =>
+                    col.date === todayFormatted ||col.date === date ? (
+                      <td
+                        key={col.date}
+                        className={`${col.classes} today`}
+                        onClick={() => dateClickHandler(col.date)}
+                      >
+                        {col.value}
+                      </td>
+                    ) : (
+                      <td
+                        key={col.date}
+                        className={col.classes}
+                        onClick={() => dateClickHandler(col.date)}
+                      >
+                        {col.value}
+                      </td>
+                    )
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </a>
 
       <center>
-        <button className="button" onClick={getPrevMonth}>Prev</button>
-        <button className="button" onClick={getNextMonth}>Next</button>
+        <button className="button" onClick={getPrevMonth}>
+          Prev
+        </button>
+        <button className="button" onClick={getNextMonth}>
+          Next
+        </button>
       </center>
-      
     </Fragment>
   );
-}
+};
 
 export default Calendar;
