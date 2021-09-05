@@ -6,12 +6,14 @@ import { useEffect } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
+import { useSelector } from "react-redux";
 
 const JobPortal = () => {
   const [jobs, setJobs] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [isError, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const type = useSelector((state) => state.loging.type);
 
   useEffect(() => {
     axios
@@ -50,7 +52,7 @@ const JobPortal = () => {
         )}
       </div>
 
-      {loaded && (
+      {type === "admin" && loaded && (
         <div className={classes.addJob}>
           <a href="/services/job_portal/add_Job">ADD</a>
         </div>

@@ -16,13 +16,13 @@ import AddSubmission from "./Pages/AddLectuerMaterial/AddSubmission/AddSubmissio
 import SubmissionInsight from "./Pages/SubmissionInsight/SubmissionInsight"
 import Attandance from "./Pages/Attandance/Attandance"
 import Submit from "./Pages/Submit/Submit"
+import Login from "./Pages/Login/Login";
+import store from "./Store";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import AddUser from "./Pages/UserManagement/AddUser/AddUser";
 import UserReport from "./Pages/UserManagement/UserReport/UserReport";
 import EditUser from "./Pages/UserManagement/EditUser/EditUser";
 import AddRole from "./Pages/UserManagement/AddRole/NewRole";
-
-
-//saya
 import FacultiesView from "./Pages/FacultiesPage/FacultiesView/FacultiesView";
 import ModuleEnrollmentReport from "./Pages/ModulePageView/ModuleEnrollmentReport/ModuleEnrollmentReport";
 import AddFaculties from "./Pages/FacultiesPage/AddFaculties/AddFaculties";
@@ -31,15 +31,15 @@ import CoursePage from "./Pages/CoursePage/CoursePage";
 import ModulepageView from "./Pages/ModulePageView/ModulepageView/ModulepageView";
 import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule";
 import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
-
-//lava
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Header />
       <Switch>
@@ -86,9 +86,12 @@ function App() {
         <Route path="/my-profile/:moduleID" exact component={ProfilePage}/>
 
         <Route path="/dashboard" exact />
+        <Route path="/index" exact component={Login} />
+        <Route path="/index/reset_password" exact component={ResetPassword} />
       </Switch>
       <Footer />
     </Router>
+    </Provider>
   );
 }
 

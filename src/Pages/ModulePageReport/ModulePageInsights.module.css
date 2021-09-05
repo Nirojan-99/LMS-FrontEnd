@@ -34,7 +34,7 @@
   }
   .report_container span{
       font-family: roboto;
-      font-size: 19px;
+      font-size: 1.2rem;
       color:#046666 ;
   }
   .message{
@@ -43,4 +43,28 @@
       margin-bottom: 20px;
       text-align: center;
       color: red;
+
+  }
+  .loader{
+      margin: auto;
+      margin-left: 45%;
+      margin-top: 3.4rem;
+      margin-bottom: 3.4rem;
+  }
+  .no_data{
+      margin: auto;
+      margin-top: 3.4rem;
+      margin-bottom: 3.4rem;
+      background-color: #eee;
+      color: red;
+      font-family: "open sans";
+      font-weight: 800;
+      text-align: center;
+      padding: 2rem 3rem;
+      width: 50%;
+  }
+  @media screen and (max-width: 600px) {
+    .report_container{
+        width: 85%;
+    }
   }

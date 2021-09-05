@@ -1,4 +1,5 @@
 .container{
+    transition: all .5s ease-in-out;
     width: 60%;
     margin: auto;
     display: flex;
@@ -17,4 +18,13 @@
       size: 13px;
       font-weight: 800;
       color: #444;
+  }
+
+  @media screen and (max-width: 600px) {
+    .container{
+        width: 85%;
+    }
+    .line {
+        width: 85%;
+    }
   }

@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import Loader from "../../../../Components/Loader/Loader";
+import { useSelector } from "react-redux";
 
 const Week = (props) => {
 
   const [isempty, setIsEmpty] = useState(false);
+  const userType = useSelector((state) => state.loging.type);
 
   if (props.row.contents == null) {
     setIsEmpty(true);
@@ -51,12 +53,12 @@ const Week = (props) => {
         {contents.length === 0 || visibleCount.length === 0? <span className={classes.noMaterials}>No materials available !!</span>:null}
         <div className={classes.loader}>{loaded && <Loader />}</div>
 
-        <div className={classes.addNew}>
+        {userType === "admin" && <><div className={classes.addNew}>
           <a href={"select_type/" + props.row._id} className={classes.add}>
             Add New
           </a>
         </div>
-        <hr className={classes.line}></hr>
+        <hr className={classes.line}></hr></>}
       </div>
     </div>
   );

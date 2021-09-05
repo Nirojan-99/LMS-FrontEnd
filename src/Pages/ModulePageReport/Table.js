@@ -7,9 +7,13 @@ const ModulePageInsights = (props) => {
                 <td>Total Viewers</td>
                 <td>{props.viewers}</td>
             </tr>
-            <tr>
+            {/* <tr>
                 <td>Total Enrollments</td>
                 <td>{props.enrollment}</td>
+            </tr> */}
+            <tr>
+                <td>Last Updated date</td>
+                <td>{props.editDate}</td>
             </tr>
         </table>
     </div>;
