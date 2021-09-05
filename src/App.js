@@ -16,12 +16,17 @@ import AddSubmission from "./Pages/AddLectuerMaterial/AddSubmission/AddSubmissio
 import SubmissionInsight from "./Pages/SubmissionInsight/SubmissionInsight"
 import Attandance from "./Pages/Attandance/Attandance"
 import Submit from "./Pages/Submit/Submit"
+import Login from "./Pages/Login/Login";
+import store from "./Store";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Header />
       <Switch>
@@ -52,9 +57,12 @@ function App() {
         <Route path="/services" exact component={Services}/>
 
         <Route path="/dashboard" exact />
+        <Route path="/index" exact component={Login} />
+        <Route path="/index/reset_password" exact component={ResetPassword} />
       </Switch>
       <Footer />
     </Router>
+    </Provider>
   );
 }
 

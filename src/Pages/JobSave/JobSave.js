@@ -9,7 +9,7 @@ const JobSave = (props) => {
 
   const id = props.match.params.jobId;
   const [edit, setEdit] = useState(false);
-  const [btn, setBtn] = useState("save");
+  const [btn, setBtn] = useState("SAVE");
 
   useEffect(() => {
     if (!id) {
@@ -60,7 +60,7 @@ const JobSave = (props) => {
     job.append("companyName", companyname);
     job.append("jobDetails", jobdetails);
 
-    setBtn("Saving...");
+    setBtn("SAVING...");
     axios
       .post("http://localhost:5000/add_job", job)
       .then((res) => {

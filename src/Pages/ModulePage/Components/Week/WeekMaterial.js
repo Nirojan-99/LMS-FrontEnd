@@ -13,13 +13,19 @@ import discussion from "../../../../Assets/discussion.svg";
 
 import axios from "axios";
 import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 const WeekContainer = (props) => {
   let logo = pdf;
   let option = "";
   let edit = "";
+
+  const userType = useSelector((state) => state.loging.type);
+  const userEmail = useSelector((state) => state.loging.email);
+
+  const std = "lava";
 
   const history = useHistory();
 
@@ -32,7 +38,7 @@ const WeekContainer = (props) => {
     case "file":
       logo = pdf;
       edit = "./edit_file/";
-      option =  props.data.link;
+      option = props.data.link;
       break;
     case "submission":
       logo = submit;
@@ -61,9 +67,38 @@ const WeekContainer = (props) => {
       break;
   }
   const [onDelete, setOnDelete] = useState(false);
+
   const clickH = (id) => {
     setOnDelete((state) => !state);
   };
+
+  const insightHandler = () => {
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+
+    const insightData = {
+      student: std,
+      date_time: datetime,
+      material_id: props.data._id,
+    };
+
+    axios
+      .post("http://localhost:5000/insight/add_insight", insightData)
+      .then((resp) => {})
+      .catch(() => {});
+  };
+
   const hide = () => {
     setOnDelete((state) => !state);
   };
@@ -100,13 +135,15 @@ const WeekContainer = (props) => {
         <span className={classes.left_items}>
           <img src={logo} className={classes.iconM} />
           <span className={classes.title}>
-            <a href={option}>{props.data.title}</a>
+            <a onClick={insightHandler} href={option}>
+              {props.data.title}
+            </a>
           </span>
-          {props.data.visibility === "invisible" && (
+          {userType === "admin" && props.data.visibility === "invisible" && (
             <span className={classes.hidden_popup}>Hidden to Students</span>
           )}
         </span>
-        <span className={classes.right_items}>
+        {userType === "admin" && <span className={classes.right_items}>
           <span className={classes.icons}>
             <a href={"./insight/" + props.data._id}>
               <img src={insight1} className={classes.img_buttons}></img>
@@ -129,7 +166,7 @@ const WeekContainer = (props) => {
               className={classes.check_box}
             ></input> */}
           </span>
-        </span>
+        </span>}
       </div>
       <hr className={classes.line}></hr>
     </>

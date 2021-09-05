@@ -24,14 +24,14 @@
   background-color: #444;
 }
 .searchInput {
-  width: 300px;
+  width: 20rem;
   text-transform: capitalize;
   outline: 0;
   margin-right: 20px;
   border: 2px solid #046666;
   border-radius: 20px;
   background: transparent;
-  padding: 4px;
+  padding: .25rem;
   padding-left: 15px;
   font-size: 15px;
 }
@@ -55,4 +55,12 @@
   transition-property: all;
   transition-duration: 0.5s;
   cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .searchInput {
+    width: 80%;
+  }
+  .icon {
+    padding: .6rem;
+  }
 }

@@ -6,10 +6,12 @@ import DeletePopup from "../../Components/DeletePopup/DeletePopup";
 import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 const JobCardView = (props) => {
 
   const history = useHistory()
+  const type = useSelector((state) => state.loging.type);
 
   const [onDelete, setOnDelete] = useState(false);
   const [deleteID, setOnDeleteID] = useState("");
@@ -44,11 +46,11 @@ const JobCardView = (props) => {
       <div className={classes.jobname}>{props.row.name}</div>
       <div className={classes.companyname}>{props.row.companyName}</div>
       <div className={classes.description}>{props.row.jobDetails}</div>
-      {/* <div>
+      {type === "student" && <div>
           <a href={`/services/job/`+props.row._id} className={classes.viewMore}>VIEW MORE</a>
-      </div> */}
+      </div>}
 
-      <div className={classes.icon_container}>
+      {type === "admin" && <div className={classes.icon_container}>
         <a href={`/services/job_portal/editJob/` + props.row._id}>
           <img src={edit} className={classes.icons} />
         </a>
@@ -61,7 +63,7 @@ const JobCardView = (props) => {
             }}
           />
         </a>
-      </div>
+      </div>}
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Section1 = () => {
       <div>
         <div className={classes.link_head}>Quick Links</div>
         <ul className={classes.footer_links}>
-          <li><a href="/login">Log In</a></li>
+          <li><a href="/index">Log In</a></li>
           <li><a href="/contact-us">Contact Us</a></li>
           <li><a href="/feedback">Send Feedback</a></li>
         </ul>
