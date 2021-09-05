@@ -79,6 +79,19 @@ const Nav = () => {
       </nav>
       <div><img className={classes.profile} src={profile1}/></div>
     </div>
+            <li>
+            <NavLink
+                to="/my-profile/s"
+                className={classes.links}
+                activeClassName={classes.activelink}
+              >
+                My Profile
+              </NavLink>
+            </li>
+          </>
+        )}
+      </ul>
+    </nav>
   );
 };
 export default Nav;

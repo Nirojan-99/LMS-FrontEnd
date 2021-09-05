@@ -1,0 +1,134 @@
+.CardView {
+  border-radius: 20px;
+  width: 45%;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.title {
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 27px;
+  color: #046666;
+}
+.line {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 15px;
+  color: #046666;
+}
+.formContainer {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+.inputs {
+  margin-bottom: 15px;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #ffffff;
+  font-weight: bold;
+}
+
+.inputs:focus {
+  outline: none;
+  border-color: #046666;
+  background-color: #6bdfec;
+}
+
+.select {
+  margin-bottom: 20px;
+  width: 104%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  color: #333;
+  background-color: transparent;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #046666;
+  background-color: #6bdfec;
+}
+
+.select option {
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.inputs:last-child {
+  background-color: #333;
+}
+.btnUpdate {
+  margin: auto;
+  margin-top: 25px;
+  margin-right: 15px;
+  padding: 5px 15px;
+  background-color: #046666;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+.btnUpdate:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.btnCancel {
+  margin: auto;
+  margin-top: 25px;
+  margin-left: 15px;
+  padding: 5px 15px;
+  background-color: #046666;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+.btnCancel:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.inline {
+  margin-left: 33.33%;
+}
