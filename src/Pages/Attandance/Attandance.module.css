@@ -37,8 +37,24 @@
   border-radius: 10px;
   padding: 10px;
 }
-.check{
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+.check {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.head_container {
+  display: flex;
+  justify-content: space-between;
+}
+.iconM {
+  transition: all 0.4s ease-in-out;
+  padding: 6px;
+  width: 35px;
+  height: 35px;
+}
+.iconM:hover{
+  transition: all .5s;
+  cursor: pointer;
+  background-color: #088f8f;
+  border-radius: .3rem;
 }

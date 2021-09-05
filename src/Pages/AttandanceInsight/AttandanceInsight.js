@@ -6,29 +6,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
 
-const ModulePageInsights = (props) => {
-  const material = props.match.params.moduleID;
-
+const AttandanceInsight = (props) => {
+  const material = props.match.params.ID;
   useEffect(() => {
     axios
-      .get("http://localhost:5000/insight/material?materialID=" + material)
+      .get("http://localhost:5000/attandance/get_attandances?ID=" + material)
       .then((resp) => {
-        setStudents(resp.data.students);
-        setList(resp.data.students);
-        if (!resp.data.students) {
+        if (resp.data.avalilable === false) {
           setLoaded(true);
           setIsEmpty(true);
+        } else {
+          setStudents(resp.data);
+          setList(resp.data);
+          setLoaded(true);
         }
-        axios
-          .get(
-            "http://localhost:5000/admin/get_material/date?materialID=" +
-              material
-          )
-          .then((resp) => {
-            setEditedDate(resp.data.date_time);
-            setLoaded(true);
-          })
-          .catch(() => {});
       })
       .catch(() => {});
   }, []);
@@ -36,7 +27,6 @@ const ModulePageInsights = (props) => {
   const [updatedList, setList] = useState([]);
   const [isEmptyList, setEmpty] = useState(false);
   const [students, setStudents] = useState([]);
-  const [editedDate, setEditedDate] = useState();
   const [loaded, setLoaded] = useState(false);
   const [isEmpty, setIsEmpty] = useState();
 
@@ -48,8 +38,9 @@ const ModulePageInsights = (props) => {
     }
 
     const updated = students.filter((student) =>
-      student.student.toUpperCase().includes(value.toUpperCase())
+      student.studentName.toUpperCase().includes(value.toUpperCase())
     );
+    console.log(value)
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
@@ -62,14 +53,14 @@ const ModulePageInsights = (props) => {
         <div className={classes.container}>
           <h2 className={classes.title}>REPORT</h2>
           <hr className={classes.line}></hr>
-          <Table editDate={editedDate} viewers={students.length} />
+          <Table viewers={students.length} />
           <SearchBar onSearch={getSearchValue} />
           <div className={classes.report_container}>
-            <span>Student ID</span>
-            <span>Access Time</span>
+            <span>Students Name</span>
+            <span>Marked Time</span>
           </div>
           {updatedList.map((row) => {
-            return <Details data={row} key={row.id} />;
+            return <Details data={row} />;
           })}
           {isEmptyList && (
             <div className={classes.message}>no results found !</div>
@@ -86,4 +77,4 @@ const ModulePageInsights = (props) => {
   );
 };
 
-export default ModulePageInsights;
+export default AttandanceInsight;

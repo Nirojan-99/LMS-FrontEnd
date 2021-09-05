@@ -4,7 +4,8 @@ const initial = {
   isLogedIn: localStorage.getItem("isLogedIn"),
   userMail: localStorage.getItem("email"),
   type: localStorage.getItem("type"),
-  token: localStorage.getItem("token"),
+  userID: localStorage.getItem("userID"),
+  userName: localStorage.getItem("userName"),
 };
 
 const authStore = createSlice({
@@ -15,11 +16,13 @@ const authStore = createSlice({
       state.isLogedIn = true;
       state.userMail = action.payload.email;
       state.type = action.payload.type;
-      state.token = action.payload.token;
+      state.userID = action.payload.id;
+      state.userName = action.payload.name;
       localStorage.setItem("email", state.userMail);
       localStorage.setItem("type", state.type);
-      localStorage.setItem("token", state.token);
+      localStorage.setItem("userID", state.userID);
       localStorage.setItem("isLogedIn", state.isLogedIn);
+      localStorage.setItem("userName", state.userName);
     },
     logout(state) {
       state.isLogedIn = false;
@@ -27,8 +30,9 @@ const authStore = createSlice({
       state.type = null;
       localStorage.removeItem("email");
       localStorage.removeItem("type");
-      localStorage.removeItem("token");
+      localStorage.removeItem("userID");
       localStorage.removeItem("isLogedIn");
+      localStorage.removeItem("userName");
     },
   },
 });
