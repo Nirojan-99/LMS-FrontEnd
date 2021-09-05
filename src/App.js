@@ -32,6 +32,7 @@ import ModulepageView from "./Pages/ModulePageView/ModulepageView/ModulepageView
 import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule";
 import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import AttandanceInsight from "./Pages/AttandanceInsight/AttandanceInsight";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -45,6 +46,7 @@ function App() {
       <Switch>
         <Route path="/my-courses/submission/:ID" exact component={Submit}/>
         <Route path="/my-courses/attandance/:ID" exact component={Attandance}/>
+        <Route path="/my-courses/attandance/insights/:ID" exact component={AttandanceInsight}/>
         <Route path="/my-courses/submisson_insight/:moduleID" exact component={SubmissionInsight}/>
         <Route path="/my-courses/insight/:moduleID" exact component={ModulePageInsights}/>
 

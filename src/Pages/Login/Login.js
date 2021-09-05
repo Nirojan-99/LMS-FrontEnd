@@ -35,6 +35,7 @@ const Login = () => {
               email: email,
               type: res.data.details.type,
               id: res.data.details._id,
+              name:res.data.details.name
             })
           );
           history.replace("/my-profile/"+ res.data.details._id)
