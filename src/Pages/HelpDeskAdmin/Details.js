@@ -28,7 +28,7 @@ const Details = (props) => {
       <a href={"/services/eticket/" + props.data._id}>
         <div className={classes.main}>
           {props.data.username}{" "}
-          <span className={classes.sub}>/ {props.data.date_time}</span>
+          <span className={classes.sub}> {props.data.date_time}</span>
         </div>
       </a>
       <img onClick={onDeletePress} className={classes.image} src={deleteI} />
