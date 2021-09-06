@@ -5,7 +5,7 @@ import useCalendar from "./useCalendar";
 import "./Calendar.css";
 
 const Calendar = () => {
-  const history = useHistory()
+  const history = useHistory();
   const {
     calendarRows,
     selectedDate,
@@ -17,13 +17,14 @@ const Calendar = () => {
   } = useCalendar();
 
   const dateClickHandler = (date) => {
-    history.push("/calendar/"+date)
+    history.push("/calendar/" + date);
   };
+  const dateClickHandlerN = (date) => {};
 
-  const date = "6-9-2021";
+  const dateM = ["8-9-2021", "10-9-2021"];
   return (
     <Fragment>
-      <a >
+      <a>
         <table className="table">
           <thead>
             <tr>
@@ -37,7 +38,7 @@ const Calendar = () => {
               return (
                 <tr key={cols[0].date}>
                   {cols.map((col) =>
-                    col.date === todayFormatted ||col.date === date ? (
+                    col.date === todayFormatted ? (
                       <td
                         key={col.date}
                         className={`${col.classes} today`}
@@ -49,7 +50,7 @@ const Calendar = () => {
                       <td
                         key={col.date}
                         className={col.classes}
-                        onClick={() => dateClickHandler(col.date)}
+                        onClick={() => dateClickHandlerN(col.date)}
                       >
                         {col.value}
                       </td>

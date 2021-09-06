@@ -1,0 +1,115 @@
+.container {
+  width: 55%;
+  margin: auto;
+  background-color: #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+.title {
+  padding-top: 1rem;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #046666;
+}
+.line {
+  margin-bottom: 1.3rem;
+  margin-top: 0.6rem;
+  width: 90%;
+  height: 1.5px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.form_container {
+  width: 80%;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.first {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+}
+.labels {
+  font-family: roboto;
+  font-size: 1rem;
+  color: #046666;
+}
+.inputs {
+  color: #333;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 6px 3px;
+  border: 2px solid #046666;
+  outline: 0;
+  font-family: "open sans";
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+}
+.sub_container {
+  width: 45%;
+}
+.sub_container2 {
+  width: 100%;
+}
+.sub_container3 {
+  width: 10%;
+}
+.inputs2 {
+  color: #333;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 6px 3px;
+  border: 2px solid #046666;
+  outline: 0;
+  font-family: "open sans";
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+}
+.inputs:focus,
+.inputs2:focus,
+.text:focus {
+  box-shadow: 0 0 4px 1px #046666;
+}
+.text {
+  color: #333;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 6px 3px;
+  border: 2px solid #046666;
+  outline: 0;
+  font-family: "open sans";
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  resize: vertical;
+  height: 4rem;
+  overflow: auto;
+}
+.btn {
+  margin: auto;
+  margin-top: 25px;
+  padding: 0.4rem 3rem;
+  display: flex;
+  background-color: transparent;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: #14b6c8;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}

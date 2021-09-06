@@ -33,6 +33,11 @@ import AddModule from "./Pages/ModulePageView/ModulepageView/AddModule/AddModule
 import ModuleEnrollment from "./Pages/ModulePageView/ModuleEnrollmentPage/ModuleEnrollmentPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import AttandanceInsight from "./Pages/AttandanceInsight/AttandanceInsight";
+import EventSummary from "./Pages/EventSummary/EventSummary";
+import NewEvent from "./Pages/NewEvent/NewEvent";
+import HelpDesk from "./Pages/HelpDesk/HelpDesk";
+import HelpDeskAdmin from "./Pages/HelpDeskAdmin/HelpDeskAdmin";
+import TicketView from "./Pages/TicketView/TicketView";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -71,6 +76,10 @@ function App() {
         <Route path="/services/job_portal" exact component={JobPortal}/>
         <Route path="/services" exact component={Services}/>
 
+        <Route path="/services/help_desk" exact component={HelpDesk}/>
+        <Route path="/services/admin/help_desk" exact component={HelpDeskAdmin}/>
+        <Route path="/services/eticket/:ticketID" exact component={TicketView}/>
+
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>
         <Route path="/edit-user" exact component={EditUser} />
@@ -86,6 +95,8 @@ function App() {
         <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
 
         <Route path="/my-profile/:userID" exact component={ProfilePage}/>
+        <Route path="/calendar/:date" exact component={EventSummary}/>
+        <Route path="/new_calendar" exact component={NewEvent}/>
 
         <Route path="/dashboard" exact />
         <Route path="/index" exact component={Login} />
