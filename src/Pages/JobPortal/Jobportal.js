@@ -1,7 +1,6 @@
 import classes from "./Jobportal.module.css";
 import JobCardView from "./JobCardView";
 import React, { useState } from "react";
-import plus from "../../Assets/plus.svg";
 import { useEffect } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";

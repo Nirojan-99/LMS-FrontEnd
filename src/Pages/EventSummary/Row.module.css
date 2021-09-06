@@ -1,0 +1,27 @@
+.container{
+    margin: auto;
+    margin-top: 1.5rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.image{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.details{
+    color: #046666;
+    font-family: "open sans";
+    font-weight: 800;
+    width: 25%;
+    text-align: right;
+}
+.btn{
+    width: 25%;
+    color: #FF0000;
+    font-family: roboto;
+    font-size: 1rem;
+    text-align: right;
+    cursor: pointer;
+}
