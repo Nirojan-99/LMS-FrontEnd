@@ -38,10 +38,12 @@ import NewEvent from "./Pages/NewEvent/NewEvent";
 import HelpDesk from "./Pages/HelpDesk/HelpDesk";
 import HelpDeskAdmin from "./Pages/HelpDeskAdmin/HelpDeskAdmin";
 import TicketView from "./Pages/TicketView/TicketView";
+import Announcement from "./Pages/Announcement/Announcement";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import { Redirect } from "react-router";
 
 function App() {
   return (
@@ -98,7 +100,8 @@ function App() {
         <Route path="/calendar/:date" exact component={EventSummary}/>
         <Route path="/new_calendar" exact component={NewEvent}/>
 
-        <Route path="/dashboard" exact />
+        <Route path="/" exact ><Redirect to="/dashboard" /></Route>
+        <Route path="/dashboard" exact component={Announcement}/>
         <Route path="/index" exact component={Login} />
         <Route path="/index/reset_password" exact component={ResetPassword} />
       </Switch>
