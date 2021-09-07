@@ -24,6 +24,8 @@ const HelpDeskAdmin = () => {
     setUpdatedQueries(updated);
     if (updated.length === 0) {
       setEmpty(true);
+    }else{
+      setEmpty(false);
     }
   };
 

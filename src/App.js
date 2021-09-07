@@ -39,17 +39,23 @@ import HelpDesk from "./Pages/HelpDesk/HelpDesk";
 import HelpDeskAdmin from "./Pages/HelpDeskAdmin/HelpDeskAdmin";
 import TicketView from "./Pages/TicketView/TicketView";
 import Announcement from "./Pages/Announcement/Announcement";
+import NewAnnouncement from "./Pages/NewAnnouncement/NewAnnouncement";
+import View from "./Pages/AnnouncementFullView/View";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Redirect } from "react-router";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLogedIn = useSelector((state) => state.loging.isLogedIn);
+  const type = useSelector((state) => state.loging.type);
   return (
     <Provider store={store}>
     <Router>
       <Header />
+      { isLogedIn ?
       <Switch>
         <Route path="/my-courses/submission/:ID" exact component={Submit}/>
         <Route path="/my-courses/attandance/:ID" exact component={Attandance}/>
@@ -57,7 +63,7 @@ function App() {
         <Route path="/my-courses/submisson_insight/:moduleID" exact component={SubmissionInsight}/>
         <Route path="/my-courses/insight/:moduleID" exact component={ModulePageInsights}/>
 
-        <Route path="/my-courses/add_attandance/:weekID" exact component={AddAttandance}/>
+        <Route path="/my-courses/add_attandance/:weekID" exact component={AddAttandance}></Route>
         <Route path="/my-courses/add_submission/:weekID" exact component={AddSubmission}/>
         <Route path="/my-courses/add_notes/:weekID" exact component={AddNotes}/>
         <Route path="/my-courses/add_file/:weekID" exact component={AddFile}/>
@@ -102,9 +108,17 @@ function App() {
 
         <Route path="/" exact ><Redirect to="/dashboard" /></Route>
         <Route path="/dashboard" exact component={Announcement}/>
-        <Route path="/index" exact component={Login} />
+        <Route path="/dashboard/announcement/:annID" exact component={View}/>
+        <Route path="/dashboard/new_announcement" exact component={NewAnnouncement}>{type !== "admin" && <Redirect to="/dashboard" /> }</Route>
+        <Route path="/dashboard/edit_announcement/:annID" exact component={NewAnnouncement}>{type !== "admin" && <Redirect to="/dashboard" /> }</Route>
+
+        <Route path="/index" exact component={Login} >{isLogedIn &&  <Redirect to="/dashboard" />}</Route>
         <Route path="/index/reset_password" exact component={ResetPassword} />
-      </Switch>
+      </Switch>:
+      <Switch>
+        <Route path="/index" exact component={Login} ></Route>
+        <Route path="*" exact component={Login} ><Redirect to="/index" /></Route>
+      </Switch>}
       <Footer />
     </Router>
     </Provider>

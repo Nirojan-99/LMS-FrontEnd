@@ -1,0 +1,52 @@
+.container {
+  background-color: cadetblue;
+  width: 45%;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+.subject {
+  padding-top: 1rem;
+  font-family: arial;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: rgb(2, 99, 99);
+  text-transform: uppercase;
+}
+.message {
+  text-align: justify;
+  margin-top: 1rem;
+  color: #222;
+  font-weight: 600;
+}
+.image {
+  height: 2rem;
+}
+.footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.datedetails {
+  color: #333;
+  font-family: "open sans";
+  font-weight: 800;
+  font-size: 0.6rem;
+}
+.main {
+  color: rgb(7, 7, 131);
+  font-family: "open sans";
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.link {
+  padding-left: 0.4rem;
+  color: #333;
+  text-decoration: underline;
+  font-weight: 600;
+  font-family: roboto;
+}
