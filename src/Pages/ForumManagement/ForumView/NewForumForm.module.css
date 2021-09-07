@@ -1,21 +1,35 @@
-.CardView{
+.newCardView {
   border-radius: 20px;
-  width: 95%;
-  background-color:#ddd;
-  padding: 20px;
+  width: 40%;
+  background-color: #ffffff;
+  padding: 5px;
   margin: auto;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #14b6c8;
 }
-.title{
+
+.replyCardView{
+  border-radius: 20px;
+  width: 40%;
+  background-color: #ffffff;
+  padding: 5px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 33%;
+  border: 2px solid #14b6c8;
+
+}
+.title {
   margin: 0px;
   text-transform: uppercase;
   font-family: roboto;
   font-size: 27px;
   color: #046666;
 }
-.line{
-  margin-bottom: 20px;
+.line {
+  margin-bottom: 10px;
   margin-top: 10px;
   width: 100%;
   height: 1px;
@@ -23,46 +37,59 @@
   color: #046666;
   background-color: #046666;
 }
-.label{
+
+.User {
+  display: flex;
+  letter-spacing: 1px;
+  font-family: roboto;
+}
+
+.Avatar img {
+  border-radius: 50%;
+  width: 75px;
+  margin: 5px 25px 0px 5px;
+}
+
+.Name {
+  margin-top: 30px;
+  font-size: 23px;
+  color: #046666;
+  font-weight: bold;
+}
+
+.label {
   font-family: "open sans";
   font-weight: bold;
   font-size: 20px;
-  color:#046666 ;
+  color: #046666;
 }
-.formContainer{
+.formContainer {
   padding-left: 6rem;
   padding-right: 6rem;
 }
-.inputs{
-  margin-bottom: 20px;
+.inputs {
+  margin-bottom: 5px;
+  margin-left: 10px;
   width: 95%;
   height: auto;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 5px;
+  margin-top: 5px;
   border: 2px solid #046666;
   font-family: roboto;
   font-size: 1.1rem;
   outline: none;
   color: #333;
   background-color: white;
-  font-weight: bold;
+  
 }
-.textArea{
-  resize: vertical;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 150px;
-  overflow: scroll;
-  padding: 10px;
-  margin-top: 10px;
-  border: 2px solid #046666;
-  font-family: roboto;
-  font-size: 1rem;
+
+.inputs:focus {
   outline: none;
-  color: #333;
-  background-color: #eee;
+  border-color: #046666;
+  background-color: #6bdfec;
 }
-.select{
+
+.select {
   margin-bottom: 20px;
   width: 100%;
   height: auto;
@@ -74,62 +101,58 @@
   outline: none;
   color: #333;
   background-color: #eee;
-  
 }
 
-.inputs:last-child{
+.inputs:last-child {
   background-color: #333;
 }
-.add{
-  margin: auto;
-  margin-top: 25px;
-  padding: 5px 15px;
-  background-color: #046666;
-  border: 2px solid #14B6C8;
+.add {
+  background-color: rgb(63, 63, 63);
+  border: 2px solid black;
   font-family: roboto;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 10px;
   color: white;
-  margin: 10px;
-  height: 45px;
-  width: 120px;
   font-weight: bold;
-
 }
-.add:hover{
+.add:hover {
   cursor: pointer;
-  background-color: #14B6C8;
+  background-color: #14b6c8;
   color: #333;
   transition-property: all;
-  transition-duration: .5s;
+  transition-duration: 0.5s;
 }
 
-.cancel{
-  margin: auto;
-  margin-top: 25px;
-  margin-left: 15px;
-  padding: 5px 15px;
-  background-color: #046666;
-  border: 2px solid #14B6C8;
+.cancel {
+  background-color: rgb(63, 63, 63);
+  border: 2px solid black;
   font-family: roboto;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 10px;
   color: white;
-  height: 45px;
-  width: 120px;
   font-weight: bold;
-
 }
-.cancel:hover{
+.cancel:hover {
   cursor: pointer;
-  background-color: #14B6C8;
+  background-color: #14b6c8;
   color: #333;
   transition-property: all;
-  transition-duration: .5s;
+  transition-duration: 0.5s;
 }
 
 .inline {
-  margin-left: 30%;
+  display: flex;
+  margin-left: 80%;
+  margin-bottom: 0%;
+  margin-top: 0%;
+  justify-content: space-evenly;
+  
+}
+
+.inlineNew {
+  margin-left: 90%;
+  margin-bottom: 0%;
+  margin-top: 0%;
 }
 
 .invalid_inputs {
@@ -138,8 +161,8 @@
   margin-bottom: 15px;
   width: 95%;
   height: auto;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 2%;
+  margin-top: 2%;
   font-family: roboto;
   font-size: 1.1rem;
   outline: none;
@@ -154,9 +177,9 @@
   font-weight: bold;
 }
 
-.add:disabled{
+.add:disabled {
   background-color: #ccc;
   color: #292929;
-  border-color:2px solid black;
+  border-color: 2px solid black;
   cursor: not-allowed;
 }
