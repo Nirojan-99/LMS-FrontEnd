@@ -29,6 +29,13 @@
   font-size: 18px;
   color: #046666;
 }
+
+.invalid_lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 18px;
+  color: #f11010;
+}
 .formContainer {
   padding-left: 6rem;
   padding-right: 6rem;
