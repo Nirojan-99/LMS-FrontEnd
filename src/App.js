@@ -106,7 +106,7 @@ function App() {
         <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
         <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
 
-        <Route path="/my-profile/:userID" exact component={ProfilePage}/>
+        <Route path="/my-profile" exact component={ProfilePage}/>
         <Route path="/calendar/:date" exact component={EventSummary}/>
         <Route path="/new_calendar" exact component={NewEvent}/>
 
@@ -125,6 +125,7 @@ function App() {
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
+        <Route path="/index/reset_password" exact component={ResetPassword} />
         <Route path="*" exact component={Login} ><Redirect to="/index" /></Route>
       </Switch>}
 

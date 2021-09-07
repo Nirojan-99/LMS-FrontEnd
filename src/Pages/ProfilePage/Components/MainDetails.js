@@ -1,4 +1,4 @@
-import classes from "./MainDetails.css";
+import classes from "./MainDetails.module.css";
 
 const Details = (props) => {
   return (

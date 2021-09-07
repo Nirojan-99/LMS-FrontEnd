@@ -3,10 +3,25 @@ import React from "react";
 import { useSelector } from "react-redux";
 import classes from "./Nav.module.css";
 import profile1 from "../../Assets/profile1.png";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Nav = () => {
   const isLogedIn = useSelector((state) => state.loging.isLogedIn);
   const userID = useSelector((state) => state.loging.userID);
+
+  const [dp, setDp] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/user/dp?ID=" + userID)
+      .then((res) => {
+        setDp(res.data.dp);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -78,11 +93,13 @@ const Nav = () => {
           )}
         </ul>
       </nav>
-      {isLogedIn && <div>
-        <a href={"/my-profile/"+userID}>
-          <img className={classes.profile} src={profile1} />
-        </a>
-      </div>}
+      {isLogedIn && (
+        <div>
+          <a href={"/my-profile"}>
+            <img className={classes.profile} src={dp ? dp : profile1} />
+          </a>
+        </div>
+      )}
     </div>
   );
 };
