@@ -1,47 +1,45 @@
-.grades_container{
-    border-radius: 20px;
-    padding: 10px;
-    margin: auto;
-    width: 80%;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    border-width: thick;
-    border: black;
-    box-shadow: 4px 2px 6px #14B6C8;
+.grades_container {
+  border-radius: 20px;
+  padding: 10px;
+  margin: auto;
+  width: 80%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-width: thick;
+  border: black;
+  box-shadow: 4px 2px 6px #14b6c8;
 }
-.line{
-    margin-bottom: 20px;
-    margin-top: 10px;
-    width: 90%;
-    height: 1px;
-    border-width: 0;
-    color: gray;
-    background-color: rgba(128, 128, 128, 0.658);
+.line {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 90%;
+  height: 1px;
+  border-width: 0;
+  color: gray;
+  background-color: rgba(128, 128, 128, 0.658);
 }
-.title{
-    color: deepskyblue;
-    padding-left: 50px;
+.title {
+  color: deepskyblue;
+  padding-left: 50px;
 }
 
-
-.report_container{
-      
-    width: 70%;
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-    margin-bottom: 20px;
-    justify-content: space-between;
+.report_container {
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
 }
-.report_container span{
-    font-family: roboto;
-    font-size: 19px;
-    color:#046666 ;
+.report_container span {
+  font-family: roboto;
+  font-size: 19px;
+  color: #046666;
 }
-.message{
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: red;
+.message {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: red;
 }

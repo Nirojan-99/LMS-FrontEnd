@@ -1,24 +1,27 @@
 .aside {
+  border-radius: 1rem 0 0 1rem;
   text-align: center;
   position: relative;
-  width: 20%;
+  width: 25%;
   border-right: 3px solid #046666;
 }
 .mainSec {
-  display: flex;
+  transition: all .4s ease-in;
+  margin-top: 1rem;  display: flex;
   margin: auto;
-  width: 85%;
+  width: 65%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   background-color: #fff;
+  border-radius: 1rem;
 }
 .main_side {
   position: relative;
-  width: 80%;
+  width: 75%;
 }
-
 
 @media screen and (max-width: 800px) {
   .aside {
     display: none;
   }
-    
 }

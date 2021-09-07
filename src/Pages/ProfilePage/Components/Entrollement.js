@@ -1,4 +1,4 @@
-import classes from "./Entrolment.css";
+import classes from "./Entrolment.module.css";
 import Details from "./MainDetails.js";
 import { useState } from "react";
 

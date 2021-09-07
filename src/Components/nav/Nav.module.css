@@ -83,11 +83,14 @@
   justify-content: space-between;
 }
 .profile{
+  border-radius: 50%;
   transition: all .4s ease-in;
   width: 3rem;
+  height: 3rem;
   margin-top: 1rem;
   margin-right: 1rem;
   cursor: pointer;
+  box-shadow: 0 0 3px 1px #046666;
 }
 .profile:hover{
   transform: scale(1.06);

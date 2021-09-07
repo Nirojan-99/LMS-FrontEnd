@@ -1,16 +1,69 @@
-import classes from './Aside.module.css'
-import Navigation from './Navigation'
-import {MdAccountCircle} from "react-icons/md"
+import classes from "./Aside.module.css";
+import { MdAccountCircle } from "react-icons/md";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import profile1 from "../../../Assets/profile1.png";
 
-const Aside = ()=>{
-    return(
-        <aside className={classes.aside}>
-            <MdAccountCircle size ={100}/>
-            <h3 >User Name</h3>
-            <Navigation/>
-        </aside>
-        
-    )
-}
+const Aside = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userID = useSelector((state) => state.loging.userID);
 
-export default Aside
+  const [dp, setDp] = useState();
+  const [name, setName] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/user/dp?ID=" + userID)
+      .then((res) => {
+        setDp(res.data.dp);
+        setName(res.data.name);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  }, []);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    history.replace("/index");
+  };
+  return (
+    <aside className={classes.aside}>
+      <img src={dp ? dp : profile1} className={classes.dpimage} />
+      <h3>{name}</h3>
+
+      <ul className={classes.navitem}>
+        <li>
+          <a href="#" onClick={props.details}>
+            <div >
+              Details
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" onClick={props.grades}>
+            <div>Grades</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={props.mycourses}>
+            <div>My Courses</div>
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={logoutHandler}>
+            <div>Log Out</div>
+          </a>
+        </li>
+      </ul>
+    </aside>
+  );
+};
+
+export default Aside;
