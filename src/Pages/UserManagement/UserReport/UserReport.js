@@ -3,18 +3,42 @@ import UserTable from "./UserTable";
 import UserDeatils from "./UserDetails";
 import UserReportSearchBar from "./UserReportSearchBar";
 import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 const UserReport = () => {
-  const users = [
-    { UserID: "IT20223458", name: "Arivu", role: "Student" },
-    { UserID: "IT20223458", name: "Arivu", role: "Student" },
-    { UserID: "IT20223458", name: "Arivu", role: "Student" },
-    { UserID: "IT20223458", name: "Arivu", role: "Student" },
-    { UserID: "IT20223458", name: "Arivu", role: "Student" },
-  ];
+  // const users = [
+  //   { UserID: "IT20223458sfsfsfsf", name: "Arivu", role: "Student" },
+  //   { UserID: "IT20223458", name: "Arivu", role: "Student" },
+  //   { UserID: "IT20223458", name: "Arivu", role: "Student" },
+  //   { UserID: "IT20223458", name: "Arivu", role: "Student" },
+  //   { UserID: "IT20223458", name: "Arivu", role: "Student" },
+  // ];
 
+  // const [updatedList, setList] = useState(users);
+  // const [isEmptyList, setEmpty] = useState(false);
+  const [users, setUsers] = useState([]);
   const [updatedList, setList] = useState(users);
   const [isEmptyList, setEmpty] = useState(false);
+
+  
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/userManagement/get_users")
+      .then((res) => {
+        
+        setUsers(res.data);
+        // history.goBack(); //to go back  should put in SubmitHandler
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
+
+
+
+
 
   const getSearchValue = (value) => {
     if (!value.trim()) {
@@ -23,7 +47,7 @@ const UserReport = () => {
       return;
     }
 
-    const updated = users.filter((user) => user.UserID === value)
+    const updated = users.filter((user) => user._id === value)
     setList(updated)
     if (updated.length === 0) {
       setEmpty(true);
@@ -43,8 +67,8 @@ const UserReport = () => {
         <span>UserRole</span>
         <span>Edit/Delete</span>
       </div>
-      {updatedList.map((row) => {
-        return <UserDeatils data={row} key={row.UserID} />;
+      {users.map((row) => {
+        return <UserDeatils data={row} key={row._id} />;
       })}
       {isEmptyList && <div className={classes.message}>No Users Found !!!</div>}
     </div>

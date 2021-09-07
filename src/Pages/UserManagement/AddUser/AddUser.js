@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+
 import classes from "./AddUser.module.css";
 import useInput from "./useInput";
 
@@ -6,6 +9,8 @@ const isEmail = (value) => value.includes("@");
 const isContactNo = (value) => value.trim() !== "";
 
 const AddUser = () => {
+  const [emailIsNotTaken, setEmailIsNotTaken] = useState(false);
+
   const {
     value: emailValue,
     isValid: emailIsValid,
@@ -90,23 +95,42 @@ const AddUser = () => {
       return;
     }
 
-    console.log(
-      nameValue,
-      emailValue,
-      dateValue,
-      contactValue,
-      addressValue,
-      roleValue,
-      facultyValue
-    );
+    const user = {
+      name: nameValue,
+      email: emailValue,
+      date: dateValue,
+      contact: contactValue,
+      address: addressValue,
+      role: roleValue,
+      faculty: facultyValue,
+    };
 
-    resetEmail();
-    resetName();
-    resetDate();
-    resetContact();
-    resetAddress();
-    resetFaculty();
-    resetRole();
+    axios
+      .post("http://localhost:5000/userManagement/add_user", user)
+      .then((res) => {
+        console.log(res.data);
+        setEmailIsNotTaken(res.data);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+    if (emailIsNotTaken) {
+      window. location. reload()
+      resetEmail();
+      resetName();
+      resetDate();
+      resetContact();
+      resetAddress();
+      resetFaculty();
+      resetRole();
+
+    } else {
+
+      resetEmail();
+
+    }
+   
+    
   };
 
   const emailClass = emailHasError ? classes.invalid_inputs : classes.inputs;
@@ -123,15 +147,21 @@ const AddUser = () => {
     ? classes.invalid_select
     : classes.select;
 
+  const labelOfEmail = emailIsNotTaken
+    ? "Email is Taken. Enter a New Email:"
+    : "Email ID";
+  const lables = emailIsNotTaken ? classes.invalid_lables : classes.lables;
+
   return (
     <div className={classes.CardView}>
       <h2 className={classes.title}>ADD USER</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={submitHandler}>
-        <label for="email" className={classes.lables}>
-          Email ID :
+        <label for="email" className={lables}>
+          {labelOfEmail}
         </label>
         <br />
+
         <input
           type="email"
           id="email"
@@ -144,6 +174,9 @@ const AddUser = () => {
         {emailHasError && (
           <p className={classes.errorText}>Please Enter a Valid Email !!!</p>
         )}
+        {/* {emailIsNotTaken && (
+          <p className={classes.errorText}> Email is Already Taken. Enter a new Email</p>
+        )} */}
 
         <label for="Uname" className={classes.lables}>
           Name :
@@ -230,7 +263,7 @@ const AddUser = () => {
           <option value="Computing">Computing</option>
           <option value="Enginnering">Enginnering</option>
           <option value="Bussiness">Bussiness</option>
-          <option value="Humanities & Science">Humanities & Science</option>
+          <option value="Humanities&Science">Humanities & Science</option>
         </select>
         {facultyHasError && (
           <p className={classes.errorText}>Please Select a Faculty !!!</p>
@@ -249,12 +282,10 @@ const AddUser = () => {
           onBlur={roleBlurHandler}
         >
           <option selected="true" value="" hidden></option>
-          <option value="Admin">Admin</option>
-          <option value="Lecturer">Lecturer</option>
-          <option value="Senior Lecturer">Senior Lecturer</option>
-          <option value="Undergraduate Student">Undergraduate Student</option>
-          <option value="Postgraduate Student">Postgraduate Student</option>
-          <option value="Professor">Professor</option>
+          <option value="admin">Admin</option>
+          <option value="lecturer">Lecturer</option>
+          <option value="instructor">Instructor</option>
+          <option value="student">Student</option>
         </select>
         {roleHasError && (
           <p className={classes.errorText}>Please Select a Role!!!</p>

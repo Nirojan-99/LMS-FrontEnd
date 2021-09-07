@@ -42,6 +42,10 @@ import Announcement from "./Pages/Announcement/Announcement";
 import NewAnnouncement from "./Pages/NewAnnouncement/NewAnnouncement";
 import View from "./Pages/AnnouncementFullView/View";
 
+import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
+import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
+import AddForum from "./Pages/ForumManagement/AddForum/AddForum";
+
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -90,7 +94,7 @@ function App() {
 
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>
-        <Route path="/edit-user" exact component={EditUser} />
+        <Route path="/edit-user/:editID" exact component={EditUser} />
         <Route path="/add-role" exact component={AddRole}/>
 
         <Route path="/faculties" exact component={FacultiesView}/>
@@ -114,11 +118,18 @@ function App() {
 
         <Route path="/index" exact component={Login} >{isLogedIn &&  <Redirect to="/dashboard" />}</Route>
         <Route path="/index/reset_password" exact component={ResetPassword} />
+          
+        <Route path="/add-forum" exact component={AddForum}/>
+        <Route path="/forum" exact component={ForumView}/>
+        <Route path="/weekforum" exact component={WeekForumView}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
         <Route path="*" exact component={Login} ><Redirect to="/index" /></Route>
       </Switch>}
+
+
+
       <Footer />
     </Router>
     </Provider>
