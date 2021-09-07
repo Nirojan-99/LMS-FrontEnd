@@ -46,6 +46,10 @@ import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
 import AddForum from "./Pages/ForumManagement/AddForum/AddForum";
 
+import BookSave from "./Pages/LibraryManagement/LibrarySave/BookSave/BookSave";
+import PaperSave from "./Pages/LibraryManagement/LibrarySave/PastpaperSave/PaperSave";
+import LibraryReport from "./Pages/LibraryManagement/LibraryReport/LibraryReport"
+
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -122,6 +126,9 @@ function App() {
         <Route path="/add-forum" exact component={AddForum}/>
         <Route path="/forum" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
+        <Route path="/book_save" exact component={BookSave}/>
+        <Route path="/paper_save" exact component={PaperSave}/>
+        <Route path="/library_report" exact component={LibraryReport}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
