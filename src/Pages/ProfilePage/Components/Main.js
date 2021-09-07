@@ -1,95 +1,52 @@
-import classes from "./Main.module.css";
-import {MdAccountCircle} from "react-icons/md";
-import ImageUploader from "./ImageUploader.js";
+import react from 'react';
+import classes from './Main.module.css';
+import { useState } from "react";
+import Grades from '../MyGradePage/Grades';
 
-const EditProfile = () => {
+
+const UserGrade = () => {
+  const gradedetail =[
+    {"id":"2021-02-21","access":"10"},
+    {"id":"2021-02-21","access":"10"},
+    {"id":"2021-02-21","access":"10"},
+    {"id":"2021-02-21","access":"10"},
+  ]
+
+  const [updatedList , setList] = useState(gradedetail)
+  const [isEmptyList , setEmpty] = useState(false)
+
+  const getSearchValue = (value) => {
+    if(!value.trim()){
+      setEmpty(false)
+      setList(gradedetail)
+      return
+    }
+   
+    const updated = gradedetail.filter(student=>student.id === value)
+   setList(updated)
+   if(updated.length === 0){
+    setEmpty(true)
+   }
+  };
+
   return (
-    <div>
-      <form className={classes.form_container}>
-        <label htmlFor="username" className={classes.labels}>
-          User Name
-        </label>
-        <input
-          //value={username}
-          //onChange={usernamehandler}
-          className={classes.inputs}
-          id="username"
-          name="username"
-          type="text"
-        ></input>
-
-        <label htmlFor="address" className={classes.labels}>
-          Address
-        </label>
-        <input
-          //value={address}
-          //onChange={addressHandler}
-          className={classes.inputs}
-          id="address"
-          name="address"
-          type="text"
-        ></input>
-
-        <label htmlFor="phonenumber" className={classes.labels}>
-          Contact Number
-        </label>
-        <input
-          //value={phonenumber}
-          //onChange={phonenumberhandler}
-          className={classes.inputs}
-          name="phonenumber"
-          id="phonenumber"
-          type="tel" 
-          pattern="+94[7-9]{2}-[0-9]{3}-[0-9]{4}" value="+94"
-        ></input>
-
-        <label htmlFor="password" className={classes.labels}>
-          Password
-        </label>
-        <input
-          //value={password}
-          //onChange={passwordhandler}
-          className={classes.inputs}
-          name="password"
-          id="password"
-          type="password" 
-        ></input>
-        
-        <label htmlFor="aboutme" className={classes.labels}>
-          About Me
-        </label>
-        <textarea row = "10"
-          className={classes.inputs}
-          id="aboutme"
-          name="aboutme"
-          type="textarea"
-        ></textarea>
-
-        <button type="submit" className={classes.submit}>
-          Save Changes
-        </button>
-      
+     <div className={classes.grades_container}>
+      <h2 className={classes.title}>communication skills</h2>
       <hr className={classes.line}></hr>
-      <div>
-        <MdAccountCircle size ={100}/>
-        <br></br>
-        <text className={classes.change}>
-          Change Photo
-        </text>
+      <div className={classes.report_container}>
+      <span>Date</span>
+      <span>Grades</span>
       </div>
-      <ImageUploader/>
-      <button type="submit" className={classes.submit}>
-          Save Picture
-        </button>
-      
-      <hr className={classes.line}></hr>
-      <button type="submit" className={classes.delete}>
-          Delete Account
-        </button>
-      
-
-      </form>
+      {updatedList.map((row)=> {
+        return <Grades data={row} key={row.id}/>;
+      })}
+      {isEmptyList && <div className={classes.message}>no results found !</div>}
     </div>
+
+    
+        
   );
-};
-export default EditProfile;
+   
+
+}
+export default UserGrade;

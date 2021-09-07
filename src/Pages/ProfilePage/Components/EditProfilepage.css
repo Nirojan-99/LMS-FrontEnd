@@ -1,0 +1,104 @@
+
+.line {
+    margin-top: 10px;
+    width: 100%;
+    height: 1px;
+    border-width: 0;
+    color: gray;
+    background-color: rgba(128, 128, 128, 0.658);
+  }
+
+.labels {
+    font-family: "roboto";
+    font-weight: 700;
+    font-size: 15px;
+    color: #088f8f;
+    text-align: left;
+  }
+  
+  .form_container {
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .radios{
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit{
+    margin: auto;
+    width: auto;
+    padding: 5px 13px;
+    background-color: transparent;
+    border: 2px solid #14B6C8;
+    color: #14B6C8;
+    margin-top: 35px;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+}
+.submit:hover{
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: .5s;
+    background-color: #14B6C8;
+    color: #333;
+}
+.labels {
+    font-family: "roboto";
+    font-weight: 700;
+    font-size: 15px;
+    color: #088f8f;
+  }
+  .inputs{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 9px;
+    border: 2px solid #088f8f;
+    outline: 0;
+    font-size: 15px;
+    background-color: transparent;
+  
+  }
+  .title_div{
+      vertical-align: baseline;
+      display: flex;
+      justify-content: space-between;
+  }
+  .iconM {
+    transition: all .4s ease-in-out;
+      padding: 6px;
+    width: 35px;
+    height: 35px;
+  }
+  .iconM:hover{
+      transition: all .5s;
+      cursor: pointer;
+      background-color: #088f8f;
+      border-radius: 10px;
+  }
+
+  .change{
+    color:#14B6C8;
+    font-weight: 700;
+    font-size: 15px;
+    padding-top: 0%;
+  }
+
+  .delete{
+    margin: auto;
+    width: auto;
+    padding: 5px 13px;
+    background-color:   rgb(236, 43, 43);
+    border: 2px solid rgb(245, 10, 10);
+    color: black;
+    margin-top: 35px;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+  }

@@ -1,6 +1,6 @@
 import Aside from "./Components/Aside";
 import classes from './ProfilePage.module.css';
-import EditProfile from './Components/Main';
+import UserGrade from './Components/Main';
 
 const ProfilePage = () => {
   return (
@@ -9,7 +9,7 @@ const ProfilePage = () => {
         <Aside />
       </div>
       <div className={classes.main_side}>
-        <EditProfile/>
+        <UserGrade/>
 
       </div>
     </main>
