@@ -82,7 +82,6 @@ const JobSave = (props) => {
     setJobDetails(event.target.value);
   };
   const jobPosterHandler = (event) => {
-    console.log(event.target.files[0]);
     setJobPoster(event.target.files[0]);
   };
 

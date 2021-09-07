@@ -1,0 +1,104 @@
+.container {
+  border-radius: 1rem;
+  color: #046666;
+  box-shadow: 0 0 4px 1px #14b6c8;
+  width: 50%;
+  background-color: #eee;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.form_container {
+  width: 80%;
+  margin: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.labels {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 1rem;
+  color: #046666;
+}
+.inputs {
+  transition: all 0.3s ease-in;
+  border-radius: 0.5rem;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: auto;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.12rem solid #046666;
+  font-family: "open sans";
+  font-size: 1rem;
+  outline: none;
+  font-weight: 600;
+  color: #333;
+  background-color: #eee;
+  text-transform: capitalize;
+}
+.save {
+  margin: auto;
+  margin-top: 25px;
+  padding: 0.4rem 3rem;
+  display: flex;
+  background-color: transparent;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: #14b6c8;
+}
+.save:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.textArea {
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in;
+  resize: vertical;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: 10rem;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.12rem solid #046666;
+  font-family: "open sans";
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #eee;
+}
+.textArea:focus,
+.inputs:focus {
+  box-shadow: 0 0 4px 1px #046666;
+}
+.linkto {
+  transition: all 0.2s ease-in-out;
+  font-family: "open sans";
+  font-size: 1rem;
+  color: rgb(4, 4, 150);
+  letter-spacing: -0.2px;
+  font-weight: 800;
+}
+.linkto:hover {
+  color: blue;
+}
+.deletebtn {
+  color: red;
+  font-family: "open sans";
+  font-weight: 800;
+  font-size: 1rem;
+  text-align: right;
+  width: 80%;
+  margin: auto;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+.deletebtn:hover {
+  color: rgb(175, 9, 9);
+}

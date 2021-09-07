@@ -38,7 +38,7 @@ const Login = () => {
               name:res.data.details.name
             })
           );
-          history.replace("/my-profile/"+ res.data.details._id)
+          history.replace("/dashboard")
         } else {
           setUnAuth(true);
         }
