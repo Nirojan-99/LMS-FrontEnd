@@ -21,4 +21,3 @@ const AddFaculties = (props) =>{
 )
 } 
 export default AddFaculties;
-
