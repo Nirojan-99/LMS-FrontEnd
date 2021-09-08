@@ -4,12 +4,14 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import Loader from "../../../../Components/Loader/Loader";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { logout } from "../../../../Store/auth";
 
 const Week = (props) => {
-
   const [isempty, setIsEmpty] = useState(false);
   const userType = useSelector((state) => state.loging.type);
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch()
 
   if (props.row.contents == null) {
     setIsEmpty(true);
@@ -19,19 +21,21 @@ const Week = (props) => {
 
   const [contents, setContents] = useState([]);
   const [loaded, setLoaded] = useState(true);
-  console.log("a" + week);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/admin/get_materials?contents=" + week)
+      .get("http://localhost:5000/admin/get_materials?contents=" + week, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        // console.log(res.data);
-        if (!res.data.msg) {
+        if(res.data.auth === false){
+          dispatch(logout())
+        }else if (res.data.available !== false) {
           setContents(res.data);
           setLoaded(false);
-        }else{
-          setContents([])
-          setLoaded(false)
+        } else {
+          setContents([]);
+          setLoaded(false);
         }
       })
       .catch((er) => {
@@ -39,7 +43,9 @@ const Week = (props) => {
       });
   }, []);
 
- let visibleCount = contents.filter((row)=>{return row.visibility === "visible"})
+  let visibleCount = contents.filter((row) => {
+    return row.visibility === "visible";
+  });
 
   return (
     <div className={classes.week_container} id={props.row.week}>
@@ -47,18 +53,24 @@ const Week = (props) => {
         <div className={classes.week_title} id={props.id}>
           {"WEEK  " + props.row.week}
         </div>
-        { contents.map((row) => {
-          return <WeekContainer week={props.week}  data={row} />;
+        {contents.map((row) => {
+          return <WeekContainer week={props.week} data={row} />;
         })}
-        {contents.length === 0 || visibleCount.length === 0? <span className={classes.noMaterials}>No materials available !!</span>:null}
+        {contents.length === 0 || visibleCount.length === 0 ? (
+          <span className={classes.noMaterials}>No materials available !!</span>
+        ) : null}
         <div className={classes.loader}>{loaded && <Loader />}</div>
 
-        {userType === "admin" && <><div className={classes.addNew}>
-          <a href={"select_type/" + props.row._id} className={classes.add}>
-            Add New
-          </a>
-        </div>
-        <hr className={classes.line}></hr></>}
+        {userType === "admin" && (
+          <>
+            <div className={classes.addNew}>
+              <a href={"select_type/" + props.row._id} className={classes.add}>
+                Add New
+              </a>
+            </div>
+            <hr className={classes.line}></hr>
+          </>
+        )}
       </div>
     </div>
   );

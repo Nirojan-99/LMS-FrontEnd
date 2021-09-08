@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Store/auth";
 
 const JobPortal = () => {
   const [jobs, setJobs] = useState([]);
@@ -13,15 +14,20 @@ const JobPortal = () => {
   const [isError, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const type = useSelector((state) => state.loging.type);
-
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get_jobs")
+      .get("http://localhost:5000/get_jobs", {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
         if (res.data.error) {
-          setErrorMsg(res.data.error);
+          setErrorMsg("no jobs available");
           setError(true);
           setLoaded(true);
+        } else if (res.data.auth === false) {
+          dispatch(logout());
         } else {
           setJobs(res.data);
           console.log(typeof res.data[0]);
@@ -56,7 +62,6 @@ const JobPortal = () => {
           <a href="/services/job_portal/add_Job">ADD</a>
         </div>
       )}
-      {/* <img src={plus} className={classes.plusIcon}/> */}
     </>
   );
 };

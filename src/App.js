@@ -41,6 +41,7 @@ import TicketView from "./Pages/TicketView/TicketView";
 import Announcement from "./Pages/Announcement/Announcement";
 import NewAnnouncement from "./Pages/NewAnnouncement/NewAnnouncement";
 import View from "./Pages/AnnouncementFullView/View";
+import EnrolledCourses from "./Pages/EnrolledCourses/EnrolledCourses";
 
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
@@ -84,6 +85,7 @@ function App() {
         <Route path="/my-courses/edit_link/:MaterialID" exact component={AddLink}/>
 
         <Route path="/my-courses/select_type/:weekID" exact component={SelectMaterial}/>
+        <Route path="/my-courses/" exact component={EnrolledCourses}/>
         <Route path="/my-courses/:moduleID" exact component={ModulePage}/>
 
         <Route path="/services/job_portal/editJob/:jobId" exact component={JobSave}/>
@@ -126,6 +128,7 @@ function App() {
         <Route path="/add-forum" exact component={AddForum}/>
         <Route path="/forum" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
+        
         <Route path="/book_save" exact component={BookSave}/>
         <Route path="/paper_save" exact component={PaperSave}/>
         <Route path="/library_report" exact component={LibraryReport}/>

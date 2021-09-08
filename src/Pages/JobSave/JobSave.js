@@ -3,34 +3,17 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
+import { logout } from "../../Store/auth";
 
 const JobSave = (props) => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const id = props.match.params.jobId;
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("SAVE");
-
-  useEffect(() => {
-    if (!id) {
-      setEdit(false);
-    } else {
-      setEdit(true);
-      axios
-        .get("http://localhost:5000/get_job?id=" + id)
-        .then((res) => {
-          console.log(res.data);
-          setCompanyName(res.data.companyName);
-          setJobName(res.data.name);
-          setJobDetails(res.data.jobDetails);
-          setJobPosterold(res.data.jobPoster);
-          setJobID(res.data._id);
-        })
-        .catch((er) => {
-          console.log("error");
-        });
-    }
-  }, []);
+  const token = useSelector((state) => state.loging.token);
 
   const [jobname, setJobName] = useState();
   const [companyname, setCompanyName] = useState();
@@ -38,6 +21,45 @@ const JobSave = (props) => {
   const [jobposter, setJobPoster] = useState();
   const [jobPoster, setJobPosterold] = useState();
   const [jobID, setJobID] = useState();
+  const [isUploaded, setIsUploaded] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!id) {
+      setEdit(false);
+    } else {
+      setEdit(true);
+      axios
+        .get("http://localhost:5000/get_job?id=" + id, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
+        .then((res) => {
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to Create Jobs !");
+            setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 300);
+          } else if (res.data.fetch === false) {
+            setError("No matching Job found ! redirecting to portal");
+            setIsUploaded(false);
+            setTimeout(()=>{
+              history.replace("/services/job_portal");
+            },1300)
+            
+          } else {
+            setCompanyName(res.data.companyName);
+            setJobName(res.data.name);
+            setJobDetails(res.data.jobDetails);
+            setJobPosterold(res.data.jobPoster);
+            setJobID(res.data._id);
+          }
+        })
+        .catch((er) => {
+          console.log("error");
+        });
+    }
+  }, []);
 
   const onJobSubmit = (event) => {
     const job = new FormData();
@@ -62,11 +84,22 @@ const JobSave = (props) => {
 
     setBtn("SAVING...");
     axios
-      .post("http://localhost:5000/add_job", job)
+      .post("http://localhost:5000/add_job", job, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        console.log(res.data);
-        // setBtn("Saved")
-        history.replace("/services/job_portal");
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to Create Jobs !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 300);
+        } else if (res.data.uploaded === true) {
+          history.replace("/services/job_portal");
+        } else if (res.data.uploaded === false) {
+          setError("Unable to add details, try again !");
+          setIsUploaded(false);
+        }
       })
       .catch((er) => {
         console.log(er);
@@ -84,9 +117,15 @@ const JobSave = (props) => {
   const jobPosterHandler = (event) => {
     setJobPoster(event.target.files[0]);
   };
+  const clickedHandler = (event) => {
+    setIsUploaded(true);
+  };
 
   return (
     <div className={classes.CardView}>
+      {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
       <h2 className={classes.title}>Add Job</h2>
       <hr className={classes.line}></hr>
       <form
