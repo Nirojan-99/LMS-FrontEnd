@@ -13,9 +13,11 @@ import discussion from "../../../../Assets/discussion.svg";
 
 import axios from "axios";
 import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
+import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../../Store/auth";
 
 const WeekContainer = (props) => {
   let logo = pdf;
@@ -24,7 +26,8 @@ const WeekContainer = (props) => {
 
   const userType = useSelector((state) => state.loging.type);
   const userEmail = useSelector((state) => state.loging.userMail);
-
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   switch (props.data.type) {
@@ -65,9 +68,13 @@ const WeekContainer = (props) => {
       break;
   }
   const [onDelete, setOnDelete] = useState(false);
+  const [didDeleted, setDidDelete] = useState(true);
 
   const clickH = (id) => {
     setOnDelete((state) => !state);
+  };
+  const clickedHandler = (id) => {
+    setDidDelete(true);
   };
 
   const insightHandler = () => {
@@ -92,9 +99,17 @@ const WeekContainer = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/insight/add_insight", insightData)
-      .then((resp) => {})
-      .catch(() => {});
+      .post("http://localhost:5000/insight/add_insight", insightData, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
+      .then((resp) => {
+        if (resp.data.auth === false) {
+          dispatch(logout());
+        }
+      })
+      .catch(() => {
+        //nothing
+      });
   };
 
   const hide = () => {
@@ -102,16 +117,25 @@ const WeekContainer = (props) => {
   };
   const deleteMaterial = (id) => {
     axios
-      .post("http://localhost:5000/admin/delete_material", {
-        id: props.data._id,
-        week: props.week,
-      })
+      .delete(
+        "http://localhost:5000/admin/delete_material?id=" +
+          props.data._id +
+          "&week=" +
+          props.week,
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
       .then((res) => {
         console.log(res.data);
-        if (!res.data.error) {
-          window.location.reload();
+        if (res.data.auth === false) {
+          dispatch(logout());
+        } else if (res.data.deleted === false) {
           setOnDelete((state) => !state);
+          setDidDelete(false);
         } else {
+          setOnDelete((state) => !state);
+          window.location.reload();
         }
       })
       .catch((er) => {
@@ -121,6 +145,12 @@ const WeekContainer = (props) => {
   return (
     <>
       <div className={classes.containerM}>
+        {!didDeleted && (
+          <ErrorPopup
+            error={"Unable to Delete !"}
+            clickedHandler={clickedHandler}
+          />
+        )}
         <div className={classes.popup}>
           {onDelete && (
             <DeletePopup
@@ -141,30 +171,32 @@ const WeekContainer = (props) => {
             <span className={classes.hidden_popup}>Hidden to Students</span>
           )}
         </span>
-        {userType === "admin" && <span className={classes.right_items}>
-          <span className={classes.icons}>
-            <a href={"./insight/" + props.data._id}>
-              <img src={insight1} className={classes.img_buttons}></img>
-            </a>
-            <a href={edit + props.data._id}>
-              <img src={pencil} className={classes.img_buttons}></img>
-            </a>
-            <a
-              onClick={() => {
-                clickH(props.data._id);
-              }}
-            >
-              <img src={deleteI} className={classes.img_buttons}></img>
-            </a>
-          </span>
-          <span>
-            {/* <input
+        {userType === "admin" && (
+          <span className={classes.right_items}>
+            <span className={classes.icons}>
+              <a href={"./insight/" + props.data._id}>
+                <img src={insight1} className={classes.img_buttons}></img>
+              </a>
+              <a href={edit + props.data._id}>
+                <img src={pencil} className={classes.img_buttons}></img>
+              </a>
+              <a
+                onClick={() => {
+                  clickH(props.data._id);
+                }}
+              >
+                <img src={deleteI} className={classes.img_buttons}></img>
+              </a>
+            </span>
+            <span>
+              {/* <input
               type="checkbox"
               value=""
               className={classes.check_box}
             ></input> */}
+            </span>
           </span>
-        </span>}
+        )}
       </div>
       <hr className={classes.line}></hr>
     </>

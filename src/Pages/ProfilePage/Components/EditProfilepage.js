@@ -214,7 +214,7 @@ const EditProfile = () => {
           onChange={bioHandler}
         ></textarea>
         <label htmlFor="password" className={classes.labels}>
-          Password
+          New Password
         </label>
         <br />
         <input
@@ -227,7 +227,7 @@ const EditProfile = () => {
         ></input>
         <br />
         <label htmlFor="Npassword" className={classes.labels}>
-          New Password
+          Re-Type Password
         </label>
         <br />
         <input

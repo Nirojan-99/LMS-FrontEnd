@@ -35,9 +35,12 @@ const Login = () => {
               email: email,
               type: res.data.details.type,
               id: res.data.details._id,
-              name:res.data.details.name
+              name:res.data.details.name,
+              token:res.data.token
             })
+         
           );
+          console.log(res.data.token)
           history.replace("/dashboard")
         } else {
           setUnAuth(true);

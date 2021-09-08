@@ -3,21 +3,23 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
-import classes from "./ModulePage.module.css"
+import classes from "./ModulePage.module.css";
+import { useSelector, useDispatch } from "react-redux";
 
 const Weeks = (props) => {
   const module = props.moduleid;
-
+  const token = useSelector((state) => state.loging.token);
   const [weeks, setWeeks] = useState([]);
   const [Loaded, setLoaded] = useState(true);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/admin/get_week?module=" + module)
+      .get("http://localhost:5000/admin/get_week?module=" + module,{
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        console.log(res.data);
         setWeeks(res.data);
-        setLoaded(false)
+        setLoaded(false);
       })
       .catch((er) => {
         console.log("error");
@@ -30,8 +32,11 @@ const Weeks = (props) => {
       {weeks.map((week) => {
         return <Week row={week} week={week._id} key={week._id} />;
       })}
-      {Loaded && <div className={classes.loader}><Loader/></div>}
-      
+      {Loaded && (
+        <div className={classes.loader}>
+          <Loader />
+        </div>
+      )}
     </>
   );
 };
