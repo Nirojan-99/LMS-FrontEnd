@@ -8,6 +8,7 @@ const ResetPassword = () => {
   const history = useHistory();
 
   const [email, setEmail] = useState();
+  const [userID, setID] = useState();
   const [Inputedotp, setOTP] = useState();
   const [unAuth, setUnAuth] = useState(false);
   const [ismailExist, setMailExist] = useState(false);
@@ -30,15 +31,14 @@ const ResetPassword = () => {
     }
 
     axios
-      .post("http://localhost:5000/user/check_mail", {
-        email: email,
-      })
+      .get("http://localhost:5000/user/check_mail?email=" + email)
       .then((res) => {
         console.log(res.data);
         if (res.data.available === false) {
           setUnAuth(true);
         } else {
           setMailExist(true);
+          setID(res.data.userID);
         }
       })
       .catch((er) => {
@@ -65,7 +65,7 @@ const ResetPassword = () => {
           setUnAuth(true);
           setError("OTP didn't match");
         } else {
-          history.replace("/index/reset_password/" + res.data.email);
+          history.replace("/index/new_password/" + userID);
         }
       })
       .catch((er) => {
