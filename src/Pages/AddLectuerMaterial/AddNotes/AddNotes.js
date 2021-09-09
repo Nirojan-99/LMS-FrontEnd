@@ -3,24 +3,41 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 const AddNotes = (props) => {
   const week = props.match.params.weekID;
   const MaterialID = props.match.params.MaterialID;
-
+  const token = useSelector((state) => state.loging.token);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (MaterialID) {
       axios
         .get(
-          "http://localhost:5000/admin/get_material?materialID=" + MaterialID
+          "http://localhost:5000/admin/get_material?materialID=" + MaterialID,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
         )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setNotes(resp.data.title);
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("Unable to fetch data! try again.");
+            setTimeout(() => {
+              history.goBack();
+            }, 800);
+          } else {
+            setVisibility(resp.data.visibility);
+            setNotes(resp.data.title);
+          }
         })
-        .catch(() => {});
+        .catch(() => {
+          setError("some error occured! try again");
+        });
     }
   }, []);
 
@@ -57,7 +74,7 @@ const AddNotes = (props) => {
     const time = currentdate.getHours() + ":" + currentdate.getMinutes();
 
     const material = {
-      _id:MaterialID?MaterialID:null,
+      _id: MaterialID ? MaterialID : null,
       type: "notes",
       week: week,
       title: notes,
@@ -67,28 +84,44 @@ const AddNotes = (props) => {
 
     if (!MaterialID) {
       axios
-        .post("http://localhost:5000/admin/add_material", material)
+        .post("http://localhost:5000/admin/add_material", material, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((resp) => {
-          // console.log(resp.data);
-
-          axios
-            .get("http://localhost:5000/admin/get_module?week=" + week)
-            .then((res) => {
-              setLoaded("SAVE");
-              history.replace("/my-courses/" + res.data[0].module);
-            });
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.inserted === false) {
+            setError("unable to add material! try again.");
+            setLoaded("SAVE");
+          } else {
+            axios
+              .get("http://localhost:5000/admin/get_module?week=" + week)
+              .then((res) => {
+                setLoaded("SAVE");
+                history.replace("/my-courses/" + res.data[0].module);
+              });
+          }
         })
         .catch((er) => {
           console.log(er);
         });
     } else {
       axios
-      .post("http://localhost:5000/admin/edit_notes", material)
-      .then((resp) => {
-        setLoaded("SAVE");
-        history.goBack();
-      })
-      .catch(() => {});
+        .post("http://localhost:5000/admin/edit_notes", material, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
+        .then((resp) => {
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.updated === false) {
+            setError("Unable to update! try again.");
+            setLoaded("SAVE");
+          } else {
+            setLoaded("SAVE");
+            history.goBack();
+          }
+        })
+        .catch(() => {});
     }
   };
 
@@ -98,17 +131,6 @@ const AddNotes = (props) => {
       <h2 className={classes.title}>NOTES</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onNotesSubmit} className={classes.form_container}>
-        {/* <label className={classes.labels} htmlFor="title">
-          Title
-        </label>
-        <br />
-        <input
-          ref={titleRef}
-          className={classes.inputs_text}
-          id="title"
-          type="text"
-          required
-        /> */}
         <label htmlFor="type" className={classes.labels}>
           Add Notes
         </label>

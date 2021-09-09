@@ -1,16 +1,18 @@
 import classes from "./AddSubmission.module.css";
 import insight1 from "../../../Assets/bar-graph.svg";
-import { useRef } from "react";
-import { useState, useEffect , useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { deepStrictEqual } from "assert";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 const AddSubmission = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const week = props.match.params.weekID;
   const material = props.match.params.MaterialID;
+  const token = useSelector((state) => state.loging.token);
 
   const date1 = new Date();
   const month = date1.getMonth() + 1;
@@ -20,14 +22,31 @@ const AddSubmission = (props) => {
   useEffect(() => {
     if (material) {
       axios
-        .get("http://localhost:5000/admin/get_material?materialID=" + material)
+        .get(
+          "http://localhost:5000/admin/get_material?materialID=" + material,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
+        )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setTitle(resp.data.title);
-          setDate(resp.data.deadlineDate);
-          setTime(resp.data.deadlineTime);
-          setSize(resp.data.maxSize);
-        }).catch(()=>{});
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("No matching data found!");
+            setTimeout(() => {
+              history.goBack();
+            }, 1300);
+          } else {
+            setVisibility(resp.data.visibility);
+            setTitle(resp.data.title);
+            setDate(resp.data.deadlineDate);
+            setTime(resp.data.deadlineTime);
+            setSize(resp.data.maxSize);
+          }
+        })
+        .catch(() => {
+          setError("Some error occured! try again");
+        });
     }
   }, []);
 
@@ -38,7 +57,7 @@ const AddSubmission = (props) => {
   const [size, setSize] = useState();
   const [text, setText] = useState("SAVE");
   const [error, setError] = useState(null);
- 
+
   const titlehandler = (event) => {
     setTitle(event.target.value);
   };
@@ -90,7 +109,7 @@ const AddSubmission = (props) => {
       setText("SAVE");
       return;
     }
-    
+
     const submissionData = {
       _id: material ? material : undefined,
       title: title,
@@ -106,27 +125,44 @@ const AddSubmission = (props) => {
     if (!error) {
       if (!material) {
         axios
-          .post("http://localhost:5000/admin/add_submission", submissionData)
+          .post("http://localhost:5000/admin/add_submission", submissionData, {
+            headers: { Authorization: "lmsvalidation " + token },
+          })
           .then((resp) => {
-            // console.log(resp.data);
-
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+            if (resp.data.auth === false) {
+              dispatch(logout());
+            } else if (resp.data.updated === false) {
+              setError("Unable to add data! try again.");
+              setText("SAVE");
+            } else {
+              axios
+                .get("http://localhost:5000/admin/get_module?week=" + week)
+                .then((res) => {
+                  history.replace("/my-courses/" + res.data[0].module);
+                });
+            }
           })
           .catch((er) => {
             console.log(er);
           });
       } else {
         axios
-          .post("http://localhost:5000/admin/edit_submission", submissionData)
-          .then((resp) => {
-            console.log("called");
-            history.goBack()
+          .post("http://localhost:5000/admin/edit_submission", submissionData, {
+            headers: { Authorization: "lmsvalidation " + token },
           })
-          .catch(() => {});
+          .then((resp) => {
+            if (resp.data.auth === false) {
+              dispatch(logout);
+            } else if (resp.data.updated === false) {
+              setError("Unable to update! try again.");
+              setText("SAVE");
+            } else {
+              history.goBack();
+            }
+          })
+          .catch(() => {
+            setError("Some error occured! try again.");
+          });
       }
     }
   };

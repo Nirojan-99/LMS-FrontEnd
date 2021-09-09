@@ -5,14 +5,22 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Store/auth";
 
 const AttandanceInsight = (props) => {
   const material = props.match.params.ID;
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch()
   useEffect(() => {
     axios
-      .get("http://localhost:5000/attandance/get_attandances?ID=" + material)
+      .get("http://localhost:5000/attandance/get_attandances?ID=" + material, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((resp) => {
-        if (resp.data.avalilable === false) {
+        if (resp.data.auth === false) {
+          dispatch(logout())
+        } else if (resp.data.avalilable === false) {
           setLoaded(true);
           setIsEmpty(true);
         } else {
@@ -40,7 +48,7 @@ const AttandanceInsight = (props) => {
     const updated = students.filter((student) =>
       student.studentName.toUpperCase().includes(value.toUpperCase())
     );
-    console.log(value)
+    console.log(value);
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);

@@ -133,7 +133,7 @@ function App() {
         <Route path="/book_save" exact component={BookSave}/>
         <Route path="/paper_save" exact component={PaperSave}/>
         <Route path="/library_report" exact component={LibraryReport}/>
-        <Route path="/library" exact component={LibraryPortal}/>
+        <Route path="/services/digital_library" exact component={LibraryPortal}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
