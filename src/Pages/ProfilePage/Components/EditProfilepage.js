@@ -1,5 +1,4 @@
 import classes from "./EditProfilepage.module.css";
-import { MdAccountCircle } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -8,11 +7,12 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
 import Deletepopup from "../../../Components/DeletePopup/DeletePopup";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useHistory } from "react-router";
 
 const EditProfile = () => {
   const [name, setname] = useState();
   const [address, setAddress] = useState();
-  const [contact, setContact] = useState("");
+  const [contact, setContact] = useState();
   const [password, setPassword] = useState();
   const [oldpassword, setOldPassword] = useState();
   const [bio, setBio] = useState();
@@ -25,13 +25,19 @@ const EditProfile = () => {
   const [Filebtn, setFileBtn] = useState("SAVE IMAGE");
 
   const userID = useSelector((state) => state.loging.userID);
+  const token = useSelector((state) => state.loging.token);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/get_user?ID=" + userID)
+      .get("http://localhost:5000/user/get_user?ID=" + userID, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        if (!res.data.auth) {
+        if (res.data.auth === false) {
+          dispatch(logout());
+        } else if (res.data.fetch !== false) {
           setname(res.data.name);
           setAddress(res.data.address);
           setContact(res.data.contact);
@@ -39,7 +45,10 @@ const EditProfile = () => {
           setDp(res.data.dp);
           setOldPassword(res.data.password);
         } else {
-          dispatch(logout());
+          setError("No data available");
+          setTimeout(() => {
+            history.goBack();
+          }, 1000);
         }
       })
       .catch((er) => {
@@ -56,11 +65,16 @@ const EditProfile = () => {
   const onDeleteBtn = () => {
     // setError(null)
     axios
-      .delete("http://localhost:5000/user/delete_user?ID", userID)
+      .delete("http://localhost:5000/user/delete_user?ID", userID, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
         if (res.data.ack === true) {
           dispatch(logout());
           window.location.reload();
+        } else {
+          setOnDelete(false);
+          setError("Unable to delete Account! try again");
         }
       })
       .catch((er) => {
@@ -123,11 +137,18 @@ const EditProfile = () => {
     };
 
     axios
-      .post("http://localhost:5000/user/edit_user", data)
+      .post("http://localhost:5000/user/edit_user", data, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        if (!res.data.ack) {
+        if (res.data.auth === false) {
+          dispatch(logout());
+        } else if (res.data.ack === true) {
           setBtn("SAVE CHANGES");
           window.location.reload();
+        } else {
+          setBtn("SAVE CHANGES");
+          setError("Unable to update the details! try again.");
         }
       })
       .catch((er) => {
@@ -143,14 +164,22 @@ const EditProfile = () => {
 
     setFileBtn("SAVING...");
     axios
-      .post("http://localhost:5000/user/add_dp", dp)
+      .post("http://localhost:5000/user/add_dp", dp, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setFileBtn("SAVE IMAGE");
-        window.location.reload();
-        console.log(res);
+        if (res.data.auth === false) {
+          dispatch(logout());
+        } else if (res.data.ack === false) {
+          setFileBtn("SAVE IMAGE");
+          setError("Unable to save changes! try again.");
+        } else {
+          setFileBtn("SAVE IMAGE");
+          window.location.reload();
+        }
       })
       .catch((er) => {
-        console.log(er);
+        setError("Some error occured! try again.");
       });
   };
   return (
@@ -191,7 +220,7 @@ const EditProfile = () => {
         <br />
         <input
           required
-          value={`${contact}`}
+          value={contact}
           onChange={phonenumberhandler}
           className={classes.inputs}
           name="phonenumber"

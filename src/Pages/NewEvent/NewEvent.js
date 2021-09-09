@@ -2,8 +2,9 @@ import classes from "./NewEvent.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Store/auth";
 
 const NewEvent = () => {
   const [title, setTitle] = useState();
@@ -12,22 +13,24 @@ const NewEvent = () => {
   const [text, setText] = useState("SAVE");
   const userID = useSelector((state) => state.loging.userID);
   const type = useSelector((state) => state.loging.type);
-  const history = useHistory()
+  const token = useSelector((state) => state.loging.token);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const date1 = new Date();
   const month = date1.getMonth() + 1;
   const year = date1.getFullYear();
   const currentdate1 = date1.getDate();
-  const currenttimeinS = new Date(year,month,currentdate1).getTime()
+  const currenttimeinS = new Date(year, month, currentdate1).getTime();
 
   useEffect(() => {}, []);
 
   const dateHandler = (event) => {
     setDate(event.target.value);
   };
-  const clickedHandler=()=>{
-      setError(null)
-  }
+  const clickedHandler = () => {
+    setError(null);
+  };
   const titleHandler = (event) => {
     setTitle(event.target.value);
   };
@@ -66,15 +69,23 @@ const NewEvent = () => {
     };
 
     axios
-    .post("http://localhost:5000/event/add_event", data)
-    .then((resp) => {
-      // console.log(resp.data);
-      history.goBack()
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-
+      .post("http://localhost:5000/event/add_event", data, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
+      .then((resp) => {
+        if (resp.data.auth === false) {
+          dispatch(logout());
+        } else if (resp.data.inserted === false) {
+          setError("Unable to Add new event! try again.");
+          setText("SAVE");
+        } else {
+          history.goBack();
+        }
+      })
+      .catch((er) => {
+        setText("SAVE");
+        setError("Some error occured! try again.");
+      });
   };
   return (
     <div className={classes.container}>

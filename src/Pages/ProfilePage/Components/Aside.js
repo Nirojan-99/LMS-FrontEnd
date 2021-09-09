@@ -1,5 +1,4 @@
 import classes from "./Aside.module.css";
-import { MdAccountCircle } from "react-icons/md";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
@@ -12,16 +11,22 @@ const Aside = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.loging.userID);
+  const token = useSelector((state) => state.loging.token);
+  const type = useSelector((state) => state.loging.type);
 
   const [dp, setDp] = useState();
   const [name, setName] = useState();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/dp?ID=" + userID)
+      .get("http://localhost:5000/user/dp?ID=" + userID, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setDp(res.data.dp);
-        setName(res.data.name);
+        if (res.data.available !== false) {
+          setDp(res.data.dp);
+          setName(res.data.name);
+        }
       })
       .catch((er) => {
         console.log(er);
@@ -40,9 +45,7 @@ const Aside = (props) => {
       <ul className={classes.navitem}>
         <li>
           <a href="#" onClick={props.details}>
-            <div >
-              Details
-            </div>
+            <div>Details</div>
           </a>
         </li>
 
@@ -56,6 +59,13 @@ const Aside = (props) => {
             <div>My Courses</div>
           </a>
         </li>
+        {type === "admin" && (
+          <li>
+            <a href="#">
+              <div>Manage User</div>
+            </a>
+          </li>
+        )}
         <li>
           <a href="#" onClick={logoutHandler}>
             <div>Log Out</div>

@@ -9,12 +9,15 @@ import axios from "axios";
 const Nav = () => {
   const isLogedIn = useSelector((state) => state.loging.isLogedIn);
   const userID = useSelector((state) => state.loging.userID);
+  const token = useSelector((state) => state.loging.token);
 
   const [dp, setDp] = useState();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/dp?ID=" + userID)
+      .get("http://localhost:5000/user/dp?ID=" + userID, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
         setDp(res.data.dp);
       })

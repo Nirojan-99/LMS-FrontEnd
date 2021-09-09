@@ -35,13 +35,12 @@ const Login = () => {
               email: email,
               type: res.data.details.type,
               id: res.data.details._id,
-              name:res.data.details.name,
-              token:res.data.token
+              name: res.data.details.name,
+              token: res.data.token,
             })
-         
           );
-          console.log(res.data.token)
-          history.replace("/dashboard")
+          console.log(res.data.token);
+          history.replace("/dashboard");
         } else {
           setUnAuth(true);
         }
@@ -49,24 +48,6 @@ const Login = () => {
       .catch((er) => {
         console.log(er);
       });
-
-    // axios
-    //   .post("http://localhost:5000/user/add_user", {
-    //     email: "lava@gmail.com",
-    //     passward: "lava1234",
-    //     type:"student"
-    //   })
-    //   .then((res) => {
-    //     if (res.data.auth == "true") {
-    //       // dispatch(login());
-    //       // history.replace("/index/reset_password/" + res.data.email);
-    //     } else {
-    //       // setUnAuth(true);
-    //     }
-    //   })
-    //   .catch((er) => {
-    //     console.log(er);
-    //   });
   };
   const emailhandler = (event) => {
     setUnAuth(false);

@@ -1,21 +1,32 @@
 import classes from "./EnrolledCourses.module.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import Loader from "../../Components/Loader/Loader";
+import { logout } from "../../Store/auth";
 
 const EnrolledCourses = () => {
   const userID = useSelector((state) => state.loging.userID);
+  const token = useSelector((state) => state.loging.token);
   const [courses, setCourses] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/get_modules?ID=" + userID)
+      .get("http://localhost:5000/user/get_modules?ID=" + userID, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setCourses(res.data.courses);
-        console.log(courses[0]);
-        setLoaded(true);
+        if (res.data.auth === false) {
+          dispatch(logout());
+        } else if (res.data.courses) {
+          setCourses(res.data.courses);
+          setLoaded(true);
+        }else{
+          setLoaded(true);
+        }
       })
       .catch((er) => {
         console.log("error");

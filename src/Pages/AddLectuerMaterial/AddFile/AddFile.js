@@ -3,22 +3,42 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 const AddFile = (props) => {
   const week = props.match.params.weekID;
   const material = props.match.params.MaterialID;
   const history = useHistory();
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (material) {
       axios
-        .get("http://localhost:5000/admin/get_material?materialID=" + material)
+        .get(
+          "http://localhost:5000/admin/get_material?materialID=" + material,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
+        )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setTitle(resp.data.title);
-          setCurrentFile(resp.data.link);
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("Unable to fetch data !");
+            setTimeout(() => {
+              history.goBack();
+            }, 600);
+          } else {
+            setVisibility(resp.data.visibility);
+            setTitle(resp.data.title);
+            setCurrentFile(resp.data.link);
+          }
         })
-        .catch(() => {});
+        .catch(() => {
+          setError("Check your network connection");
+        });
     }
   }, []);
 
@@ -48,9 +68,11 @@ const AddFile = (props) => {
 
     if (!title.trim()) {
       setError("pleae input valid title");
+      setload("SAVE");
       return;
     } else if (!setSelectedFile && !material) {
       setError("pleae input valid file");
+      setload("SAVE");
       return;
     }
 
@@ -69,28 +91,43 @@ const AddFile = (props) => {
 
     if (!material) {
       axios
-        .post("http://localhost:5000/admin/add_file", files)
+        .post("http://localhost:5000/admin/add_file", files, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((resp) => {
-          // console.log(resp.data);
-
-          axios
-            .get("http://localhost:5000/admin/get_module?week=" + week)
-            .then((res) => {
-              setload("SAVE");
-              history.replace("/my-courses/" + res.data[0].module);
-            });
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.updated !== false) {
+            axios
+              .get("http://localhost:5000/admin/get_module?week=" + week)
+              .then((res) => {
+                setload("SAVE");
+                history.replace("/my-courses/" + res.data[0].module);
+              });
+          }
         })
         .catch((er) => {
-          console.log(er);
+          setError("Check your network connection");
         });
     } else {
       axios
-        .post("http://localhost:5000/admin/add_file", files)
-        .then((resp) => {
-          setload("SAVE");
-          history.goBack();
+        .post("http://localhost:5000/admin/add_file", files, {
+          headers: { Authorization: "lmsvalidation " + token },
         })
-        .catch(() => {});
+        .then((resp) => {
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.updated === false) {
+            setError("Unable to update ! try again.");
+            setload("SAVE");
+          } else {
+            setload("SAVE");
+            history.goBack();
+          }
+        })
+        .catch(() => {
+          setError("Check your network connection");
+        });
     }
   };
 
