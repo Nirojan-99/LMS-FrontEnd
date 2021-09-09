@@ -49,7 +49,8 @@ import AddForum from "./Pages/ForumManagement/AddForum/AddForum";
 
 import BookSave from "./Pages/LibraryManagement/LibrarySave/BookSave/BookSave";
 import PaperSave from "./Pages/LibraryManagement/LibrarySave/PastpaperSave/PaperSave";
-import LibraryReport from "./Pages/LibraryManagement/LibraryReport/LibraryReport"
+import LibraryReport from "./Pages/LibraryManagement/LibraryReport/LibraryReport";
+import LibraryPortal from "./Pages/LibraryManagement/LibraryPortal/LibraryPortal";
 
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -132,6 +133,7 @@ function App() {
         <Route path="/book_save" exact component={BookSave}/>
         <Route path="/paper_save" exact component={PaperSave}/>
         <Route path="/library_report" exact component={LibraryReport}/>
+        <Route path="/library" exact component={LibraryPortal}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>

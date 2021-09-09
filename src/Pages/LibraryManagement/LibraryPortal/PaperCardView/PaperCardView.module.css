@@ -1,0 +1,82 @@
+.card {
+    transition: all 0.4s ease-in-out;
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 20px;
+    width: 23%;
+    text-align: center;
+  }
+  .jobPoster {
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 170px;
+    box-shadow: 2px 0px 4px rgba(51, 51, 51, 0.212);
+  }
+  .jobname {
+    text-transform: capitalize;
+    color: #14b6c8;
+    font-size: 20px;
+    font-family: "open sans";
+    font-weight: bold;
+    letter-spacing: 0px;
+    text-align: left;
+    padding-top: 5px;
+    padding-left: 10%;
+    margin-top: 20%;
+    margin-bottom: 10%;
+  }
+  .companyname {
+    text-transform: capitalize;
+    color: #444;
+    font-size: 12px;
+    font-family: "open sans";
+    font-weight: bold;
+    letter-spacing: 0px;
+    text-align: left;
+    padding-top: 1px;
+    padding-left: 10px;
+  }
+  .description {
+    margin-bottom: 10px;
+    text-align: justify;
+    font-size: 10px;
+    padding: 10px;
+    height: 80px;
+    overflow: hidden;
+  }
+  .viewMore {
+    float: right;
+    padding: 2px 5px;
+    color: #14b6c8;
+    margin: 0 10px 10px 0;
+    border: 0px;
+    outline: 0px;
+    width: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "open sans";
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .icons {
+    transition: all 0.3s ease-in-out;
+    margin-left: 10px;
+    height: 20px;
+    padding-bottom: 3px;
+    border-bottom: 3px solid rgba(51, 51, 51, 0);
+  }
+  .icons:hover {
+    transform: scale(1.1);
+    transition-property: all;
+    cursor: pointer;
+    border-bottom: 3px solid #088f8f;
+  }
+  .icon_container {
+    margin: 10px;
+    float: right;
+  }
+  .card:hover {
+    /* transform: scale(1.06); */
+    box-shadow: 0 0 12px 2px blue;
+  }
+  
