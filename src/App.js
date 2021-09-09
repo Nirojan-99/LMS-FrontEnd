@@ -42,6 +42,8 @@ import Announcement from "./Pages/Announcement/Announcement";
 import NewAnnouncement from "./Pages/NewAnnouncement/NewAnnouncement";
 import View from "./Pages/AnnouncementFullView/View";
 import EnrolledCourses from "./Pages/EnrolledCourses/EnrolledCourses";
+import NewPassword from "./Pages/NewPassword/NewPassword";
+import page404 from "./Pages/404/404";
 
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
@@ -134,11 +136,14 @@ function App() {
         <Route path="/paper_save" exact component={PaperSave}/>
         <Route path="/library_report" exact component={LibraryReport}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
+
+        <Route path="*"  component={page404}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
         <Route path="/index/reset_password" exact component={ResetPassword} />
-        <Route path="*" exact component={Login} ><Redirect to="/index" /></Route>
+        <Route path="/index/new_password/:userID" exact component={NewPassword} />
+        <Route path="*"  component={page404}/>
       </Switch>}
 
 

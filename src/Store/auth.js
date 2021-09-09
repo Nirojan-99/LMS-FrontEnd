@@ -7,7 +7,7 @@ const initial = {
   userID: localStorage.getItem("userID"),
   userName: localStorage.getItem("userName"),
 };
-
+localStorage.removeItem("email");
 const authStore = createSlice({
   name: "loging",
   initialState: initial,
