@@ -61,7 +61,7 @@ const Aside = (props) => {
         </li>
         {type === "admin" && (
           <li>
-            <a href="#">
+            <a href="/user-report">
               <div>Manage User</div>
             </a>
           </li>
