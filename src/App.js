@@ -44,6 +44,7 @@ import View from "./Pages/AnnouncementFullView/View";
 import EnrolledCourses from "./Pages/EnrolledCourses/EnrolledCourses";
 import NewPassword from "./Pages/NewPassword/NewPassword";
 import page404 from "./Pages/404/404";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
@@ -127,14 +128,17 @@ function App() {
 
         <Route path="/index" exact component={Login} >{isLogedIn &&  <Redirect to="/dashboard" />}</Route>
         <Route path="/index/reset_password" exact component={ResetPassword} />
+        <Route path="/contact-us" exact component={ContactUs} />
+        <Route path="/feedback" exact component={ContactUs} />
           
         <Route path="/add-forum" exact component={AddForum}/>
         <Route path="/forum" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
         
-        <Route path="/book_save" exact component={BookSave}/>
-        <Route path="/paper_save" exact component={PaperSave}/>
-        <Route path="/library_report" exact component={LibraryReport}/>
+        <Route path="/services/book_save" exact component={BookSave}/>
+        <Route path="/services/book/:bookID" exact component={BookSave}/>
+        <Route path="/services/paper_save" exact component={PaperSave}/>
+        <Route path="/services/library_report" exact component={LibraryReport}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
 
         <Route path="*"  component={page404}/>

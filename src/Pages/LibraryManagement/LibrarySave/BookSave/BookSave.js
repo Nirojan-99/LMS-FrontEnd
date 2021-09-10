@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 const BookSave = (props) => {
   const history = useHistory();
 
-  const id = props.match.params.bookId;
+  const id = props.match.params.bookID;
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("SAVE");
 
@@ -17,14 +17,14 @@ const BookSave = (props) => {
     } else {
       setEdit(true);
       axios
-        .get("http://localhost:5000/get_book?id=" + id)
+        .get("http://localhost:5000/library/get_book?id=" + id)
         .then((res) => {
           console.log(res.data);
           setAuthor(res.data.author);
           setBookName(res.data.name);
           setBookDetails(res.data.bookDetails);
-          setbookPosterold(res.data.bookPoster);
-          setBookId(res.data._id);
+          setPosterLink(res.data.bookPoster);
+          setBookLink(res.data.book);
         })
         .catch((er) => {
           console.log("error");
@@ -37,31 +37,53 @@ const BookSave = (props) => {
   const [bookDetails, setBookDetails] = useState();
   const [bookposter, setbookPoster] = useState();
   const [bookPoster, setbookPosterold] = useState();
-  const [bookId, setBookId] = useState();
+  const [books, setbook] = useState();
+
+  const [bookLink, setBookLink] = useState();
+  const [posterLink, setPosterLink] = useState();
 
   const onbookSubmit = (event) => {
     const book = new FormData();
 
     event.preventDefault();
 
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+
     book.append("bookPoster", bookposter);
-    book.append("_id", bookId ? bookId : undefined);
+    book.append("_id", id ? id : undefined);
     book.append("edit", edit);
     book.append("name", bookName);
+    book.append("books", books);
     book.append("author", author);
+    book.append("type", "book");
     book.append("bookDetails", bookDetails);
+    book.append("date_time", datetime);
 
-    // setBtn("SAVING...");
-    // axios
-    //   .post("http://localhost:5000/add_book", book)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     // setBtn("Saved")
-    //     history.replace("/services/library_portal");
-    //   })
-    //   .catch((er) => {
-    //     console.log(er);
-    //   });
+    setBtn("SAVING...");
+    axios
+      .post("http://localhost:5000/library/add_book", book)
+      .then((res) => {
+        if (res.data.ack === false) {
+        } else {
+          setBtn("SAVE");
+          history.replace("/services/digital_library");
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
   };
   const bookNameHandler = (event) => {
     setBookName(event.target.value);
@@ -74,6 +96,9 @@ const BookSave = (props) => {
   };
   const bookPosterHandler = (event) => {
     setbookPoster(event.target.files[0]);
+  };
+  const bookHandler = (event) => {
+    setbook(event.target.files[0]);
   };
 
   return (
@@ -126,7 +151,7 @@ const BookSave = (props) => {
 
         <label htmlFor="poster" className={classes.lables}>
           {id && <img className={classes.posterView} src={bookPoster} />}
-          Upload Book :
+          Upload Book Poster :
         </label>
         <br />
 
@@ -150,16 +175,44 @@ const BookSave = (props) => {
             className={classes.inputs}
           ></input>
         )}
+        {id && (
+          <a className={classes.link} href={posterLink}>
+            view current file
+          </a>
+        )}
+        <br />
 
-<label for="faculty" className={classes.lables}>
-          Visibility to the Student
+        <label htmlFor="book" className={classes.lables}>
+          {id && <img className={classes.posterView} src={bookPoster} />}
+          Upload Book :
         </label>
         <br />
-        <input type="radio" name="visibility" id="visible" value="visible" className={classes.radio}></input>
-        <label className={classes.radioLabel}>Visible</label>
-        <br />
-        <input type="radio" name="visibility" id="invisible" value="invisible" className={classes.radio}></input>
-        <label className={classes.radioLabel}>Invisible</label>
+
+        {id && (
+          <input
+            onChange={bookHandler}
+            // value={bookposter}
+            type="file"
+            id="book"
+            name="book"
+            className={classes.inputs}
+          ></input>
+        )}
+        {!id && (
+          <input
+            onChange={bookHandler}
+            required
+            type="file"
+            id="book"
+            name="book"
+            className={classes.inputs}
+          ></input>
+        )}
+        {id && (
+          <a className={classes.link} href={bookLink}>
+            view current file
+          </a>
+        )}
         <br />
 
         <button className={classes.save}>{btn}</button>
