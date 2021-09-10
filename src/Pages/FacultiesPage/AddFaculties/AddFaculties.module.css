@@ -38,6 +38,20 @@
     color: #333;
     background-color: #FFFFFF;
 }
+.inputs1{
+    margin-bottom: 20px;
+    border-radius: 10px;
+    width: 105%;
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #046666;
+    font-family: roboto;
+    font-size: 1rem;
+    outline: none;
+    color: #333;
+    background-color: #FFFFFF;
+}
 .squareview{
     
 

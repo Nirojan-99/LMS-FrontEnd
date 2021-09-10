@@ -2,7 +2,7 @@ import classes from "./ModuleEnrollmentPage.module.css"
 const ModuleEnrollment =(props)=>{
     return(
        <div className={classes.ModuleEnrollment_cardView}>
-          <h1 className={classes.title}>props.module</h1>
+          <h1 className={classes.title}>{props.module}</h1>
           <h3 className={classes.back2}>LectureINcharge:</h3>
           <h1 className={classes.back3}>Enroll</h1>
           <div >

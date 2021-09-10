@@ -1,0 +1,73 @@
+.FacultieNameALL {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.allcontent {
+  border: 0px;
+  padding: 20px;
+  box-shadow: 2px 3px 8px #888888;
+  border-left: 30px solid #046666;
+  background-color: #fff;
+  margin: 0%;
+  margin-right: 5%;
+  width: auto;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  color: #046666;
+  font-size: xx-large;
+  font-weight: bolder;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+}
+.img_buttons {
+  margin: auto;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.img_buttons_edit {
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.img_buttons_edit:hover {
+  cursor: pointer;
+  /* background-color: #707070; */
+  background-color: #e7dcdc;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.img_buttons:hover {
+  cursor: pointer;
+  /* background-color: #707070;  */
+  background-color: #e7dcdc;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.arrow_buttons {
+  margin: 0%;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+}
+.FacultiesName {
+  /* font-family: "Lucida Console"; */
+  font-size: xx-large;
+  font-weight: bolder;
+  justify-content: left;
+}
+
+.Rightallcontent {
+  justify-content: right;
+  display: flex;
+}
+.leftallcontent {
+  justify-content: left;
+  display: flex;
+}

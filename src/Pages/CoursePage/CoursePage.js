@@ -1,24 +1,48 @@
+import classes from "./CoursePage.module.css";
+import CourseYear from "./Components/CourseYear";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import classes from "./CoursePage.module.css"
-import Course from "./Components/Course"
+const CoursePage = (props) => {
+  const ID = props.match.params.courseID;
 
+  const [course, setcourse] = useState([]);
+  const [arr, setarr] = useState("");
+  const [loaded, setLoaded] = useState(false);
 
-const CoursePage = (props)=>{
-    
-    
-    
-    return(
+  useEffect(() => {
+    axios
 
-<div className={classes.Allcourse}>
-    <div className={classes.Allcourse_course}>
-<Course year="1st Year" />
-<Course year="2st Year"/>
-<Course year="3st Year"/>
-<Course year="4st Year"/>
-</div>
+      .post("http://localhost:5000/course/getyear", { id: ID })
+      .then((res) => {
+        console.log(res.data.courseYear);
+        setcourse(res.data.courseYear);
+        setLoaded(true);
+        console.log(res.data._id);
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
 
-</div>
+  let data =[];
+  const year = +course;
+  for (let i = 1; i <= year; i++) {
+    data.push(i)
+  }
+console.log(data)
+  return (
+    <>
+      <div className={classes.Allcourse}>
+        <div className={classes.Allcourse_course}>
+          {loaded &&
+      data.map((row) => {
+              return <CourseYear year={row } data={row} ID = {ID} />;
+            })}
 
-    )
-}
-export default  CoursePage;
+        </div>
+      </div>
+    </>
+  );
+};
+export default CoursePage;

@@ -2,18 +2,18 @@
     
 } */
 .semesterNumber ul {
-    list-style-type: none;
-   
+  list-style-type: none;
+ 
 }
 .semesterNumber ul li a{
-  color: #E2A500;
-  margin: 0%;
- margin-left: 30%;
-  font-size: 30px;
-  font-weight: bolder;
+color: #E2A500;
+margin: 0%;
+margin-left: 20%;
+font-size: 30px;
+font-weight: bolder;
 }
 .semesterNumber ul li a:hover{
-  cursor: pointer;
-  color: #020e0e;
+cursor: pointer;
+color: #020e0e;
 }
 
