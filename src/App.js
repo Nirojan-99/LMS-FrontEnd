@@ -134,7 +134,7 @@ function App() {
         <Route path="/contact-us" exact component={ContactUs} />
         <Route path="/feedback" exact component={ContactUs} />
           
-        <Route path="/add-forum" exact component={AddForum}/>
+        <Route path="/my-courses/add-forum/:week" exact component={AddForum}/>
         <Route path="/forum" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
         

@@ -13,7 +13,7 @@ const SelectMaterial = (props)=>{
             <a href={"../add_quiz/"+week}><div className={classes.selection}>Quiz</div></a>
             <a href={"../add_attandance/"+week}><div className={classes.selection}>Attandance</div></a>
             <a href={"../add_notes/"+week}><div className={classes.selection}>Notes/Announcement</div></a>
-            <a href={"../add_discussion/"+week}><div className={classes.selection}>Discussion Forum</div></a>
+            <a href={"../add-forum/"+week}><div className={classes.selection}>Discussion Forum</div></a>
             <a href={"../add_submission/"+week}><div className={classes.selection}>Submission</div></a>
         </div>)
 }
