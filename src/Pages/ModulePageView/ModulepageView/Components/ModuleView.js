@@ -1,59 +1,65 @@
-import lock from "../../../../Assets/lock_orange.png" 
+import lock from "../../../../Assets/lock_orange.png";
 import pencil from "../../../../Assets/pencil.svg";
 import insight1 from "../../../../Assets/bar-graph.svg";
-import deleteI from "../../../../Assets/delete.png"
+import deleteI from "../../../../Assets/delete.png";
 import { useState } from "react";
-import classes from "./ModuleView.module.css"
+import classes from "./ModuleView.module.css";
+import axios from "axios";
 import DeleteFacultiesPopup from "../../../FacultiesPage/FacultiesView/Components/DeleteFacultiesPop/DeleteFacultiesPopup";
-const ModuleView = (props)=>{
-
-const [onDelete, setOnDelete] = useState(false);
+const ModuleView = (props) => {
+  const [onDelete, setOnDelete] = useState(false);
   const clickH = () => {
     setOnDelete((state) => !state);
   };
   const hide = () => {
     setOnDelete((state) => !state);
   };
-  const deleteMaterial = (id)=>{
+  const ONDeleteModule = () => {
+    axios
+      .post("http://localhost:5000/Module/delete_Module", {
+        _id: props.Module._id,
+      })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  };
 
-  }
   return (
     <>
       <div className={classes.containerM}>
         <div className={classes.popup}>
-          {onDelete && <DeleteFacultiesPopup hide={hide} onDelete={()=>deleteMaterial("id")}/>}
+          {onDelete && (
+            <DeleteFacultiesPopup hide={hide} onDelete={ONDeleteModule} />
+          )}
         </div>
 
         <span className={classes.left_items}>
-         
-          <span className={classes.title}><a href="/my-courses/:moduleID">{props.Module}</a></span>
-         
+          <span className={classes.title}>
+            <a href="/my-courses/:moduleID">{props.Module.Modulename}</a>
+          </span>
         </span>
         <span className={classes.right_items}>
           <span className={classes.icons}>
-            <a href="/Addfaculties/semesteryear/semester/Module/:moduleid">
+            <a href={"/faculties/module/insight/"+props.Module._id}>
               <img src={insight1} className={classes.img_buttons}></img>
             </a>
-            <a href="material/:materialID">
+            <a href={"/faculties/module/"+props.Module._id}>
               <img src={pencil} className={classes.img_buttons}></img>
             </a>
-            <a href="/faculties/semesteryear/:semester/Module/ModuleEnrollment">
+            {/* <a href="/faculties/semesteryear/:semester/Module/ModuleEnrollment">
               <img src={lock} className={classes.img_buttons}></img>
-            </a>
+            </a> */}
             <a onClick={clickH}>
               <img src={deleteI} className={classes.img_buttons}></img>
             </a>
           </span>
-         
         </span>
       </div>
       <hr className={classes.line}></hr>
     </>
   );
-
-
-
-            
-
-}
+};
 export default ModuleView;

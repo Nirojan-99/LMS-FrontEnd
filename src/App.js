@@ -104,10 +104,13 @@ function App() {
         <Route path="/faculties" exact component={FacultiesView}/>
         <Route path="/Addfaculties/semesteryear/semester/Module/:moduleid" exact component={ModuleEnrollmentReport}/>
         <Route path="/faculties/Addfaculties" exact component={AddFaculties}/>
-        <Route path="/faculties/Addcourse" exact component={Addcourse}/>
-        <Route path="/faculties/semesteryear/:semester" exact component={CoursePage}/>
-        <Route path="/faculties/semesteryear/:semester/Module" exact component={ModulepageView}/>
-        <Route path="/faculties/semesteryear/:semester/Module/Addmodule" exact component={AddModule}/>
+        <Route path="/faculties/editfaculties/:facultyId" exact component={AddFaculties}/>
+        <Route path="/faculties/Addcourse/:facultyID" exact component={Addcourse}/>
+        <Route path="/faculties/editcourse/:courseid" exact component={Addcourse}/>
+        <Route path="/faculties/course/Year/:courseID" exact component={CoursePage}/>
+        <Route path="/faculties/course/:Year/:semester/:ModuleID" exact component={ModulepageView}/>
+        <Route path="/faculties/course/Addmodule/:Year/:semester/:moduleid" exact component={AddModule}/>
+        <Route path="/faculties/module/:moduleid1" exact component={AddModule}/>
         <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
 
         <Route path="/my-profile" exact component={ProfilePage}/>

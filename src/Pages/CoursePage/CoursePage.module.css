@@ -1,12 +1,21 @@
 .Allcourse{
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF;
     margin: 0%;
     margin-top: 200px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     margin-left: 200px;
     margin-right:200px;
-    padding-bottom: 20px;
+    padding-bottom: 20px; */
+    background-color:#FFFFFF;
+    margin-right: 100px;
+    margin-top: 50px;
+    margin-left: 100px;
+    padding-bottom: 80px;
+    padding-top: 50px;
+   
 }
 .Allcourse_course{
 margin: 0%;
+
+
 }
