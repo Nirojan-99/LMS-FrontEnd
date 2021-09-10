@@ -39,11 +39,13 @@ const UserDetails = (props) => {
     {onDelete && (
         <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
       )}
+      
       <div className={classes.container}>
       
-        <div>{props.data._id}</div>
-        <div>{props.data.name}</div>
-        <div>{props.data.type}</div>
+        <div>{props.data.ID}</div>
+        <div>{(props.data.name).toUpperCase()}</div>
+        <div>{(props.data.type).toUpperCase()}</div>
+        <div>{(props.data.faculty).toUpperCase()}</div>
         <div>
           <span className={classes.right_items}>
             <span className={classes.icons}>
