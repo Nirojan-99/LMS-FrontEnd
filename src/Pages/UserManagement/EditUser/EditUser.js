@@ -8,6 +8,7 @@ const EditUser = (props) => {
   const history = useHistory();
   const id = props.match.params.editID;
 
+  const [userID, setUserID] = useState();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [dob, setDOB] = useState();
@@ -21,6 +22,7 @@ const EditUser = (props) => {
     axios
       .post("http://localhost:5000/userManagement/edit_user", { id: id })
       .then((res) => {
+        setUserID(res.data.ID);
         setEmail(res.data.email);
         setName(res.data.name);
         setDOB(res.data.date);
@@ -40,7 +42,7 @@ const EditUser = (props) => {
     event.preventDefault();
 
     const updatedUser = {
-      _id:id,
+      _id: id,
       name: name,
       email: email,
       date: dob,
@@ -63,10 +65,9 @@ const EditUser = (props) => {
       });
   };
 
-  const CancelHandler=()=>{
+  const CancelHandler = () => {
     history.replace("/user-report");
-
-  }
+  };
 
   const NameHandler = (event) => {
     setName(event.target.value);
@@ -98,6 +99,18 @@ const EditUser = (props) => {
       <h2 className={classes.title}>EDIT USER</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={updateHandler}>
+        <label for="userID" className={classes.lables}>
+          User ID :
+        </label>
+        <br />
+        <input
+          readOnly
+          type="text"
+          id="userID"
+          name="userID"
+          value={userID}
+          className={classes.inputs}
+        ></input>
         <label for="email" className={classes.lables}>
           Email ID :
         </label>
@@ -203,7 +216,6 @@ const EditUser = (props) => {
           name="role"
           className={classes.select}
           onChange={RoleHandler}
-          
         >
           <option selected="true" value={role} hidden>
             {role}
@@ -215,8 +227,12 @@ const EditUser = (props) => {
         </select>
 
         <div className={classes.inline}>
-          <button type="submit" className={classes.btnUpdate}>UPDATE</button>
-          <button className={classes.btnCancel} onClick={CancelHandler}>CANCEL</button>
+          <button type="submit" className={classes.btnUpdate}>
+            UPDATE
+          </button>
+          <button className={classes.btnCancel} onClick={CancelHandler}>
+            CANCEL
+          </button>
         </div>
       </form>
     </div>

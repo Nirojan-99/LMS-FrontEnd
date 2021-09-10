@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 
 import classes from "./AddUser.module.css";
 import useInput from "./useInput";
@@ -9,7 +10,19 @@ const isEmail = (value) => value.includes("@");
 const isContactNo = (value) => value.trim() !== "";
 
 const AddUser = () => {
-  const [emailIsNotTaken, setEmailIsNotTaken] = useState(false);
+  const [isEmailExist, setIsEmailExist] = useState(false);
+  const [userID, setUserID] = useState();
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/userManagement/get_userID")
+      .then((res) => {
+        setUserID(res.data);
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
 
   const {
     value: emailValue,
@@ -109,30 +122,42 @@ const AddUser = () => {
       .post("http://localhost:5000/userManagement/add_user", user)
       .then((res) => {
         console.log(res.data);
-        setEmailIsNotTaken(res.data);
+        if (res.data == true) {
+          setIsEmailExist(true);
+          resetEmail();
+        } else {
+          resetEmail();
+          resetName();
+          resetDate();
+          resetContact();
+          resetAddress();
+          resetFaculty();
+          resetRole();
+          setIsEmailExist(false);
+          window.location.reload();
+        }
       })
       .catch((er) => {
         console.log(er);
       });
-    if (emailIsNotTaken) {
-      window. location. reload()
-      resetEmail();
-      resetName();
-      resetDate();
-      resetContact();
-      resetAddress();
-      resetFaculty();
-      resetRole();
+    // if (isEmailExist) {
+    //   resetEmail();
+    //   resetName();
+    //   resetDate();
+    //   resetContact();
+    //   resetAddress();
+    //   resetFaculty();
+    //   resetRole();
+    //   window. location. reload()
 
-    } else {
+    // } else {
 
-      resetEmail();
+    //   resetEmail();
 
-    }
-   
-    
+    // }
   };
 
+  const IDClass=classes.inputs
   const emailClass = emailHasError ? classes.invalid_inputs : classes.inputs;
   const nameClass = nameHasError ? classes.invalid_inputs : classes.inputs;
   const dateClass = dateHasError ? classes.invalid_inputs : classes.inputs;
@@ -147,16 +172,28 @@ const AddUser = () => {
     ? classes.invalid_select
     : classes.select;
 
-  const labelOfEmail = emailIsNotTaken
+  const labelOfEmail = isEmailExist
     ? "Email is Taken. Enter a New Email:"
     : "Email ID";
-  const lables = emailIsNotTaken ? classes.invalid_lables : classes.lables;
+  const lables = isEmailExist ? classes.invalid_lables : classes.lables;
 
   return (
     <div className={classes.CardView}>
       <h2 className={classes.title}>ADD USER</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={submitHandler}>
+      <label for="Uname" className={classes.lables}>
+          User ID :
+        </label>
+        <br />
+        <input
+          type="text"
+          id="uID"
+          name="uID"
+          className={IDClass}
+          value={userID}
+          readonly
+        ></input>
         <label for="email" className={lables}>
           {labelOfEmail}
         </label>
@@ -174,7 +211,7 @@ const AddUser = () => {
         {emailHasError && (
           <p className={classes.errorText}>Please Enter a Valid Email !!!</p>
         )}
-        {/* {emailIsNotTaken && (
+        {/* {ISEmailExist && (
           <p className={classes.errorText}> Email is Already Taken. Enter a new Email</p>
         )} */}
 
