@@ -2,13 +2,22 @@ import Aside from "./Components/Aside/Aside";
 import classes from "./ModulePage.module.css";
 import Weeks from "./Weeks";
 import WeekForumView from "../ForumManagement/WeekForumView/WeekForumView";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { logout } from "../../Store/auth";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const ModulePage = (props) => {
   const [weeks, setWeeks] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [grades, setGrades] = useState(false);
   const [discussions, setDiscussions] = useState(false);
+  const moduleID = props.match.params.moduleID;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const token = useSelector((state) => state.loging.token);
+  const id = useSelector((state) => state.loging.userID);
 
   const showWeeks = () => {
     setWeeks(true);
@@ -26,20 +35,59 @@ const ModulePage = (props) => {
     setDiscussions(true);
   };
 
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:5000/admin//check_enrollment?moduleID=" +
+          moduleID +
+          "&id=" +
+          id,
+
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.data.auth === false) {
+          dispatch(logout());
+        } else if (resp.data.ack === false) {
+          history.replace("/faculties/enroll/" + moduleID);
+        } else {
+          setLoaded(true);
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
 
   const moduleid = props.match.params.moduleID;
   return (
-    <main className={classes.mainSec}>
-      <div className={classes.aside}>
-        <Aside moduleID = {moduleid} showWeeks={showWeeks} showGrades={showGrades} showDiscussions={showDiscussions}/>
-      </div>
-      { weeks && <div className={classes.main_side}>
-         <Weeks moduleid={moduleid} />
-      </div>}
-      { discussions && <div className={classes.main_side}>
-         <WeekForumView moduleid={moduleid} />
-      </div>}
-    </main>
+    <>
+      {loaded && (
+        <main className={classes.mainSec}>
+          <div className={classes.aside}>
+            <Aside
+              moduleID={moduleid}
+              showWeeks={showWeeks}
+              showGrades={showGrades}
+              showDiscussions={showDiscussions}
+            />
+          </div>
+          {weeks && (
+            <div className={classes.main_side}>
+              <Weeks moduleid={moduleid} />
+            </div>
+          )}
+          {discussions && (
+            <div className={classes.main_side}>
+              <WeekForumView moduleid={moduleid} />
+            </div>
+          )}
+        </main>
+      )}
+    </>
   );
 };
 export default ModulePage;

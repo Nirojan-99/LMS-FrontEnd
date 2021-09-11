@@ -117,7 +117,7 @@ function App() {
         <Route path="/faculties/course/:Year/:semester/:ModuleID" exact component={ModulepageView}/>
         <Route path="/faculties/course/Addmodule/:Year/:semester/:moduleid" exact component={AddModule}/>
         <Route path="/faculties/module/:moduleid1" exact component={AddModule}/>
-        <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
+        <Route path="/faculties/enroll/:moduleID" exact component={ModuleEnrollment}/>
 
         <Route path="/my-profile" exact component={ProfilePage}/>
         <Route path="/calendar/:date" exact component={EventSummary}/>
@@ -148,9 +148,11 @@ function App() {
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
+        <Route path="/contact-us" exact component={ContactUs} />
+        <Route path="/feedback" exact component={ContactUs} />
         <Route path="/index/reset_password" exact component={ResetPassword} />
         <Route path="/index/new_password/:userID" exact component={NewPassword} />
-        <Route path="*"  component={page404}/>
+        <Route path="*" ><Redirect  to="/index" /></Route>
       </Switch>}
 
 

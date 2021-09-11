@@ -38,7 +38,7 @@ const ModuleView = (props) => {
 
         <span className={classes.left_items}>
           <span className={classes.title}>
-            <a href="/my-courses/:moduleID">{props.Module.Modulename}</a>
+            <a href={"/my-courses/"+props.Module._id}>{props.Module.Modulename}</a>
           </span>
         </span>
         <span className={classes.right_items}>
