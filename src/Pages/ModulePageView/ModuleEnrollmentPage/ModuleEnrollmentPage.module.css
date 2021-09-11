@@ -1,90 +1,67 @@
-.ModuleEnrollment_cardView{
-  
-
-    width: 50%;
-    background-color: #FFFFFF;
-    padding: 20px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 0px;
+.ModuleEnrollment_cardView {
+  width: 50%;
+  padding: 3%;
+  background-color: #ffffff;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
-.title{
-    margin: 0px;
-    font-family: roboto;
-    font-size: 27px;
-    color: #046666;
-    font-size: xx-large;
-}
-
-.lables{
-    font-family: "open sans";
-    font-weight: bold;
-    font-size: 15px;
-    color:#046666 ;
-}
-.formContainer{
-    
-   
-    outline-width: thin;
-    padding:20px;
-    border:1px solid #046666;
-    
-}
-.inputs{
-   
-    width: 50%;
-    height: auto;
-    padding: 10px;
-    margin-top: 10px;
-    align-content: center;
-    margin-left: 20%;
-    border-radius: 10px;
-    font-family: roboto;
-    font-size: 1rem;
-    outline: none;
-    color: #333;
-    background-color: #FFFFFF;
-    
-   
-
-}
-.back2{
-    color:darkgray;
-    
-
-}
-.back3{
-    color:darkolivegreen;
+.title {
+  width: 90%;
+  margin: auto;
+  font-family: roboto;
+  font-size: 27px;
+  color: #046666;
+  font-size: xx-large;
 }
 
-
-/* .back
-{
-    
-    outline-style: solid;
-    outline-color: #046666;
-    outline-width: thin;
-    padding:5px;
-    border:2px solid #046666;
-} */
-
-.save{
-    margin: auto;
-    margin-top: 25px;
-    
-    padding: 3px 15px;
-    display: flex;
-    background-color: transparent;
-    border: 2px solid #14B6C8;
-    font-family: roboto;
-    font-size: 20px;
-    border-radius: 10px;
-    color: #14B6C8;
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 15px;
+  color: #046666;
 }
-.save:hover{
-    cursor: pointer;
-    background-color: #14B6C8;
-    color: #333;
-    transition-property: all;
-    transition-duration: .5s;
+.formContainer {
+  outline-width: thin;
+  margin: auto;
+  width: 100%;
+  border: 1px solid #046666;
+}
+.inputs {
+  margin: auto;
+  width: 20%;
+  margin-left: 39%;
+  height: auto;
+  margin-top: 1rem;
+  align-content: center;
+  border-radius: 0.5rem;
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  padding: 0.5rem 0.2rem;
+  background-color: transparent;
+  text-align: center;
+  letter-spacing: 1.5px;
+  border: 2px solid rgb(11, 11, 170);
+}
+.save {
+  margin: auto;
+  margin-top: 1.5rem;
+  padding: 3px 15px;
+  display: flex;
+  background-color: transparent;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 20px;
+  border-radius: 10px;
+  color: #14b6c8;
+  margin-bottom: 1rem;
+}
+.save:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
 }
