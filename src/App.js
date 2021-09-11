@@ -135,7 +135,7 @@ function App() {
         <Route path="/feedback" exact component={ContactUs} />
           
         <Route path="/my-courses/add-forum/:week" exact component={AddForum}/>
-        <Route path="/forum" exact component={ForumView}/>
+        <Route path="/forum/:moduleID/:weekID/:forumID" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
         
         <Route path="/services/book_save" exact component={BookSave}/>
