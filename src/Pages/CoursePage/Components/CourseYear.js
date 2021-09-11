@@ -10,8 +10,9 @@ import DeleteFacultiesPopup from "../../FacultiesPage/FacultiesView/Components/D
 
 const CourseYear = (props) => {
   const ID1 = props.ID;
-  console.log("sayanthan");
-  console.log(ID1);
+
+ 
+
 
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = OutsideClick(dropdownRef, false);
@@ -24,7 +25,7 @@ const CourseYear = (props) => {
   const hide = () => {
     setOnDelete((state) => !state);
   };
-  const deleteMaterial = (id) => {};
+  // const deleteMaterial = (id) => {};
 
   return (
     <div className={classes.ALLcontainerM}>
@@ -32,7 +33,7 @@ const CourseYear = (props) => {
         {onDelete && (
           <DeleteFacultiesPopup
             hide={hide}
-            onDelete={() => deleteMaterial("id")}
+            // onDelete={() => deleteMaterial("id")}
           />
         )}
       </div>
@@ -42,7 +43,7 @@ const CourseYear = (props) => {
             <img src={Arrow} className={classes.iconArrow} onClick={onClick} />
           </div>
           <div className={classes.title}>
-            <a>{props.year+"Year"}</a>
+            <a>{props.year + "Year"}</a>
           </div>
         </div>
 

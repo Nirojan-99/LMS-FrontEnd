@@ -2,16 +2,17 @@ import classes from "./AddModule.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
 
 const AddModule = (props) => {
   const courseID = props.match.params.moduleid;
   const year = props.match.params.Year;
   const semester = props.match.params.semester;
   const moduleID = props.match.params.moduleid1;
-  const [Edit,setEdit]  = useState();
 
   const history = useHistory();
-  
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (moduleID) {
       axios
@@ -34,9 +35,39 @@ const AddModule = (props) => {
   const onSubmitModule = (event) => {
     event.preventDefault();
 
-    const Moduledata = {
+    if (ModuleCode.trim().length <6) {
+      setError("please enter 6 digit ModuleCode!!");
 
-      _id:moduleID?moduleID:undefined,
+      return;
+    } else if (ModuleEnrollmentkey.trim().length <6) {
+      setError(" please enter 6 digit ModuleEnrollmentkey!!! ");
+      return;
+    } else if (ModuleCode.trim().length > 6) {
+      setError("please enter 6 digit ModuleCode!!! don't enter more than 6");
+      return;
+    } else if (ModuleEnrollmentkey.trim().length >6) {
+      setError(
+        "please enter 6 digit ModuleEnrollmentkey!!! don't enter more than 6"
+      );
+      return;
+    } else if (ModuleWeekCounts.trim() <= 8) {
+      setError("please enter 8 - 18 range ModuleWeekCounts !!! don't enter less than 8");
+      return;
+    } else if (ModuleWeekCounts.trim() >= 18) {
+      setError("please enter 8 - 18 range ModuleWeekCounts !!! don't enter greater than 18");
+      return;
+    
+    } else if (ModuleEnrollmentkey=== ModuleCode) {
+      setError("please enter different 'ModuleCode' and 'ModuleEnrollmentkey'");
+      return;
+    }
+    else if (!ModuleName.trim()) {
+      setError("invaild ModuleName");
+      return;
+    }
+
+    const Moduledata = {
+      _id: moduleID ? moduleID : undefined,
       courseID,
       Modulename: ModuleName,
       ModuleCode: ModuleCode,
@@ -46,48 +77,54 @@ const AddModule = (props) => {
       year,
       semester,
     };
-    if(!moduleID) {
-    axios
-      .post("http://localhost:5000/Module/addModule", {
-        data: Moduledata,
-        courseID: courseID,
-      })
-      .then((res) => {
-        console.log(res.data);
-        history.goBack();
-        // setBtn("Saved")
-        // history.replace("/services/job_portal");
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-  
-} 
-else {
-  axios
-  .post("http://localhost:5000/Module/UpdateModule", 
- Moduledata,
-    
-  )
-  .then((res) => {
-    console.log(res.data);
-    history.goBack();
-    // setBtn("Saved")
-    // history.replace("/services/job_portal");
-  })
-  .catch((er) => {
-    console.log(er);
-  });
-};
+    if (!moduleID) {
+      axios
+        .post("http://localhost:5000/Module/addModule", {
+          data: Moduledata,
+          courseID: courseID,
+        })
+        .then((res) => {
+          history.goBack();
+          setError("successfully created Module");
+         
 
-}
+          // setBtn("Saved")
+          // history.replace("/services/job_portal");
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    } else {
+      axios
+        .post("http://localhost:5000/Module/UpdateModule", Moduledata)
+        .then((res) => {
+          setError(" Module successfully update !!");
+          setTimeout(() => {
+            setError(null);
+            history.goBack();
+          }, 2200);
+          // history.goBack();
+          // setError("successfully updated Module");
+        
+         
+
+          // setBtn("Saved")
+          // history.replace("/services/job_portal");
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    }
+  };
 
   const [ModuleName, setModuleNameHandler] = useState();
   const [ModuleCode, setModuleCodeHandler] = useState();
   const [ModuleEnrollmentkey, setModuleEnrollmentkeyHandler] = useState();
   const [ModuleWeekCounts, setModuleWeekCountsHandler] = useState();
   const [ModuleLectureIncharge, setModuleLectureInchargeHandler] = useState();
-
+  const clickedHandler = (event) => {
+    setError(null);
+  };
   const ModuleNameHandler = (event) => {
     setModuleNameHandler(event.target.value);
   };
@@ -106,6 +143,7 @@ else {
 
   return (
     <div className={classes.squareview}>
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       <h2 className={classes.title}>Add Module</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={onSubmitModule}>
@@ -163,7 +201,7 @@ else {
         </label>
         <select
           id="ModuleLectureIncharge"
-          className={classes.inputs}
+          className={classes.inputs1}
           value={ModuleLectureIncharge}
           onChange={ModuleLectureInchargeHandler}
         >

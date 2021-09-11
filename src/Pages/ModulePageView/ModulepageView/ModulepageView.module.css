@@ -1,11 +1,10 @@
-.ModulepageView{
-  background-color:#FFFFFF;
+.ModulepageView {
+  background-color: #ffffff;
   margin-right: 100px;
   margin-top: 50px;
   margin-left: 100px;
   padding-bottom: 80px;
   padding-top: 10px;
-
 }
 .img_buttons {
   margin: auto;
@@ -23,7 +22,7 @@
   /* background-color: #088f8f; */
   background-color: #e7dcdc;
 }
-.ModulepageView_view{
-
+.loader {
+  justify-content: center;
+  display: flex;
 }
-

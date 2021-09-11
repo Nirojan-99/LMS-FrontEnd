@@ -1,46 +1,104 @@
-.title{
-    margin: 0px;
-    text-transform: uppercase;
-    font-family: roboto;
-    font-size: 27px;
-    color: #046666;
+.title {
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 27px;
+  color: #046666;
 }
-.line{
+.line {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 15px;
+  color: #046666;
+}
+.formContainer {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+.inputs {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  outline: none;
+
+  color: #333;
+  background-color: #ffffff6c;
+  font-weight: bold;
+}
+
+.inputs1 {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 105%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1.1rem;
+  font-weight: bolder;
+
+  outline: none;
+  color: #333;
+  background-color: #ffffff6c;
+}
+.squareview {
+  width: 45%;
+  background-color: #ddd;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.save {
+  margin: auto;
+  margin-top: 25px;
+  padding: 10px 40px;
+  display: flex;
+  background-color: #046666;
+  border: 0px solid #14b6c8;
+  font-family: roboto;
+  font-weight: bolder;
+  font-size: 15px;
+  border-radius: 10px;
+  color: #ffffff;
+}
+.save:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 18px;
+  color: #046666;
+}
+
+.inputs:focus {
+}
+/*   
+  .select {
     margin-bottom: 20px;
-    margin-top: 10px;
-    width: 100%;
-    height: 1px;
-    border-width: 0;
-    color: #046666;
-    background-color: #046666;
-}
-.lables{
-    font-family: "open sans";
-    font-weight: bold;
-    font-size: 15px;
-    color:#046666 ;
-}
-.formContainer{
-    padding-left: 6rem;
-    padding-right: 6rem;
-}
-.inputs{
-    margin-bottom: 20px;
-    border-radius: 10px;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #046666;
-    font-family: roboto;
-    font-size: 1rem;
-    outline: none;
-    color: #333;
-    background-color: #FFFFFF;
-}
-.inputs1{
-    margin-bottom: 20px;
-    border-radius: 10px;
     width: 105%;
     height: auto;
     padding: 10px;
@@ -48,37 +106,22 @@
     border: 2px solid #046666;
     font-family: roboto;
     font-size: 1rem;
+    font-weight: bold;
     outline: none;
     color: #333;
-    background-color: #FFFFFF;
-}
-.squareview{
-    
-
-    width: 45%;
-    background-color: #FFFFFF;
-    padding: 20px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 40px;
-}
-.save{
-    margin: auto;
-    margin-top: 25px;
-    padding: 10px 40px;
-    display: flex;
-    background-color: #046666;
-    border: 0px solid #14B6C8;
+    background-color: transparent;
+  }
+  .select:focus {
+    outline: none;
+    border-color: #046666;
+    background-color: #6bdfec;
+  }
+  
+  .select option {
     font-family: roboto;
-    font-weight: bolder;
-    font-size: 15px;
-    border-radius: 10px;
-    color: #FFFFFF;
-}
-.save:hover{
-    cursor: pointer;
-    background-color: #14B6C8;
+    font-size: 1rem;
+    outline: none;
     color: #333;
-    transition-property: all;
-    transition-duration: .5s;
-}
+    background-color: transparent;
+    font-weight: bold;
+  } */

@@ -32,7 +32,7 @@ const ModuleView = (props) => {
       <div className={classes.containerM}>
         <div className={classes.popup}>
           {onDelete && (
-            <DeleteFacultiesPopup hide={hide} onDelete={ONDeleteModule} />
+            <DeleteFacultiesPopup hide={hide} onDelete={ONDeleteModule} name ={props.Module.Modulename} />
           )}
         </div>
 
