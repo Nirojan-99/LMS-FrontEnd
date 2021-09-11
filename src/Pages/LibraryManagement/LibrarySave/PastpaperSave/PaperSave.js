@@ -11,53 +11,67 @@ const PaperSave = (props) => {
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("SAVE");
 
-  // useEffect(() => {
-  //   if (!id) {
-  //     setEdit(false);
-  //   } else {
-  //     setEdit(true);
-  //     axios
-  //       .get("http://localhost:5000/get_paper?id=" + id)
-  //       .then((res) => {
-  //         console.log(res.data);
-         
-  //         setPaperTitle(res.data.name);
-  //         setpaperPosterold(res.data.paperPoster);
-  //         setpaperId(res.data._id);
-  //       })
-  //       .catch((er) => {
-  //         console.log("error");
-  //       });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!id) {
+      setEdit(false);
+    } else {
+      setEdit(true);
+      axios
+        .get("http://localhost:5000/library/get_paper?id=" + id)
+        .then((res) => {
+          if (res.data.ack !== false) {
+            setPaperTitle(res.data.name);
+            setpaperPosterold(res.data.paperLink);
+          }
+        })
+        .catch((er) => {
+          console.log("error");
+        });
+    }
+  }, []);
 
   const [paperTitle, setPaperTitle] = useState();
   const [paperposter, setpaperPoster] = useState();
-  const [paperPoster, setpaperPosterold] = useState();
-  const [paperId, setpaperId] = useState();
+  const [pastpaperPoster, setpaperPosterold] = useState();
 
   const OnPaperSubmit = (event) => {
     const paper = new FormData();
-
     event.preventDefault();
 
-    paper.append("paperPoster", paperposter);
-    paper.append("_id", paperId ? paperId : undefined);
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+
+    paper.append("paperfile", paperposter);
+    paper.append("_id", id ? id : undefined);
     paper.append("edit", edit);
     paper.append("name", paperTitle);
-  
+    paper.append("type", "paper");
+    paper.append("date_time", datetime);
 
     setBtn("SAVING...");
-    // axios
-    //   .post("http://localhost:5000/add_paper", paper)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     // setBtn("Saved")
-    //     history.replace("/services/library_portal");
-    //   })
-    //   .catch((er) => {
-    //     console.log(er);
-    //   });
+    axios
+      .post("http://localhost:5000/library/add_paper", paper)
+      .then((res) => {
+        if (res.data.ack === true) {
+          history.replace("/services/digital_library");
+        } else {
+          setBtn("SAVE");
+        }
+      })
+      .catch((er) => {
+        console.log(er);
+      });
   };
   const paperTitleHandler = (event) => {
     setPaperTitle(event.target.value);
@@ -90,7 +104,6 @@ const PaperSave = (props) => {
         ></input>
 
         <label htmlFor="poster" className={classes.lables}>
-          {id && <img className={classes.posterView} src={paperPoster} />}
           Upload paper :
         </label>
         <br />
@@ -98,10 +111,9 @@ const PaperSave = (props) => {
         {id && (
           <input
             onChange={paperPosterHandler}
-            // value={paperposter}
             type="file"
             id="poster"
-            name="author"
+            name="pastpaper"
             className={classes.inputs}
           ></input>
         )}
@@ -111,34 +123,11 @@ const PaperSave = (props) => {
             required
             type="file"
             id="poster"
-            name="author"
+            name="pastpaper"
             className={classes.inputs}
           ></input>
         )}
-
-        <label for="faculty" className={classes.lables}>
-          Visibility to the Student
-        </label>
-        <br />
-        <input
-          type="radio"
-          name="visibility"
-          id="visible"
-          value="visible"
-          className={classes.radio}
-        ></input>
-        <label className={classes.radioLabel}>Visible</label>
-        <br />
-        <input
-          type="radio"
-          name="visibility"
-          id="invisible"
-          value="invisible"
-          className={classes.radio}
-        ></input>
-        <label className={classes.radioLabel}>Invisible</label>
-        <br />
-
+        {id && <a className={classes.posterView} href={pastpaperPoster} >view current file</a>}
         <button className={classes.save}>{btn}</button>
       </form>
     </div>

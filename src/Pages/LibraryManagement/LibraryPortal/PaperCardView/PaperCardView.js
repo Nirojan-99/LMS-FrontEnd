@@ -5,36 +5,31 @@ import downloadIcon from "../../../../Assets/download.svg";
 import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
 import { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 
 const BookCardView = (props) => {
-  const history = useHistory();
-  //   const type = useSelector((state) => state.loging.type);
-  const type = "student";
-
+  const type = useSelector((state) => state.loging.type);
   const [onDelete, setOnDelete] = useState(false);
-  const [deleteID, setOnDeleteID] = useState("");
 
   const clickH = (id) => {
     setOnDelete((state) => !state);
-    setOnDeleteID(id);
   };
   const hide = () => {
     setOnDelete((state) => !state);
   };
 
   const deleteMaterial = () => {
-    // axios
-    //   .post("http://localhost:5000/delete_job?id="+deleteID)
-    //   .then((res) => {
-    //     //acknogement
-    //     setOnDelete((state) => !state);
-    //     history.replace("./job_portal")
-    //   })
-    //   .catch((er) => {
-    //     console.log("error");
-    //   });
+    axios
+      .delete("http://localhost:5000/library/delete_paper?id=" + props.row._id)
+      .then((res) => {
+        if (res.data.ack === true) {
+          setOnDelete((state) => !state);
+          window.location.reload();
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
   };
 
   return (
@@ -42,12 +37,12 @@ const BookCardView = (props) => {
       {onDelete && (
         <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
       )}
-      <div className={classes.jobname}>{props.row.title}</div>
+      <div className={classes.jobname}>{props.row.name}</div>
       <div></div>
 
       {type === "admin" && (
         <div className={classes.icon_container}>
-          <a href={`/book_save`}>
+          <a href={"/services/paper/" + props.row._id}>
             <img src={edit} className={classes.icons} />
           </a>
           <a>
@@ -63,7 +58,7 @@ const BookCardView = (props) => {
       )}
       {type === "student" && (
         <div className={classes.icon_container}>
-          <a href={`/book_save`}>
+          <a href={props.row.paperLink}>
             <img src={downloadIcon} className={classes.icons} />
           </a>
         </div>
