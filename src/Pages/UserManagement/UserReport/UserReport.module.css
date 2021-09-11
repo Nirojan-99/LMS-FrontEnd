@@ -56,3 +56,27 @@
     margin-top: 3.4rem;
     margin-bottom: 3.4rem;
 }
+
+
+.add {
+    margin: auto;
+    margin-top: 25px;
+    padding: 3px 15px;
+    display: flex;
+    background-color: #046666;
+    border: 2px solid #14b6c8;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    width: 145px;
+    height: 35px;
+  }
+  .add:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
