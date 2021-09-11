@@ -39,6 +39,12 @@
 .main_space1 {
   margin: 30px;
 }
+.loader{
+ 
+    display: flex;
+    justify-content: center;
+  
+}
 
 @media screen and (max-width: 800px) {
   .aside {

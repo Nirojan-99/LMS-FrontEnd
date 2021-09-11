@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 
 const AddFaculties = (props) => {
   const history = useHistory();
@@ -10,13 +11,15 @@ const AddFaculties = (props) => {
   const id = props.match.params.facultyId;
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("ADD");
+  const [error, setError] = useState(null);
+  const [update, setupdate] = useState(false);
 
   useEffect(() => {
     if (!id) {
       setEdit(false);
     } else {
       setEdit(true);
-      setBtn("Edit");
+      setBtn("ADD..");
       axios
         .post("http://localhost:5000/Faculty/getfaculty", { id: id })
         .then((res) => {
@@ -35,6 +38,25 @@ const AddFaculties = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+
+    if (!name.trim()) {
+      setError("invaild facultyname!! ");
+
+      return;
+    } else if (!Incharge.trim()) {
+      setError("please enter facultyIncharge!!!");
+      return;
+    } else if (!facultyid.trim()) {
+      setError("please enter facultyid!!!");
+      return;
+    } else if (facultyid.trim().length < 8) {
+      setError("please enter 8 digit FacultyID");
+
+      return;
+    }
+   
+
+   
     const Facultydata = {
       _id: id ? id : null,
       id: facultyid,
@@ -47,10 +69,7 @@ const AddFaculties = (props) => {
       axios
         .post("http://localhost:5000/Faculty/addFaculty", Facultydata)
         .then((res) => {
-          console.log(res.data);
           history.replace("/faculties");
-          // setBtn("Saved")
-          // history.replace("/services/job_portal");
         })
         .catch((er) => {
           console.log(er);
@@ -59,10 +78,7 @@ const AddFaculties = (props) => {
       axios
         .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata)
         .then((res) => {
-          console.log(res.data);
           history.replace("/faculties");
-          // setBtn("Saved")
-          // history.replace("/services/job_portal");
         })
         .catch((er) => {
           console.log(er);
@@ -73,6 +89,9 @@ const AddFaculties = (props) => {
   const [name, setNamehandlder] = useState();
   const [facultyid, setidhandlder] = useState();
   const [Incharge, setInchargehandlder] = useState();
+  const clickedHandler = (event) => {
+    setError(null);
+  };
 
   const Namehandlder = (event) => {
     setNamehandlder(event.target.value);
@@ -86,12 +105,13 @@ const AddFaculties = (props) => {
 
   return (
     <div className={classes.squareview}>
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       <h2 className={classes.title}>Add Faculties</h2>
 
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={onSubmitHandler}>
         <label for="FacultieName" className={classes.lables}>
-          Facultie Name:
+          FacultieName :
         </label>
         <br />
         <input
@@ -126,7 +146,6 @@ const AddFaculties = (props) => {
           className={classes.inputs1}
           value={Incharge}
           onChange={Inchargehandlder}
-          value={Incharge}
         >
           <option selected="true" value="" hidden></option>
           <option value="DR.Kamal">DR.Kamal</option>
@@ -134,6 +153,7 @@ const AddFaculties = (props) => {
           <option value="DR.Kumara">DR.Kumara</option>
           <option value="DR.Kumara">Prof.Nimal</option>
         </select>
+
         <button className={classes.save}>{btn}</button>
       </form>
     </div>

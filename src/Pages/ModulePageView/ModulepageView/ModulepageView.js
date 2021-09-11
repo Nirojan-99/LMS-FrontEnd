@@ -3,9 +3,17 @@ import classes from "./ModulepageView.module.css";
 // import plus from "../../../Assets/plus.svg";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 import plus from "../../../Assets/plusFaculty.png";
 
+import { Row } from "react-bootstrap";
+import { useHistory } from "react-router";
+import Loader from "../../../Components/Loader/Loader";
+
+
 const ModulepageView = (props) => {
+  const history = useHistory();
+  // const history = useHistory();
   const moduleid = props.match.params.ModuleID;
   const year = props.match.params.Year;
   const semester = props.match.params.semester;
@@ -21,11 +29,12 @@ const ModulepageView = (props) => {
           "&semester=" +
           semester +
           "&courseID=" +
-          moduleid,
+          moduleid
       )
       .then((res) => {
-        console.log(res.data)
-        setModule(res.data)
+        setLoaded(true);
+
+        setModule(res.data);
       })
       .catch((er) => {
         console.log(er);
@@ -36,9 +45,10 @@ const ModulepageView = (props) => {
     <div className={classes.ModulepageView}>
       {/* <ModuleView Module="CM" /> */}
 
-      {Modules.map((row)=>{
-        return(<ModuleView Module={row} />)
-      })}
+      {loaded &&
+        Modules.map((row) => {
+          return <ModuleView Module={row} data={row} />;
+        })}
 
       <div className={classes.ModulepageView_view}>
         <a
@@ -54,6 +64,11 @@ const ModulepageView = (props) => {
           <img src={plus} className={classes.img_buttons}></img>
         </a>
       </div>
+      {!loaded && (
+        <div className={classes.loader}>
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };

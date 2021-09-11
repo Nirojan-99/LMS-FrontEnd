@@ -18,7 +18,7 @@ const CoursePage = (props) => {
         console.log(res.data.courseYear);
         setcourse(res.data.courseYear);
         setLoaded(true);
-        console.log(res.data._id);
+       
       })
       .catch((er) => {
         console.log("error");
@@ -37,7 +37,7 @@ console.log(data)
         <div className={classes.Allcourse_course}>
           {loaded &&
       data.map((row) => {
-              return <CourseYear year={row } data={row} ID = {ID} />;
+              return <CourseYear year={row } data={row} ID = {ID}  />;
             })}
 
         </div>
