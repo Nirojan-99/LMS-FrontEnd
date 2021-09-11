@@ -4,7 +4,6 @@ import classes from "./ModulepageView.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import plus from "../../../Assets/plusFaculty.png";
-import { Row } from "react-bootstrap";
 
 const ModulepageView = (props) => {
   const moduleid = props.match.params.ModuleID;
