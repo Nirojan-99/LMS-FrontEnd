@@ -10,69 +10,59 @@ import { useSelector } from "react-redux";
 
 const BookCardView = (props) => {
   const history = useHistory();
-  //   const type = useSelector((state) => state.loging.type);
-  const type = "student";
+  const type = useSelector((state) => state.loging.type);
 
   const [onDelete, setOnDelete] = useState(false);
-  const [deleteID, setOnDeleteID] = useState("");
 
   const clickH = (id) => {
     setOnDelete((state) => !state);
-    setOnDeleteID(id);
   };
   const hide = () => {
     setOnDelete((state) => !state);
   };
 
   const deleteMaterial = () => {
-    // axios
-    //   .post("http://localhost:5000/delete_job?id="+deleteID)
-    //   .then((res) => {
-    //     //acknogement
-    //     setOnDelete((state) => !state);
-    //     history.replace("./job_portal")
-    //   })
-    //   .catch((er) => {
-    //     console.log("error");
-    //   });
+    axios
+      .delete("http://localhost:5000/library/delete_book?id=" + props.row._id)
+      .then((res) => {
+        if (res.data.ack === true) {
+          setOnDelete((state) => !state);
+          window.location.reload();
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
   };
-  // src="https://react.semantic-ui.com/images/avatar/small/matt.jpg"
+
   return (
     <div className={classes.card}>
       {onDelete && (
         <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
       )}
-      <img
-        src={bookImg}
-        className={classes.jobPoster}
-      ></img>
+      <img src={props.row.bookPoster} className={classes.jobPoster}></img>
       <div className={classes.jobname}>{props.row.name}</div>
-      <div className={classes.companyname}>{props.row.aurthor}</div>
-      <div className={classes.description}>{props.row.details}</div>
+      <div className={classes.companyname}>{props.row.author}</div>
+      <div className={classes.description}>
+        {props.row.bookDetails.substring(0, 200) + "..."}
+      </div>
       {type === "student" && (
         <div>
-          <a
-            href={`/services/job/` + props.row._id}
-            className={classes.viewMore}
-          >
-            VIEW MORE
+          <a href={props.row.book} className={classes.viewMore}>
+            DOWNLOAD
           </a>
         </div>
       )}
 
       {type === "admin" && (
         <div className={classes.icon_container}>
-          <a href={`/book_save`}>
-            <img src={edit} className={classes.icons} />
-          </a>
-          <a>
-            <img
-              src={deleteIcon}
-              className={classes.icons}
-              onClick={() => {
-                clickH(props.row._id);
-              }}
-            />
+          <a href={"/services/book/" + props.row._id}>EDIT</a>
+          <a
+            onClick={() => {
+              clickH(props.row._id);
+            }}
+          >
+            DELETE
           </a>
         </div>
       )}

@@ -12,31 +12,40 @@ import { useSelector } from "react-redux";
 
 const LibraryPortal = () => {
   const [loaded, setLoaded] = useState(false);
+  const [loaded1, setLoaded1] = useState(false);
   const [isError, setError] = useState(false);
   const [books, setbooks] = useState([]);
   const [papers, setPapers] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const type = "admin";
+  const type = useSelector((state) => state.loging.type);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/library/get_books")
       .then((res) => {
-       
         if (res.data.auth === false) {
-          // setErrorMsg(res.data.error);
-          // setError(true);
-          // setLoaded(true);
-        } else {
+        } else if (res.data.books) {
           setError(false);
           setLoaded(true);
           setbooks(res.data.books);
-          setPapers(res.data.papers);
+          setList(res.data.books);
+        } else {
+          setLoaded(true);
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
 
-          // setJobs(res.data);
-          // console.log(typeof res.data[0]);
-          // setLoaded(true);
+    axios
+      .get("http://localhost:5000/library/get_papers")
+      .then((res) => {
+        if (res.data.auth === false) {
+        } else {
+          setError(false);
+          setLoaded1(true);
+          setPapers(res.data);
         }
       })
       .catch((er) => {
@@ -58,35 +67,44 @@ const LibraryPortal = () => {
       return;
     }
 
-    const updated = books.filter((book) => book.name === value);
+    const updated = books.filter((book) =>
+      book.name.toUpperCase().includes(value.trim().toUpperCase())
+    );
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
     }
   };
-  console.log(books)
+
   return (
     <>
       <>
         {isError && <ErrorPopup error={errorMsg} clickedHandler={hideError} />}
         <div className={classes.bookBar}>
-          <div className={classes.title}>E-BOOK </div>
-          <SearchBar className={classes.searchbar} onSearch={getSearchValue} />
+          <br />
+          <div className={classes.search}>
+            <SearchBar
+              className={classes.searchbar}
+              onSearch={getSearchValue}
+            />
+          </div>
         </div>
         <div className={classes.jobCard}>
           {loaded && books ? (
-            books.map((row) => {
-              // return <BookCardView row={row} key={row._id} />;
-              <div>row.name</div>;
+            updatedList.map((row) => {
+              return <BookCardView row={row} key={row._id} />;
             })
           ) : (
             <Loader />
           )}
         </div>
+        {isEmptyList && (
+          <div className={classes.searchError}>No search results found!</div>
+        )}
 
         {type === "admin" && loaded && (
           <div className={classes.addJob}>
-            <a href="/book_save">ADD</a>
+            <a href="/services/book_save">ADD</a>
           </div>
         )}
       </>
@@ -94,7 +112,7 @@ const LibraryPortal = () => {
         {isError && <ErrorPopup error={errorMsg} clickedHandler={hideError} />}
         <div className={classes.title}>PastPaers</div>
         <div className={classes.jobCard}>
-          {loaded && papers ? (
+          {loaded1 && papers ? (
             papers.map((row) => {
               return <PaperCardView row={row} key={row._id} />;
             })
@@ -105,7 +123,7 @@ const LibraryPortal = () => {
 
         {type === "admin" && loaded && (
           <div className={classes.addJob}>
-            <a href="/paper_save">ADD</a>
+            <a href="/services/paper_save">ADD</a>
           </div>
         )}
       </>

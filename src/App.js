@@ -138,7 +138,7 @@ function App() {
         <Route path="/services/book_save" exact component={BookSave}/>
         <Route path="/services/book/:bookID" exact component={BookSave}/>
         <Route path="/services/paper_save" exact component={PaperSave}/>
-        <Route path="/services/library_report" exact component={LibraryReport}/>
+        <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
 
         <Route path="*"  component={page404}/>
