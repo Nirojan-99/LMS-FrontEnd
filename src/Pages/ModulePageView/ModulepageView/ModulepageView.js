@@ -5,9 +5,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import plus from "../../../Assets/plusFaculty.png";
+
 import { Row } from "react-bootstrap";
 import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
+
 
 const ModulepageView = (props) => {
   const history = useHistory();

@@ -5,9 +5,11 @@ import UserReportSearchBar from "./UserReportSearchBar";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
 
 const UserReport = () => {
+  const history=useHistory();
   const [users, setUsers] = useState([]);
   const [updatedList, setList] = useState(users);
   const [isEmptyList, setEmpty] = useState(false);
@@ -53,6 +55,11 @@ const UserReport = () => {
     }
   };
 
+  const AddUserHandler=()=>{
+    history.replace("/add-user");
+
+  }
+
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>USER REPORT</h2>
@@ -77,6 +84,10 @@ const UserReport = () => {
         return <UserDeatils data={row} key={row._id} />;
       })}
       {isEmptyList && <div className={classes.message}>No Users Found !!!</div>}
+     
+      <button className={classes.add} onClick={AddUserHandler}>
+          ADD USER
+        </button>
     </div>
   );
 };

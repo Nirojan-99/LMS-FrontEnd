@@ -16,6 +16,7 @@ const UserReportSearchBar = (props) => {
         <div className={classes.search}>
           <form className={classes.Searchform} onSubmit={onSearch}>
             <input
+              onChange={onSearch}
               ref={searchValue}
               className={classes.searchInput}
               placeholder="Book Name"
@@ -27,7 +28,6 @@ const UserReportSearchBar = (props) => {
           </form>
         </div>
       </div>
-      <hr className={classes.line}></hr>
     </>
   );
 };

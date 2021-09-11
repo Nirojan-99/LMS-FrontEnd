@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 
 import classes from "./AddUser.module.css";
 import useInput from "./useInput";
@@ -10,6 +11,24 @@ const isEmail = (value) => value.includes("@");
 const isContactNo = (value) => value.trim() !== "";
 
 const AddUser = () => {
+  //get today date
+  const getTodayDate = () => {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    today = yyyy + "-" + mm + "-" + dd;
+    return today;
+  };
+
+  const history = useHistory();
   const [isEmailExist, setIsEmailExist] = useState(false);
   const [userID, setUserID] = useState();
 
@@ -157,7 +176,7 @@ const AddUser = () => {
     // }
   };
 
-  const IDClass=classes.inputs
+  const IDClass = classes.inputs;
   const emailClass = emailHasError ? classes.invalid_inputs : classes.inputs;
   const nameClass = nameHasError ? classes.invalid_inputs : classes.inputs;
   const dateClass = dateHasError ? classes.invalid_inputs : classes.inputs;
@@ -177,12 +196,16 @@ const AddUser = () => {
     : "Email ID";
   const lables = isEmailExist ? classes.invalid_lables : classes.lables;
 
+  const BackHandler = () => {
+    history.replace("/user-report");
+  };
+
   return (
     <div className={classes.CardView}>
       <h2 className={classes.title}>ADD USER</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={submitHandler}>
-      <label for="Uname" className={classes.lables}>
+        <label for="Uname" className={classes.lables}>
           User ID :
         </label>
         <br />
@@ -244,6 +267,8 @@ const AddUser = () => {
           className={dateClass}
           onChange={dateChangeHandler}
           onBlur={dateBlurHandler}
+          min="1930-01-01"
+          max={getTodayDate}
         ></input>
         {dateHasError && (
           <p className={classes.errorText}>Please Select a Date !!!</p>
@@ -254,7 +279,7 @@ const AddUser = () => {
         </label>
         <br />
         <input
-          type="tel"
+          type="number"
           id="contactNo"
           name="contactNo"
           value={contactValue}
@@ -335,6 +360,9 @@ const AddUser = () => {
           ADD
         </button>
       </form>
+      <button className={classes.add} onClick={BackHandler}>
+        Back
+      </button>
     </div>
   );
 };

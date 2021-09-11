@@ -117,7 +117,7 @@ function App() {
         <Route path="/faculties/course/:Year/:semester/:ModuleID" exact component={ModulepageView}/>
         <Route path="/faculties/course/Addmodule/:Year/:semester/:moduleid" exact component={AddModule}/>
         <Route path="/faculties/module/:moduleid1" exact component={AddModule}/>
-        <Route path="/faculties/semesteryear/:semester/Module/ModuleEnrollment" exact component={ModuleEnrollment}/>
+        <Route path="/faculties/enroll/:moduleID" exact component={ModuleEnrollment}/>
 
         <Route path="/my-profile" exact component={ProfilePage}/>
         <Route path="/calendar/:date" exact component={EventSummary}/>
@@ -134,23 +134,25 @@ function App() {
         <Route path="/contact-us" exact component={ContactUs} />
         <Route path="/feedback" exact component={ContactUs} />
           
-        <Route path="/add-forum" exact component={AddForum}/>
+        <Route path="/my-courses/add-forum/:week" exact component={AddForum}/>
         <Route path="/forum" exact component={ForumView}/>
         <Route path="/weekforum" exact component={WeekForumView}/>
         
         <Route path="/services/book_save" exact component={BookSave}/>
         <Route path="/services/book/:bookID" exact component={BookSave}/>
         <Route path="/services/paper_save" exact component={PaperSave}/>
-        <Route path="/services/library_report" exact component={LibraryReport}/>
+        <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
 
         <Route path="*"  component={page404}/>
       </Switch>:
       <Switch>
         <Route path="/index" exact component={Login} ></Route>
+        <Route path="/contact-us" exact component={ContactUs} />
+        <Route path="/feedback" exact component={ContactUs} />
         <Route path="/index/reset_password" exact component={ResetPassword} />
         <Route path="/index/new_password/:userID" exact component={NewPassword} />
-        <Route path="*"  component={page404}/>
+        <Route path="*" ><Redirect  to="/index" /></Route>
       </Switch>}
 
 

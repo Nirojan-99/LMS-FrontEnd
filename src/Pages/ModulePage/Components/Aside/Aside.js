@@ -23,7 +23,7 @@ const Aside = (props) => {
   return (
     <aside className={classes.aside}>
       <h3>Module Name</h3>
-      <Navigation weeks={weeks} />
+      <Navigation weeks={weeks} showWeeks={props.showWeeks} showGrades={props.showGrades} showDiscussions={props.showDiscussions}/>
     </aside>
   );
 };
