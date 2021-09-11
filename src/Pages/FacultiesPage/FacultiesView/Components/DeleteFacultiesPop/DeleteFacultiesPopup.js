@@ -8,10 +8,13 @@ import hidePwdImg from "../../../../../Assets/hidePwdImg.png";
 
 const DeleteFacultiesPopup = (props) => {
   const Id = props.id;
-  const [pwd, setPwd] = useState("");
-  const [isRevealPwd, setIsRevealPwd] = useState(false);
+  const [pwd, pwdhandler] = useState("");
+  const [isRevealPwd, setIsRevealPwd] = useState(false);  
+  // const [name, setNamehandlder] = useState();
 
-
+  // const pwdhandler = (event) => {
+  //   setpwdhandler(event.target.value);
+  // };
 
   return (
     <>
@@ -32,11 +35,10 @@ const DeleteFacultiesPopup = (props) => {
           className={classes.inputs}
           type={isRevealPwd ? "text" : "password"}
           value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
+          // onChange={setpwdhandler}
         />
         <img
-          // title={isRevealPwd ? "Hide password" : "Show password"}
-          // src={isRevealPwd ? hidePwdImg : showPwdImg}
+       
           title={isRevealPwd ? "Show password" : "Hide password"}
           src={isRevealPwd ? showPwdImg : hidePwdImg}
           className={classes.img}

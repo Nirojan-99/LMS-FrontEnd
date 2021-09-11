@@ -10,7 +10,7 @@ const Semester = (props) => {
   // const [semester,setsemester] = useState();
 
 
-  console.log(semesterid);
+
 
   return (
     <div className={classes.semesterNumber}>

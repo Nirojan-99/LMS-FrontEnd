@@ -20,19 +20,26 @@
   font-family: "Open Sans";
   font-weight: bold;
 }
-.title {
+.title a{
   margin: auto;
   color: #046666;
   padding: 2px 10px;
-  font-size: 19px;
+
   font-family: "Open Sans";
   font-weight: 900;
   font-size: xx-large;
   
 }
-.title:hover{
+.title a:hover{
   cursor: pointer;
-  color: #1edbdb;
+  /* background-color: #14b6c8; */
+  color: #ffcc00;
+  transition-property: all;
+  transition-duration: 0.5s;
+
+  
+  /* cursor: pointer;
+  color: #1edbdb; */
 }
 .img_buttons {
   margin: auto;

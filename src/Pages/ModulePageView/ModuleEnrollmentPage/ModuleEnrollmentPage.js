@@ -12,7 +12,7 @@ const ModuleEnrollment =(props)=>{
            <label for="poster" className={classes.lables}><h2>Enrollmentkey</h2></label>
             <input type="Text" id="poster" placeholder="******"  name="companyName" className={classes.inputs}/>
 
-            <button className={classes.save}>SAVE</button>
+            <button className={classes.save}>Enroll</button>
            </from>
          
 </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 const Addcourse = (props) => {
   const facultyID = props.match.params.facultyID;
   const courseid = props.match.params.courseid;
@@ -11,6 +12,7 @@ const Addcourse = (props) => {
 
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("ADD");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!courseid) {
@@ -41,6 +43,19 @@ const Addcourse = (props) => {
   const history = useHistory();
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    
+    if (!courseName.trim()) {
+      setError("invaild coursename!! ");
+
+      return;
+    } else if (courseID.trim().length < 8) {
+      setError("please enter 8 digit courseID!!!");
+      return;
+    }
+    else if (courseID.trim().length > 8) {
+      setError("please enter 8 digit courseID!!! don't enter greater than 8 digit");
+      return;
+    }
     const coursedata = {
       _id: courseid ? courseid : null,
       courseID: courseID,
@@ -59,7 +74,7 @@ const Addcourse = (props) => {
           facultyID: facultyID,
         })
         .then((res) => {
-          console.log(res.data);
+  
           history.replace("/faculties");
           // setBtn("Saved")
         })
@@ -70,7 +85,7 @@ const Addcourse = (props) => {
       axios
         .post("http://localhost:5000/course/Updatecourse", coursedata)
         .then((res) => {
-          console.log(res.data);
+     
           history.replace("/faculties");
           // setBtn("Saved")
         })
@@ -86,7 +101,9 @@ const Addcourse = (props) => {
   const [courseDuration, setcourseDurationHandler] = useState();
   const [courseYear, setcourseYearHandler] = useState();
   const [semester, setsemesterHandler] = useState();
-
+  const clickedHandler = (event) => {
+    setError(null);
+  };
   const courseNameHandler = (event) => {
     setcourseNameHandler(event.target.value);
   };
@@ -108,6 +125,7 @@ const Addcourse = (props) => {
 
   return (
     <div className={classes.squareview}>
+       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       <h2 className={classes.title}>Add course</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={onSubmitHandler}>

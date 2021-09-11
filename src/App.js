@@ -108,7 +108,7 @@ function App() {
         <Route path="/add-role" exact component={AddRole}/>
 
         <Route path="/faculties" exact component={FacultiesView}/>
-        <Route path="/Addfaculties/semesteryear/semester/Module/:moduleid" exact component={ModuleEnrollmentReport}/>
+        <Route path="/faculties/module/insight/:moduleId" exact component={ModuleEnrollmentReport}/>
         <Route path="/faculties/Addfaculties" exact component={AddFaculties}/>
         <Route path="/faculties/editfaculties/:facultyId" exact component={AddFaculties}/>
         <Route path="/faculties/Addcourse/:facultyID" exact component={Addcourse}/>
