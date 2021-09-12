@@ -5,30 +5,29 @@
   margin-bottom: 30px;
   width: 90%;
   background-color: rgba(126, 252, 0, 0);
+  border: 0;
 }
-.week_box{
-
-    box-shadow: 0px 0px 4px 2px rgba(68, 68, 68, 0.247);
-    border: 1px solid #444;
-    /* padding: 10px; */
-    padding-bottom: 2rem;
+.week_box {
+  box-shadow: 1px 1px 6px 1px rgba(51, 51, 51, 0.281);
+  padding-bottom: 2rem;
+  border-radius: .4rem;
 }
-.week_title{
-    margin-bottom: 15px;
-    padding: 5px 0px 5px 10px;
-    text-align: left;
-    font-weight: bold;
-    font-size: 1.5rem;
-    letter-spacing: -1px;
-    font-family: "open sans";
-    color: #444;
-    width: inherit;
-    height: auto;
-    font-weight: 800;
-    background-color: #14B6C8;
+.week_title {
+  margin-bottom: 15px;
+  padding: 5px 0px 5px 10px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+  font-family: "open sans";
+  color: #444;
+  width: inherit;
+  height: auto;
+  font-weight: 800;
+  background-color: #14b6c8;
 }
-.addNew{
- color: #088F8F;
+.addNew {
+  color: #088f8f;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -37,8 +36,6 @@
   font-family: "open sans";
   font-size: 16px;
   text-align: left;
-
-
 }
 .line {
   margin-top: 10px;
@@ -49,33 +46,36 @@
   color: gray;
   background-color: rgba(128, 128, 128, 0.658);
 }
-.add:hover{
+.add:hover {
   cursor: pointer;
   padding: 3px 10px;
   border-radius: 5px;
-  background-color: #088F8F;
+  background-color: #088f8f;
   color: #fff;
   transition-property: all;
-  transition-duration: .5s;
+  transition-duration: 0.5s;
 }
-.add{
-  transition: all .2s ease-in;
+.add {
+  transition: all 0.2s ease-in;
   /* color:#088F8F ; */
-  color: #E2A500;
+  color: #e2a500;
   padding: 3px;
   border-radius: 10px;
   background-color: #088f8f00;
 }
-.add:active , .add:visited{
-  color:#E2A500 ;
+.add:active,
+.add:visited {
+  color: #e2a500;
 }
-.add:active:hover , .add:visited:hover{
+.add:active:hover,
+.add:visited:hover {
   color: #fff;
 }
-.loader{
+.loader {
   display: flex;
   justify-content: center;
 }
-.noMaterials{
+.noMaterials {
   color: red;
+  font-weight: 700;
 }

@@ -54,7 +54,7 @@ const Week = (props) => {
           {"WEEK  " + props.row.week}
         </div>
         {contents.map((row) => {
-          return <WeekContainer week={props.week} data={row} />;
+          return <WeekContainer key={row._id} week={props.week} data={row} />;
         })}
         {contents.length === 0 || visibleCount.length === 0 ? (
           <span className={classes.noMaterials}>No materials available !!</span>
@@ -68,7 +68,7 @@ const Week = (props) => {
                 Add New
               </a>
             </div>
-            <hr className={classes.line}></hr>
+            {/* <hr className={classes.line}></hr> */}
           </>
         )}
       </div>

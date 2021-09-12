@@ -11,12 +11,15 @@
     padding: 6px 2px;
     font-size: 1.1rem;
     color: #046666;
-    border: 3px solid #E2A500;
+    border: 2px solid #aaa;
     border-radius: 2px;
     font-weight: 600;
+    background-color: #ccc;
+    border-radius: .3rem;
+    font-weight: 700;
 }
 .week li{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 .week li a{
     text-decoration: none;
@@ -29,7 +32,6 @@
 }
 .line{
     margin: 2rem 0;
-    /* width: 95%; */
     height: 1px;
     background-color: rgb(134, 133, 133);
 }

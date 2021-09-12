@@ -1,7 +1,6 @@
 .containerM {
   width: 90%;
   margin: auto;
-  /* position: relative; */
   display: flex;
   justify-content: space-between;
 }
@@ -36,6 +35,18 @@
    color: #333;
  }
 .img_buttons {
+  transition: all .3s ease-in;
+  margin: auto;
+  padding: 10px 10px;
+  background-color: #14b6c8;
+  margin: 0 2px 0 2px;
+  border-radius: 2px;
+  width: 1.2rem;
+  border-radius: 10px;
+  height: 1.2rem;
+}
+.img_buttonsD {
+  transition: all .3s ease-in;
   margin: auto;
   padding: 10px 10px;
   background-color: #14b6c8;
@@ -49,6 +60,10 @@
 .img_buttons:hover {
   cursor: pointer;
   background-color: #088f8f;
+}
+.img_buttonsD:hover {
+  cursor: pointer;
+  background-color: rgb(240, 65, 65)
 }
 
 .check_box {

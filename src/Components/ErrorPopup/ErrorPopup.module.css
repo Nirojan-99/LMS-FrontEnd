@@ -2,7 +2,7 @@
     padding: 15px;
     border: .6px solid #fff;
     position: fixed;
-    height: 25%;
+    height: 27%;
     top: 30vh;
     left: 35%;
     width: 30%;
@@ -27,7 +27,7 @@
    border-radius: 6px;
    width: 70%;
    color: #fff;
-   padding: 10px 0px;
+   padding: .5rem 0px;
    font-size: 19px;
    font-family: "open sans";
    font-weight: 800;   
@@ -35,6 +35,7 @@
    display: flex;
    text-align: center;
    justify-content: center;
+   margin-top: 3rem;
   }
   .title{
       text-align: center;

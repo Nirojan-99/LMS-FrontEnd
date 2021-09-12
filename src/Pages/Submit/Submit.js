@@ -2,8 +2,10 @@ import classes from "./Submit.module.css";
 import upload from "../../Assets/upload.svg";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 const Submit = (props) => {
+  const token = useSelector((state) => state.loging.token);
   const materialID = props.match.params.ID;
   const [selectedFile, setSelectedFile] = useState();
   const [duedate, setDueDate] = useState();
@@ -13,16 +15,16 @@ const Submit = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/admin/get_material?materialID=" + materialID)
+      .get("http://localhost:5000/admin/get_material?materialID=" + materialID,{
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((resp) => {
+        console.log(resp.data)
         setDueDate(resp.data.deadlineDate);
-     
         setMaxSize(resp.data.maxSize);
         setDueTime(resp.data.deadlineTime);
       });
   }, [null]);
-
-
 
   const onFileSubmit = (event) => {
     event.preventDefault();
@@ -58,14 +60,11 @@ const Submit = (props) => {
       <div className={classes.details}>
         <span>Due date : {duedate + " / " + dueTime}</span>
         <br />
-        <span>Max Size : {maxSize+"Mb"}</span>
+        <span>Max Size : {maxSize + "Mb"}</span>
         <br />
         <span>status : {}</span>
       </div>
-      <button
-        onClick={ onFileSubmit}
-        className={classes.btn}
-      >
+      <button onClick={onFileSubmit} className={classes.btn}>
         {"SUBMIT"}
       </button>
     </div>

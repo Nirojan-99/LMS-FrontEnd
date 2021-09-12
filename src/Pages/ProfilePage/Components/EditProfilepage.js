@@ -8,6 +8,7 @@ import { logout } from "../../../Store/auth";
 import Deletepopup from "../../../Components/DeletePopup/DeletePopup";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
+import Success from "../../../Components/SuccessPopup/Success"
 
 const EditProfile = () => {
   const [name, setname] = useState();
@@ -19,6 +20,7 @@ const EditProfile = () => {
   const [dp, setDp] = useState();
   const [error, setError] = useState(false);
   const [onDelete, setOnDelete] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [newpassword, setNewPassword] = useState();
   const [fileName, setFile] = useState("");
   const [btn, setBtn] = useState("SAVE CHANGES");
@@ -144,8 +146,7 @@ const EditProfile = () => {
         if (res.data.auth === false) {
           dispatch(logout());
         } else if (res.data.ack === true) {
-          setBtn("SAVE CHANGES");
-          window.location.reload();
+          setSuccess(true)
         } else {
           setBtn("SAVE CHANGES");
           setError("Unable to update the details! try again.");
@@ -174,18 +175,22 @@ const EditProfile = () => {
           setFileBtn("SAVE IMAGE");
           setError("Unable to save changes! try again.");
         } else {
-          setFileBtn("SAVE IMAGE");
-          window.location.reload();
+          setSuccess(true)
         }
       })
       .catch((er) => {
         setError("Some error occured! try again.");
       });
   };
+
+  const onRedirect=()=>{
+    window.location.reload()
+  }
   return (
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
       {onDelete && <Deletepopup hide={hide} onDelete={onDeleteBtn} />}
+      {success && <Success redirect={onRedirect}/>}
       <form className={classes.form_container} onSubmit={editHandler}>
         <label htmlFor="username" className={classes.labels}>
           User Name

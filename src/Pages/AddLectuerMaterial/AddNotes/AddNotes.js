@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddNotes = (props) => {
   const week = props.match.params.weekID;
@@ -43,13 +44,14 @@ const AddNotes = (props) => {
 
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const [visibleRef, setVisibility] = useState("visible");
   const [notes, setNotes] = useState();
   const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState();
+  const [success, setSuccess] = useState(false);
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -94,12 +96,7 @@ const AddNotes = (props) => {
             setError("unable to add material! try again.");
             setLoaded("SAVE");
           } else {
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                setLoaded("SAVE");
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+            setSuccess(true);
           }
         })
         .catch((er) => {
@@ -118,16 +115,29 @@ const AddNotes = (props) => {
             setLoaded("SAVE");
           } else {
             setLoaded("SAVE");
-            history.goBack();
+            setSuccess(true);
           }
         })
         .catch(() => {});
     }
   };
 
+  const onRedirect = () => {
+    if (MaterialID) {
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          setLoaded("SAVE");
+          history.replace("/my-courses/" + res.data[0].module);
+        });
+    }
+  };
+
   return (
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>NOTES</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onNotesSubmit} className={classes.form_container}>

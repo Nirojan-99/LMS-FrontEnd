@@ -38,7 +38,7 @@
   font-family: roboto;
   font-size: 1rem;
   color: rgb(14, 14, 172);
-transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in;
   text-align: center;
   background-color: #aaa;
   width: 10%;
@@ -46,9 +46,9 @@ transition: all .3s ease-in-out;
   margin-bottom: 2rem;
   margin-top: 2rem;
   padding: 5px 10px;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
-.addWeek:hover{
+.addWeek:hover {
   background-color: #046666;
   color: #fff;
 }

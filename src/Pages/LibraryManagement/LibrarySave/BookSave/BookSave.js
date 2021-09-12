@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
+import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import Success from "../../../../Components/SuccessPopup/Success";
 
 const BookSave = (props) => {
   const history = useHistory();
@@ -38,14 +40,26 @@ const BookSave = (props) => {
   const [bookposter, setbookPoster] = useState();
   const [bookPoster, setbookPosterold] = useState();
   const [books, setbook] = useState();
-
   const [bookLink, setBookLink] = useState();
   const [posterLink, setPosterLink] = useState();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const onbookSubmit = (event) => {
     const book = new FormData();
 
     event.preventDefault();
+
+    if (!bookName.trim() || bookName.length < 5) {
+      setError("Book name should be longer");
+      return;
+    } else if (!author.trim() || author.length < 5) {
+      setError("Author name should be longer");
+      return;
+    } else if (!bookDetails.trim() || bookDetails.length < 100) {
+      setError("Give enough details about the book");
+      return;
+    }
 
     var currentdate = new Date();
     var datetime =
@@ -77,8 +91,12 @@ const BookSave = (props) => {
       .then((res) => {
         if (res.data.ack === false) {
         } else {
-          setBtn("SAVE");
-          history.replace("/services/digital_library");
+          if (res.data.ack === false) {
+            setError("Unable to save! try again.");
+          } else {
+            setBtn("SAVE");
+            setSuccess(true);
+          }
         }
       })
       .catch((er) => {
@@ -101,8 +119,17 @@ const BookSave = (props) => {
     setbook(event.target.files[0]);
   };
 
+  const clickedHandler = () => {
+    setError(null);
+  };
+  const onRedirect = () => {
+    history.replace("/services/digital_library");
+  };
+
   return (
     <div className={classes.CardView}>
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Add Book</h2>
       <hr className={classes.line}></hr>
       <form

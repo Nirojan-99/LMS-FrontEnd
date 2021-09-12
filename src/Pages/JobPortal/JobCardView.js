@@ -70,7 +70,7 @@ const JobCardView = (props) => {
       <img src={props.row.jobPoster} className={classes.jobPoster}></img>
       <div className={classes.jobname}>{props.row.name}</div>
       <div className={classes.companyname}>{props.row.companyName}</div>
-      <div className={classes.description}>{props.row.jobDetails}</div>
+      <div className={classes.description}>{props.row.jobDetails.substring(0, 200)+"..." }</div>
       {type === "student" && (
         <div>
           <a

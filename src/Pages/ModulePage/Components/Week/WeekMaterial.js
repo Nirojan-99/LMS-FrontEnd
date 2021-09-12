@@ -25,7 +25,7 @@ const WeekContainer = (props) => {
   let edit = "";
 
   const userType = useSelector((state) => state.loging.type);
-  const userEmail = useSelector((state) => state.loging.userMail);
+  const userEmail = useSelector((state) => state.loging.id);
   const token = useSelector((state) => state.loging.token);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -185,7 +185,7 @@ const WeekContainer = (props) => {
                   clickH(props.data._id);
                 }}
               >
-                <img src={deleteI} className={classes.img_buttons}></img>
+                <img src={deleteI} className={classes.img_buttonsD}></img>
               </a>
             </span>
             <span>

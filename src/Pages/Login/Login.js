@@ -37,9 +37,9 @@ const Login = () => {
               id: res.data.details._id,
               name: res.data.details.name,
               token: res.data.token,
+              lmsID: res.data.details.ID,
             })
           );
-          console.log(res.data.token);
           history.replace("/dashboard");
         } else {
           setUnAuth(true);

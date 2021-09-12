@@ -6,6 +6,7 @@ const initial = {
   type: localStorage.getItem("type"),
   userID: localStorage.getItem("userID"),
   userName: localStorage.getItem("userName"),
+  id: localStorage.getItem("id"),
 };
 localStorage.removeItem("email");
 const authStore = createSlice({
@@ -18,11 +19,13 @@ const authStore = createSlice({
       state.userID = action.payload.id;
       state.userName = action.payload.name;
       state.token = action.payload.token;
+      state.id = action.payload.lmsID;
       localStorage.setItem("token", state.token);
       localStorage.setItem("type", state.type);
       localStorage.setItem("userID", state.userID);
       localStorage.setItem("isLogedIn", state.isLogedIn);
       localStorage.setItem("userName", state.userName);
+      localStorage.setItem("id", state.id);
 
       setTimeout(() => {
         localStorage.removeItem("token");
@@ -30,6 +33,7 @@ const authStore = createSlice({
         localStorage.removeItem("userID");
         localStorage.removeItem("isLogedIn");
         localStorage.removeItem("userName");
+        localStorage.removeItem("id");
       }, 60000 * 30);
     },
     logout(state) {
@@ -41,6 +45,7 @@ const authStore = createSlice({
       localStorage.removeItem("userID");
       localStorage.removeItem("isLogedIn");
       localStorage.removeItem("userName");
+      localStorage.removeItem("id");
     },
   },
 });
