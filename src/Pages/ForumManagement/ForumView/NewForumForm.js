@@ -1,12 +1,44 @@
 import React, { useState } from "react";
-
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useHistory } from "react-router";
 import classes from "./NewForumForm.module.css";
 import useInput from "../../UserManagement/AddUser/useInput";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 const NewForumForm = (props) => {
+  const history=useHistory();
   const forumtype = props.type;
+  const moduleID = props.moduleID;
+  const weekID = props.weekID;
+  const type = useSelector((state) => state.loging.type);
+  const userID = useSelector((state) => state.loging.userID);
+
+  const [userName, setUserName] = useState();
+  const [lmsID, setLmsID] = useState();
+
+ useEffect(() => {
+  
+      axios
+        .get(
+          "http://localhost:5000/ForumManagement/get_userName?userID=" +
+            userID
+        )
+        .then((res) => {
+          setUserName(res.data.name);
+          setLmsID(res.data.ID);
+        })
+        .catch((er) => {
+          console.log("error");
+        });
+    
+}, []);
+
+
+
+
 
   const {
     value: roleValue,
@@ -29,20 +61,44 @@ const NewForumForm = (props) => {
     if (!formIsValid) {
       return;
     }
+    if (forumtype == "newforum") {
+      const normalForum = {
+        weekID: weekID,
+        moduleID: moduleID,
+        msg: roleValue,
+        userID: userID,
+        type: type,
+      };
 
-    console.log(roleValue);
+      axios
+      .post("http://localhost:5000/ForumManagement/add_normalForum", normalForum)
+      .then((res) => {
+        if(res.data){
+         window.location.reload();
+        };
+        
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+    } else if (forumtype == "replyforum") {
+    }
 
     resetRole();
   };
-  const roleClass = (roleHasError && forumtype=="replyforum") ? classes.invalid_inputs : classes.inputs;
-  const cardClass= forumtype=="replyforum" ? classes.replyCardView : classes.newCardView;
+  const roleClass =
+    roleHasError && forumtype == "replyforum"
+      ? classes.invalid_inputs
+      : classes.inputs;
+  const cardClass =
+    forumtype == "replyforum" ? classes.replyCardView : classes.newCardView;
   return (
     <div className={cardClass}>
       <div className={classes.User}>
         <div className={classes.Avatar}>
           <img src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         </div>
-        <div className={classes.Name}>Arivaran IT20223458</div>
+        <div className={classes.Name}>{userName}{"  "}{lmsID}</div>
       </div>
       <hr className={classes.line}></hr>
       <form onSubmit={submitHandler}>
@@ -55,7 +111,7 @@ const NewForumForm = (props) => {
           onBlur={roleBlurHandler}
           rows="3"
         ></textarea>
-        {(roleHasError && forumtype=="replyforum") && (
+        {roleHasError && forumtype == "replyforum" && (
           <p className={classes.errorText}>Forum Should not Empty !!!</p>
         )}
 
@@ -78,7 +134,7 @@ const NewForumForm = (props) => {
           </div>
         )}
 
-{forumtype == "newforum" && (
+        {forumtype == "newforum" && (
           <div className={classes.inlineNew}>
             <button
               type="submit"

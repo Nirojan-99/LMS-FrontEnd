@@ -1,33 +1,38 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 import classes from "./WeekForumView.module.css";
 import forum from "../../../Assets/forum.png";
+import WeekForum from "./WeekForum";
 
 const WeekForumView = (props) => {
-  return (
-    // <div className={classes.week_container} id={props.row.week}>
-    //   <div className={classes.week_box}>
-    //     <div className={classes.week_title} id={props.id}>
-    //       {"WEEK  " + props.row.week}
-    //     </div>
-    //   </div>
-    // </div>
+  const moduleID=props.moduleid;
+  const [topicForums, setTopicForums]=useState([]);
 
-    <div className={classes.week_container} id="week1">
-      <div className={classes.week_box}>
-        <div className={classes.week_title} id="week1">
-          {"WEEK  " + "1"}
-        </div>
-        <div className={classes.inline}>
-        <img src={forum} className={classes.Avatar}/>
-
-        <div className={classes.content}>
-        <h2>This Discussion is about First Subject of Mobile Application</h2>
-        <h3>Prof.Ratherna Veera</h3>
-        <h4>21st August 2021</h4>
-        </div>
-        </div>
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/ForumManagement/get_topicForums?moduleID="+moduleID)
+      .then((res) => {
+        console.log(res.data);
+        setTopicForums(res.data);
         
-       
-      </div>
+        
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
+
+  return (
+
+    
+    
+    <div className={classes.week_container} >
+      {topicForums.map((row) => {
+        return <WeekForum data={row} key={row._id} />;
+      })}
+     
+      
     </div>
   );
 };
