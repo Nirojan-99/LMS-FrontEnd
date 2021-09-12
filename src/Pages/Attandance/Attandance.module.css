@@ -32,6 +32,7 @@
   justify-content: space-around;
 }
 .labels {
+  cursor: pointer;
   background-color: #333;
   color: #fff;
   border-radius: 10px;

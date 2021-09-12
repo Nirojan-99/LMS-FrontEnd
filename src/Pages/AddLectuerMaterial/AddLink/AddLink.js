@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddLink = (props) => {
   const week = props.match.params.weekID;
@@ -45,6 +46,7 @@ const AddLink = (props) => {
   const [title, setTitle] = useState();
   const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -60,7 +62,7 @@ const AddLink = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onSubmitted = (event) => {
@@ -104,11 +106,7 @@ const AddLink = (props) => {
             } else if (resp.data.inserted === false) {
               setError("Unable to add material! try again.");
             } else {
-              axios
-                .get("http://localhost:5000/admin/get_module?week=" + week)
-                .then((res) => {
-                  history.replace("/my-courses/" + res.data[0].module);
-                });
+              setSuccess(true);
             }
           })
           .catch((er) => {
@@ -125,7 +123,7 @@ const AddLink = (props) => {
             } else if (resp.data.updated === false) {
               setError("Unable to update! try again.");
             } else {
-              history.goBack();
+              setSuccess(true);
             }
           })
           .catch(() => {
@@ -137,9 +135,22 @@ const AddLink = (props) => {
     }
   };
 
+  const onRedirect = () => {
+    if (MaterialID) {
+      history.goBack();
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
+        });
+    }
+  };
+
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>LINK</h2>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>

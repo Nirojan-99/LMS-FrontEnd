@@ -5,10 +5,12 @@ import { useHistory } from "react-router";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../Store/auth";
+import Success from "../../Components/SuccessPopup/Success";
 
 const NewEvent = () => {
   const [title, setTitle] = useState();
   const [Sdate, setDate] = useState();
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [text, setText] = useState("SAVE");
   const userID = useSelector((state) => state.loging.userID);
@@ -79,7 +81,7 @@ const NewEvent = () => {
           setError("Unable to Add new event! try again.");
           setText("SAVE");
         } else {
-          history.goBack();
+          setSuccess(true);
         }
       })
       .catch((er) => {
@@ -87,9 +89,14 @@ const NewEvent = () => {
         setError("Some error occured! try again.");
       });
   };
+
+  const onRedirect = () => {
+    history.goBack();
+  };
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>ADD NEW EVENT</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={eventSubmitHandler} className={classes.form_container}>
