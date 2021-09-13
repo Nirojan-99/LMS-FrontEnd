@@ -45,7 +45,7 @@ const AddAttandance = (props) => {
   const history = useHistory();
 
   const [visibleRef, setVisibility] = useState("visible");
-  const [loaded, setLoaded] = useState("Save");
+  const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState();
   const [success, setSuccess] = useState(false);
   const [didUpdated, setDidUpdated] = useState(true);
@@ -56,7 +56,7 @@ const AddAttandance = (props) => {
   };
 
   const onAttandanceSubmit = (event) => {
-    setLoaded("Saving...");
+    setLoaded("SAVING...");
 
     const currentdate = new Date();
     const date = currentdate.getDate();
@@ -83,7 +83,7 @@ const AddAttandance = (props) => {
           } else if (resp.data.updated === false) {
             setError("Unable to update!");
             setDidUpdated(false);
-            setLoaded("Save");
+            setLoaded("SAVE");
           } else {
             setSuccess(true);
           }
@@ -91,7 +91,7 @@ const AddAttandance = (props) => {
         .catch((er) => {
           setError("check your network connection !");
           setDidUpdated(false);
-          setLoaded("Save");
+          setLoaded("SAVE");
         });
     } else {
       axios
@@ -104,7 +104,7 @@ const AddAttandance = (props) => {
           } else if (resp.data.inserted === false) {
             setError("Unable to create!");
             setDidUpdated(false);
-            setLoaded("Save");
+            setLoaded("SAVE");
           } else {
             setSuccess(true)
           }
@@ -131,7 +131,7 @@ const AddAttandance = (props) => {
         <ErrorPopup error={error} clickedHandler={clickHandler} />
       )}
       {success && <Success redirect={onredirect} />}
-      <h2 className={classes.title}>ATTANDANCE</h2>
+      <h2 className={classes.title}>CREATE ATTANDANCE</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onAttandanceSubmit} className={classes.form_container}>
         <input

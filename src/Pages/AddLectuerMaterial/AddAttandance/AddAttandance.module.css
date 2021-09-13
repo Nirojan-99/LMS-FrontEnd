@@ -1,6 +1,6 @@
 .container{
     background-color: #eee;
-    width: 50%;
+    width: 30%;
     margin: auto;
     margin-top: 25px;
     margin-bottom: 25px;
@@ -8,6 +8,7 @@
     padding: 20px;
 }
 .title{
+  text-align: center;
     font-family: roboto;
   font-size: 20px;
   color: #088f8f;
@@ -62,7 +63,7 @@
 .submit{
     margin: auto;
     width: auto;
-    padding: 5px 13px;
+    padding: 5px 2rem;
     background-color: transparent;
     border: 2px solid #14B6C8;
     color: #14B6C8;
@@ -70,7 +71,7 @@
     font-family: roboto;
     font-size: 20px;
     border-radius: 10px;
-    margin-left: 40%;
+    margin-left: 38%;
 }
 .submit:hover{
     cursor: pointer;

@@ -1,6 +1,6 @@
 .container {
-  padding: 15px;
-
+  padding: 15px 0;
+  border-radius: 0.3rem;
   position: fixed;
   height: 25%;
   top: 30vh;
@@ -19,49 +19,50 @@
   z-index: 10;
   background: rgba(0, 0, 0, 0.75);
 }
-.title{
-    text-transform: capitalize;
-    margin: 10px;
-    color: red;
-    font-family: roboto;
-    font-size: 25px;
-    text-align: center;
+.title {
+  text-transform: capitalize;
+  margin: 10px;
+  color: rgb(177, 21, 21);
+  font-family: roboto;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 2rem;
 }
-.buttons{
-    margin: 70px 50px;
-    display: flex;
-    justify-content: space-around;
+.buttons {
+  margin: 4rem 50px;
+  display: flex;
+  justify-content: space-around;
 }
-.deleteButton{
-    font-weight: bold;
-    border-radius: 5px;
-    border: 0px;
-    outline: 0px;
-    background-color: rgba(255, 0, 0, 0.74);
-    color: #fff;
-    padding: 4px 10px;
-    font-size: 17px;
-    font-family: "open sans";
+.deleteButton {
+  font-weight: bold;
+  border-radius: 5px;
+  border: 0px;
+  outline: 0px;
+  background-color: rgba(255, 0, 0, 0.74);
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 17px;
+  font-family: "open sans";
 }
-.cancel{
-    font-weight: bolder;
-    border: 0px;
-    outline: 0px;
-    border-color: transparent;
-    color: #fff;
-    padding: 4px 10px;
-    font-size: 17px;
-    font-family: "open sans";
+.cancel {
+  font-weight: bolder;
+  border: 0px;
+  outline: 0px;
+  border-color: transparent;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 17px;
+  font-family: "open sans";
 }
 .cancel:hover {
-    cursor: pointer;
-    color: #000000;
-    transition-property: all;
-    transition-duration: .5s;
+  cursor: pointer;
+  color: #000000;
+  transition-property: all;
+  transition-duration: 0.5s;
 }
-.deleteButton:hover{
-    cursor: pointer;
-    background-color: red;
-    transition-property: all;
-    transition-duration: .5s;
+.deleteButton:hover {
+  cursor: pointer;
+  background-color: red;
+  transition-property: all;
+  transition-duration: 0.5s;
 }

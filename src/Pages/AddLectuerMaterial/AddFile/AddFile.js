@@ -44,9 +44,10 @@ const AddFile = (props) => {
   }, []);
 
   const [visibleRef, setVisibility] = useState("visible");
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFileout, setSelectedFileout] = useState();
   const [title, setTitle] = useState();
   const [currentFile, setCurrentFile] = useState();
+  const [selectedFile, setSelectedFile] = useState();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [load, setload] = useState("SAVE");
@@ -131,6 +132,7 @@ const AddFile = (props) => {
 
   const onFileChanged = (event) => {
     setSelectedFile(event.target.files[0]);
+    event.target.files[0] && setSelectedFileout(event.target.files[0].name);
   };
   const onRedirect = () => {
     if (material) {
@@ -148,7 +150,7 @@ const AddFile = (props) => {
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
       {success && <Success redirect={onRedirect} />}
-      <h2 className={classes.title}>FILE</h2>
+      <h2 className={classes.title}>ADD FILE</h2>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>
         {material && (
@@ -164,27 +166,43 @@ const AddFile = (props) => {
         </label>
         <br />
         {!material && (
-          <input
-            placeholder="drag And Drop"
-            onChange={onFileChanged}
-            name="file"
-            className={(classes.inputs, classes.fileinput)}
-            type="file"
-            id="file"
-            required
-          />
+          <div className={classes.file_container}>
+            {" "}
+            <input
+              placeholder="drag And Drop"
+              onChange={onFileChanged}
+              name="file"
+              className={(classes.inputs, classes.fileinput)}
+              type="file"
+              id="file"
+              required
+            />
+            <label htmlFor="file" className={classes.file_label}>
+              Drag and Drop
+            </label>
+          </div>
         )}
         {material && (
-          <input
-            placeholder="drag And Drop"
-            onChange={onFileChanged}
-            name="file"
-            className={(classes.inputs, classes.fileinput)}
-            type="file"
-            id="file"
-          />
+          <div className={classes.file_container}>
+            {" "}
+            <input
+              placeholder="drag And Drop"
+              onChange={onFileChanged}
+              name="file"
+              className={(classes.inputs, classes.fileinput)}
+              type="file"
+              id="file"
+            />
+            <label htmlFor="file" className={classes.file_label}>
+              Drag and Drop
+            </label>
+          </div>
         )}
-
+        {selectedFileout && (
+          <div className={classes.preview}>
+            Selected File : {selectedFileout}
+          </div>
+        )}
         <label className={classes.labels} htmlFor="title">
           Title
         </label>
