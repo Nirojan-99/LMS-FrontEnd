@@ -3,7 +3,7 @@ import set from "../../Assets/set.png";
 import { useState, useEffect } from "react";
 
 const Success = (props) => {
-  const [counter, setCounter] = useState(20);
+  const [counter, setCounter] = useState(10);
   useEffect(() => {
     const timer =
       counter > 0 && setInterval(() => setCounter(counter - 1), 300);
