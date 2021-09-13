@@ -9,9 +9,11 @@ import plus from "../../../Assets/plusFaculty.png";
 import { Row } from "react-bootstrap";
 import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const ModulepageView = (props) => {
+  const userType = useSelector((state) => state.loging.type);
   const history = useHistory();
   // const history = useHistory();
   const moduleid = props.match.params.ModuleID;
@@ -35,6 +37,7 @@ const ModulepageView = (props) => {
         setLoaded(true);
 
         setModule(res.data);
+       
       })
       .catch((er) => {
         console.log(er);
@@ -50,7 +53,7 @@ const ModulepageView = (props) => {
           return <ModuleView Module={row} data={row} />;
         })}
 
-      <div className={classes.ModulepageView_view}>
+{userType === "admin" && ( <div className={classes.ModulepageView_view}>
         <a
           href={
             "/faculties/course/Addmodule/" +
@@ -63,7 +66,7 @@ const ModulepageView = (props) => {
         >
           <img src={plus} className={classes.img_buttons}></img>
         </a>
-      </div>
+      </div>)}
       {!loaded && (
         <div className={classes.loader}>
           <Loader />

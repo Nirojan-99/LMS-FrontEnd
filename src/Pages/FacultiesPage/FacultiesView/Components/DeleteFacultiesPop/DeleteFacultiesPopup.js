@@ -23,27 +23,29 @@ const DeleteFacultiesPopup = (props) => {
         <h2 className={classes.title}>
           {"Are You Sure to Delete  " + props.name}?
         </h2>
-         <label for="Admin Password" className={classes.lables}>
+         {/* <label for="Admin Password" className={classes.lables}>
           AdminPassword
-        </label>
-        <br />
+        </label> */}
+        <br /> 
+        <br /> 
+        <br /> 
         {/* <input type="password" className={classes.inputs}></input><br/>  */}
 
-        <input
+        {/* <input
           name="pwd"
           placeholder="Enter Password"
           className={classes.inputs}
           type={isRevealPwd ? "text" : "password"}
           value={pwd}
-          // onChange={setpwdhandler}
-        />
-        <img
+         
+        /> */}
+        {/* <img
        
           title={isRevealPwd ? "Show password" : "Hide password"}
           src={isRevealPwd ? showPwdImg : hidePwdImg}
           className={classes.img}
           onClick={() => setIsRevealPwd((prevState) => !prevState)}
-        />
+        /> */}
 
         <div className={classes.buttons}>
           <button className={classes.deleteButton} onClick={props.onDelete}>

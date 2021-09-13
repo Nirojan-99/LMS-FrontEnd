@@ -6,9 +6,11 @@ import { useState } from "react";
 import OutsideClick from "./OutsideClick";
 import React, { useRef } from "react";
 import Semester from "./Semester";
+import { useSelector, useDispatch } from "react-redux";
 import DeleteFacultiesPopup from "../../FacultiesPage/FacultiesView/Components/DeleteFacultiesPop/DeleteFacultiesPopup";
 
 const CourseYear = (props) => {
+  const userType = useSelector((state) => state.loging.type);
   const ID1 = props.ID;
 
  
@@ -47,13 +49,13 @@ const CourseYear = (props) => {
           </div>
         </div>
 
-        <div className={classes.right_items}>
+        {/* {userType === "admin" && (  <div className={classes.right_items}>
           <div>
             <a onClick={onDelete}>
               <img src={Delete} className={classes.img_buttons}></img>
             </a>
           </div>
-        </div>
+        </div>)} */}
       </div>
       <hr className={classes.line}></hr>
 

@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import plus from "../../../../Assets/plus.png";
 import Course from "./course";
+import { useSelector,useDispatch } from "react-redux";
 
  
 
 const Allcourse = (props) => {
+  const userType = useSelector((state) => state.loging.type);
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch()
 
 
   const [courses, setCourse] = useState([]);
@@ -17,9 +21,11 @@ const Allcourse = (props) => {
   useEffect(() => {
     axios
       .post("http://localhost:5000/Faculty/get_courses", {
-        courses: props.faculty.courses,
-      })
+        courses: props.faculty.courses},
+         
+      )
       .then((res) => {
+        
         setCourse(res.data);
         setLoaded(true);
       })
@@ -42,7 +48,7 @@ const Allcourse = (props) => {
           );
         })}
 
-      <div className={classes.imgbutton}>
+{userType === "admin" && (   <div className={classes.imgbutton}>
         <div className={classes.imgbutton_plus}>
           <a
             className={classes.addcourse}
@@ -51,7 +57,7 @@ const Allcourse = (props) => {
             <img src={plus} className={classes.plusIcon} />
           </a>
         </div>
-      </div>
+      </div>)}
     </div>
   );
 };

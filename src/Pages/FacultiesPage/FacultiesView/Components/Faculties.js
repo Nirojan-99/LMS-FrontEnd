@@ -9,8 +9,11 @@ import deleteI from "../../../../Assets/delete.png";
 import arrow from "../../../../Assets/arrow-left.png";
 import axios from "axios";
 import pencil from "../../../../Assets/pencil.svg";
+import { useSelector,useDispatch } from "react-redux";
+
 
 const Faculties = (props) => {
+  const userType = useSelector((state) => state.loging.type);
   // ARROW PREES
   const facultyId = props.data._id;
   const dropdownRef = useRef(null);
@@ -61,7 +64,7 @@ const Faculties = (props) => {
           ></img>
           <div className={classes.FacultiesName}>{props.FacultiesName}</div>
         </div>
-        <div className={classes.Rightallcontent}>
+        {userType === "admin" && (  <div className={classes.Rightallcontent}>
           <div className={classes.buttonedit}>
             <a href={"/faculties/editfaculties/" + facultyId}>
               <img src={pencil} className={classes.img_buttons_edit}></img>
@@ -72,7 +75,7 @@ const Faculties = (props) => {
               <img src={deleteI} className={classes.img_buttons}></img>
             </a>
           </div>
-        </div>
+        </div>)}
       </div>
 
       <nav> {isActive && <Allcourse faculty={props.data} />} </nav>
