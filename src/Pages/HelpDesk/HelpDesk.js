@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
+import Success from "../../Components/SuccessPopup/Success";
 
 const HelpDesk = () => {
   const [Iname, setName] = useState();
@@ -13,6 +14,7 @@ const HelpDesk = () => {
   const [query, setQuery] = useState();
   const [btn, setBTN] = useState("SUBMIT");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const userID = useSelector((state) => state.loging.userID);
   const history = useHistory();
@@ -99,20 +101,25 @@ const HelpDesk = () => {
     axios
       .post("http://localhost:5000/helpDesk/add_ticket", data)
       .then((res) => {
-        setError("Your query is submitted successfully !!");
-        setTimeout(() => {
-          setError(null);
-          history.goBack();
-        }, 2200);
+        if (res.data.ack === true) {
+          setSuccess(true);
+        } else {
+          setError("Unable to submit your Query! try again");
+        }
       })
       .catch((er) => {
         console.log("error");
       });
   };
 
+  const onRedirect = () => {
+    history.goBack();
+  };
+
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Help Desk</h2>
       <hr className={classes.line}></hr>
       <div className={classes.form_container}>

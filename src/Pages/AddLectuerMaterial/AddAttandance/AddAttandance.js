@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddAttandance = (props) => {
   const week = props.match.params.weekID;
@@ -44,8 +45,9 @@ const AddAttandance = (props) => {
   const history = useHistory();
 
   const [visibleRef, setVisibility] = useState("visible");
-  const [loaded, setLoaded] = useState("Save");
+  const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState();
+  const [success, setSuccess] = useState(false);
   const [didUpdated, setDidUpdated] = useState(true);
 
   const onRadioClicked = (event) => {
@@ -54,7 +56,7 @@ const AddAttandance = (props) => {
   };
 
   const onAttandanceSubmit = (event) => {
-    setLoaded("Saving...");
+    setLoaded("SAVING...");
 
     const currentdate = new Date();
     const date = currentdate.getDate();
@@ -81,15 +83,15 @@ const AddAttandance = (props) => {
           } else if (resp.data.updated === false) {
             setError("Unable to update!");
             setDidUpdated(false);
-            setLoaded("Save");
+            setLoaded("SAVE");
           } else {
-            window.location.reload();
+            setSuccess(true);
           }
         })
         .catch((er) => {
           setError("check your network connection !");
           setDidUpdated(false);
-          setLoaded("Save");
+          setLoaded("SAVE");
         });
     } else {
       axios
@@ -102,16 +104,24 @@ const AddAttandance = (props) => {
           } else if (resp.data.inserted === false) {
             setError("Unable to create!");
             setDidUpdated(false);
-            setLoaded("Save");
+            setLoaded("SAVE");
           } else {
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+            setSuccess(true)
           }
         })
         .catch((er) => {});
+    }
+  };
+
+  const onredirect = () => {
+    if (materialID) {
+      history.goBack();
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
+        });
     }
   };
 
@@ -120,7 +130,8 @@ const AddAttandance = (props) => {
       {!didUpdated && (
         <ErrorPopup error={error} clickedHandler={clickHandler} />
       )}
-      <h2 className={classes.title}>ATTANDANCE</h2>
+      {success && <Success redirect={onredirect} />}
+      <h2 className={classes.title}>CREATE ATTANDANCE</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onAttandanceSubmit} className={classes.form_container}>
         <input

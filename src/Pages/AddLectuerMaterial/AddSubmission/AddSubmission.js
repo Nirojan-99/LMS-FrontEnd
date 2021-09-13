@@ -6,6 +6,7 @@ import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddSubmission = (props) => {
   const history = useHistory();
@@ -57,6 +58,7 @@ const AddSubmission = (props) => {
   const [size, setSize] = useState();
   const [text, setText] = useState("SAVE");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const titlehandler = (event) => {
     setTitle(event.target.value);
@@ -72,7 +74,7 @@ const AddSubmission = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onRadioClicked = (event) => {
@@ -135,11 +137,7 @@ const AddSubmission = (props) => {
               setError("Unable to add data! try again.");
               setText("SAVE");
             } else {
-              axios
-                .get("http://localhost:5000/admin/get_module?week=" + week)
-                .then((res) => {
-                  history.replace("/my-courses/" + res.data[0].module);
-                });
+              setSuccess(true);
             }
           })
           .catch((er) => {
@@ -157,7 +155,7 @@ const AddSubmission = (props) => {
               setError("Unable to update! try again.");
               setText("SAVE");
             } else {
-              history.goBack();
+              setSuccess(true);
             }
           })
           .catch(() => {
@@ -167,9 +165,21 @@ const AddSubmission = (props) => {
     }
   };
 
+  const onRedirect = () => {
+    if (material) {
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
+        });
+    }
+  };
+
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <div className={classes.title_div}>
         <h2 className={classes.title}>ADD SUBMISSION</h2>
         {material && (
@@ -184,6 +194,7 @@ const AddSubmission = (props) => {
           Title
         </label>
         <input
+        placeholder="title"
           value={title}
           onChange={titlehandler}
           required

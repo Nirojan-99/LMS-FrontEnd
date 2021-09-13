@@ -59,7 +59,7 @@ const JobPortal = () => {
 
       {type === "admin" && loaded && (
         <div className={classes.addJob}>
-          <a href="/services/job_portal/add_Job">ADD</a>
+          <a href="/services/job_portal/add_Job">ADD NEW</a>
         </div>
       )}
     </>

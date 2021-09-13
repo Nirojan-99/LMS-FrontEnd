@@ -3,12 +3,16 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
+import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import Success from "../../../../Components/SuccessPopup/Success";
 
 const PaperSave = (props) => {
   const history = useHistory();
 
   const id = props.match.params.paperId;
   const [edit, setEdit] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [btn, setBtn] = useState("SAVE");
 
   useEffect(() => {
@@ -38,6 +42,11 @@ const PaperSave = (props) => {
     const paper = new FormData();
     event.preventDefault();
 
+    if (!paperTitle.trim() || paperTitle.length < 5) {
+      setError("Pastpaper name should be longer");
+      return;
+    }
+
     var currentdate = new Date();
     var datetime =
       currentdate.getDate() +
@@ -64,8 +73,12 @@ const PaperSave = (props) => {
       .post("http://localhost:5000/library/add_paper", paper)
       .then((res) => {
         if (res.data.ack === true) {
-          history.replace("/services/digital_library");
+          setSuccess(true);
+        } else if (res.data.fileError === true) {
+          setError("Invalid file type!");
+          setBtn("SAVE");
         } else {
+          setError("Unable to save! try again.");
           setBtn("SAVE");
         }
       })
@@ -80,9 +93,18 @@ const PaperSave = (props) => {
   const paperPosterHandler = (event) => {
     setpaperPoster(event.target.files[0]);
   };
+  const clickedHandler = () => {
+    setError(null);
+  };
+
+  const onRedirect = () => {
+    history.replace("/services/digital_library");
+  };
 
   return (
     <div className={classes.CardView}>
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Add Paper</h2>
       <hr className={classes.line}></hr>
       <form
@@ -127,7 +149,11 @@ const PaperSave = (props) => {
             className={classes.inputs}
           ></input>
         )}
-        {id && <a className={classes.posterView} href={pastpaperPoster} >view current file</a>}
+        {id && (
+          <a className={classes.posterView} href={pastpaperPoster}>
+            view current file
+          </a>
+        )}
         <button className={classes.save}>{btn}</button>
       </form>
     </div>

@@ -5,6 +5,7 @@ import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddFile = (props) => {
   const week = props.match.params.weekID;
@@ -43,10 +44,12 @@ const AddFile = (props) => {
   }, []);
 
   const [visibleRef, setVisibility] = useState("visible");
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFileout, setSelectedFileout] = useState();
   const [title, setTitle] = useState();
   const [currentFile, setCurrentFile] = useState();
+  const [selectedFile, setSelectedFile] = useState();
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [load, setload] = useState("SAVE");
 
   const onRadioClicked = (event) => {
@@ -58,7 +61,7 @@ const AddFile = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onSubmitted = (e) => {
@@ -97,13 +100,10 @@ const AddFile = (props) => {
         .then((resp) => {
           if (resp.data.auth === false) {
             dispatch(logout());
-          } else if (resp.data.updated !== false) {
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                setload("SAVE");
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+          } else if (resp.data.updated === true) {
+            setSuccess(true);
+          } else {
+            setError("Unable to make changes! try again.");
           }
         })
         .catch((er) => {
@@ -121,8 +121,7 @@ const AddFile = (props) => {
             setError("Unable to update ! try again.");
             setload("SAVE");
           } else {
-            setload("SAVE");
-            history.goBack();
+            setSuccess(true);
           }
         })
         .catch(() => {
@@ -133,12 +132,25 @@ const AddFile = (props) => {
 
   const onFileChanged = (event) => {
     setSelectedFile(event.target.files[0]);
+    event.target.files[0] && setSelectedFileout(event.target.files[0].name);
   };
-
+  const onRedirect = () => {
+    if (material) {
+      history.goBack();
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          setload("SAVE");
+          history.replace("/my-courses/" + res.data[0].module);
+        });
+    }
+  };
   return (
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
-      <h2 className={classes.title}>FILE</h2>
+      {success && <Success redirect={onRedirect} />}
+      <h2 className={classes.title}>ADD FILE</h2>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>
         {material && (
@@ -154,27 +166,43 @@ const AddFile = (props) => {
         </label>
         <br />
         {!material && (
-          <input
-            placeholder="drag And Drop"
-            onChange={onFileChanged}
-            name="file"
-            className={(classes.inputs, classes.fileinput)}
-            type="file"
-            id="file"
-            required
-          />
+          <div className={classes.file_container}>
+            {" "}
+            <input
+              placeholder="drag And Drop"
+              onChange={onFileChanged}
+              name="file"
+              className={(classes.inputs, classes.fileinput)}
+              type="file"
+              id="file"
+              required
+            />
+            <label htmlFor="file" className={classes.file_label}>
+              Drag and Drop
+            </label>
+          </div>
         )}
         {material && (
-          <input
-            placeholder="drag And Drop"
-            onChange={onFileChanged}
-            name="file"
-            className={(classes.inputs, classes.fileinput)}
-            type="file"
-            id="file"
-          />
+          <div className={classes.file_container}>
+            {" "}
+            <input
+              placeholder="drag And Drop"
+              onChange={onFileChanged}
+              name="file"
+              className={(classes.inputs, classes.fileinput)}
+              type="file"
+              id="file"
+            />
+            <label htmlFor="file" className={classes.file_label}>
+              Drag and Drop
+            </label>
+          </div>
         )}
-
+        {selectedFileout && (
+          <div className={classes.preview}>
+            Selected File : {selectedFileout}
+          </div>
+        )}
         <label className={classes.labels} htmlFor="title">
           Title
         </label>
