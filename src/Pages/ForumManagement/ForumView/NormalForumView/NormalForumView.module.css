@@ -191,3 +191,63 @@
     font-weight: bold;
     color: gray;
   }
+
+
+  .reply {
+    background-color: rgb(63, 63, 63);
+    border: 2px solid black;
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+    font-family: roboto;
+    font-weight: bold;
+    text-align: left;
+    margin-right: 5%;
+    
+  }
+
+  .reply:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
+
+
+  .edit {
+    background-color: rgb(63, 63, 63);
+    border: 2px solid black;
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+    font-family: roboto;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .edit:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
+
+  .allbtn {
+    display: flex;
+    /* margin-left: 20%; */
+    margin-bottom: 0%;
+    margin-top: 0%;
+    /* justify-content: space-evenly; */
+    /* justify-content: right; */
+    float: right;
+    
+    
+  }
+
+  .repliesbtn{
+    float: left;
+  }

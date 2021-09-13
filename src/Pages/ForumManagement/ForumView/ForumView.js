@@ -5,6 +5,7 @@ import classes from "./ForumView.module.css";
 import React, { useState } from "react";
 import NewForumForm from "./NewForumForm";
 import NormalForumView from "../ForumView/NormalForumView/NormalForumView";
+
 const ForumView = (props) => {
   const moduleID=props.match.params.moduleID;
   const forumID = props.match.params.forumID;
@@ -52,23 +53,24 @@ const ForumView = (props) => {
           )
           .then((res) => {
             setNormalForums(res.data);
+            
           })
           .catch((er) => {
             console.log("error");
           });
   }, []);
 
-  console.log(userID);
+  
+  
+  // const [isEditing, setIsEditing] = useState(false);
 
-  const [isEditing, setIsEditing] = useState(false);
+  // const startEditingHandler = () => {
+  //   setIsEditing(true);
+  // };
 
-  const startEditingHandler = () => {
-    setIsEditing(true);
-  };
-
-  const stopEditingHandler = () => {
-    setIsEditing(false);
-  };
+  // const stopEditingHandler = () => {
+  //   setIsEditing(false);
+  // };
   return (
     <div>
       <div>
@@ -81,7 +83,7 @@ const ForumView = (props) => {
             <div className={classes.Time}>{postedDate}</div>
           </div>
           <hr className={classes.line}></hr>
-          <div class={classes.Content}>{topic}</div>
+          <div class={classes.ContentTopic}>{topic}</div>
           <div class={classes.Content}>{msg}</div>
 
           {/* <div className={classes.replyForm}>
@@ -106,14 +108,10 @@ const ForumView = (props) => {
           )}
         </div> */}
       </div>
-      {/* <div>
-          <NormalForumView/>
-        </div> */}
         <div>
         {normalForums.map((row) => {
         return <NormalForumView data={row} key={row._id} />;
       })}
-     
         </div>
       <div>
         <NewForumForm type={"newforum"} moduleID={moduleID} weekID={weekID}/>

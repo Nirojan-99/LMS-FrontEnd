@@ -9,15 +9,29 @@ import useInput from "../../UserManagement/AddUser/useInput";
 const isNotEmpty = (value) => value.trim() !== "";
 
 const NewForumForm = (props) => {
-  const history=useHistory();
   const forumtype = props.type;
-  const moduleID = props.moduleID;
-  const weekID = props.weekID;
+  const parentNormalForumID=props.parentNormalForumID;
   const type = useSelector((state) => state.loging.type);
   const userID = useSelector((state) => state.loging.userID);
-
   const [userName, setUserName] = useState();
   const [lmsID, setLmsID] = useState();
+  const history=useHistory();
+
+
+ //For New Forum
+  const moduleID = props.moduleID;
+  const weekID = props.weekID;
+
+  const {
+    value: roleValue,
+    isValid: roleIsValid,
+    hasError: roleHasError,
+    valueChangeHandler: roleChangeHandler,
+    inputBlurHandler: roleBlurHandler,
+    reset: resetRole,
+  } = useInput(isNotEmpty);
+
+  let formIsValid = false;
 
  useEffect(() => {
   
@@ -36,20 +50,6 @@ const NewForumForm = (props) => {
     
 }, []);
 
-
-
-
-
-  const {
-    value: roleValue,
-    isValid: roleIsValid,
-    hasError: roleHasError,
-    valueChangeHandler: roleChangeHandler,
-    inputBlurHandler: roleBlurHandler,
-    reset: resetRole,
-  } = useInput(isNotEmpty);
-
-  let formIsValid = false;
 
   if (roleIsValid) {
     formIsValid = true;
@@ -82,6 +82,26 @@ const NewForumForm = (props) => {
         console.log(er);
       });
     } else if (forumtype == "replyforum") {
+
+      const replyForum = {
+        parentNormalForumID:parentNormalForumID,
+        msg: roleValue,
+        userID: userID,
+        type: type,
+      };
+
+      axios
+      .post("http://localhost:5000/ForumManagement/add_replyForum", replyForum)
+      .then((res) => {
+        if(res.data){
+         window.location.reload();
+        };
+        
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+
     }
 
     resetRole();

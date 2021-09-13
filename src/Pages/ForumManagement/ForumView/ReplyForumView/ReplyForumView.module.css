@@ -17,7 +17,7 @@
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 33%;
+    margin-left: 35%;
     border: 2px solid #14b6c8;
   
   }
@@ -184,3 +184,10 @@
     cursor: not-allowed;
   }
   
+  .Time {
+    margin-top: 36px;
+    margin-left: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: gray;
+  }
