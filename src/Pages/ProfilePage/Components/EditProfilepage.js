@@ -8,7 +8,7 @@ import { logout } from "../../../Store/auth";
 import Deletepopup from "../../../Components/DeletePopup/DeletePopup";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
-import Success from "../../../Components/SuccessPopup/Success"
+import Success from "../../../Components/SuccessPopup/Success";
 
 const EditProfile = () => {
   const [name, setname] = useState();
@@ -146,7 +146,7 @@ const EditProfile = () => {
         if (res.data.auth === false) {
           dispatch(logout());
         } else if (res.data.ack === true) {
-          setSuccess(true)
+          setSuccess(true);
         } else {
           setBtn("SAVE CHANGES");
           setError("Unable to update the details! try again.");
@@ -171,11 +171,16 @@ const EditProfile = () => {
       .then((res) => {
         if (res.data.auth === false) {
           dispatch(logout());
+        } else if (res.data.file === false) {
+          setError("Invalid file type!");
+          setFileBtn("SAVE IMAGE");
+          // window.location.reload();
         } else if (res.data.ack === false) {
           setFileBtn("SAVE IMAGE");
           setError("Unable to save changes! try again.");
+          // window.location.reload();
         } else {
-          setSuccess(true)
+          setSuccess(true);
         }
       })
       .catch((er) => {
@@ -183,14 +188,14 @@ const EditProfile = () => {
       });
   };
 
-  const onRedirect=()=>{
-    window.location.reload()
-  }
+  const onRedirect = () => {
+    window.location.reload();
+  };
   return (
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
       {onDelete && <Deletepopup hide={hide} onDelete={onDeleteBtn} />}
-      {success && <Success redirect={onRedirect}/>}
+      {success && <Success redirect={onRedirect} />}
       <form className={classes.form_container} onSubmit={editHandler}>
         <label htmlFor="username" className={classes.labels}>
           User Name
