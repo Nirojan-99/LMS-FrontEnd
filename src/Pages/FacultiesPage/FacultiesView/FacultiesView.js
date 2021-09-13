@@ -6,11 +6,13 @@ import axios from "axios";
 import plus from "../../../Assets/plusFaculty.png"
 import Loader from "../../../Components/Loader/Loader";
 import Faculties from "./Components/Faculties";
+import { useSelector,useDispatch } from "react-redux";
 
 
 const FacultiesView = (props) => {
   const [facultys, setfacultys] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const userType = useSelector((state) => state.loging.type);
 
 
   useEffect(() => {
@@ -36,13 +38,14 @@ const FacultiesView = (props) => {
           return <Faculties FacultiesName={row.name} data={row} />;
           
         })}
+  {userType === "admin" && ( 
       <div className={classes.main_space1}>
         <div className={classes.main_space}>
           <a className={classes.addFaculites} href="/faculties/Addfaculties">
             <img src={plus} className={classes.plusIcon} />
           </a>
         </div>
-      </div>
+      </div>)}
       {!loaded && (
         <div className={classes.loader}>
           <Loader/>

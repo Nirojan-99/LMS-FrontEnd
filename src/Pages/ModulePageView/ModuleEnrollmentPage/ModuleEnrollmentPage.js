@@ -9,11 +9,12 @@ const ModuleEnrollment = (props) => {
   const id = props.match.params.moduleID;
   const [lic, setLIC] = useState();
   const [name, setNAme] = useState();
+  const [studentIDNo, setstudentIDNo] = useState();
+
   const [valid, setvalid] = useState(true);
   const [Ekey, setKey] = useState();
   const userID = useSelector((state) => state.loging.userID);
   const history = useHistory();
-
 
   const clickedHandler = () => {
     setvalid(true);
@@ -58,9 +59,9 @@ const ModuleEnrollment = (props) => {
       {!valid && (
         <ErrorPopup error={"Invalid Key"} clickedHandler={clickedHandler} />
       )}
-      <h1 className={classes.title}>{props.module}</h1>
-      <h3 className={classes.back2}>Lecturer InCharge: {lic}</h3>
-      <h3 className={classes.back2}>Module: {name}</h3>
+      <h1 className={classes.ModuleName}>{props.module}</h1>
+      <h3 className={classes.InCharge}>LECTURE INCHARGE : {lic}</h3>
+      <h3 className={classes.back2}>MODULE : {name}</h3>
       <h1 className={classes.back3}>Enroll</h1>
       <div>
         <div className={classes.formContainer}>
@@ -71,7 +72,7 @@ const ModuleEnrollment = (props) => {
               type="text"
               id="enroll"
               placeholder="******"
-              name="companyName"
+              name="enrollmentkey"
               className={classes.inputs}
             />
 

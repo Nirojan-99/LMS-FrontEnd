@@ -1,18 +1,20 @@
 .ModuleEnrollment_cardView {
   width: 50%;
   padding: 3%;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-color: #ddd;
   margin: auto;
   margin-top: 30px;
   margin-bottom: 0px;
 }
-.title {
+.ModuleName {
   width: 90%;
   margin: auto;
   font-family: roboto;
   font-size: 27px;
   color: #046666;
   font-size: xx-large;
+  text-transform: uppercase;
 }
 
 .lables {

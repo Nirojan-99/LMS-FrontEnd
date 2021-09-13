@@ -4,8 +4,10 @@ import DeleteFacultiesPopup from "./DeleteFacultiesPop/DeleteFacultiesPopup";
 import { useState } from "react";
 import axios from "axios";
 import pencil from "../../../../Assets/pencil.svg";
+import { useSelector,useDispatch } from "react-redux";
 
 const Course = (props) => {
+  const userType = useSelector((state) => state.loging.type);
   // const courseID = props.data._id;
  
 
@@ -50,7 +52,7 @@ const Course = (props) => {
         </div>
       </div>
 
-      <div className={classes.rightcontent}>
+      {userType === "admin" && ( <div className={classes.rightcontent}>
         <a href={"faculties/editcourse/"+props.data._id}>
           <img src={pencil} className={classes.img_buttons_edit} ></img>
         </a>
@@ -58,7 +60,7 @@ const Course = (props) => {
         <a onClick={clickH}>
           <img src={deleteI} className={classes.img_buttons}></img>
         </a>
-      </div>
+      </div>)}
     </div>
   );
 };

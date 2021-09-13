@@ -84,9 +84,12 @@ const AddModule = (props) => {
           courseID: courseID,
         })
         .then((res) => {
-          history.goBack();
-          setError("successfully created Module");
-         
+      
+          setError("successfully created Module !!");
+          setTimeout(() => {
+            setError(null);
+            history.goBack();
+          }, 2200);
 
           // setBtn("Saved")
           // history.replace("/services/job_portal");
