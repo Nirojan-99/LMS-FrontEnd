@@ -67,7 +67,8 @@ const AddNotes = (props) => {
     e.preventDefault();
 
     if (!notes.trim() && notes.length < 40) {
-      setError("notes shout be greater than 40 words in length");
+      setError("notes shout be more longer");
+      setLoaded("SAVE");
       return;
     }
 
@@ -138,7 +139,7 @@ const AddNotes = (props) => {
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
       {success && <Success redirect={onRedirect} />}
-      <h2 className={classes.title}>NOTES</h2>
+      <h2 className={classes.title}>ADD NOTES</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onNotesSubmit} className={classes.form_container}>
         <label htmlFor="type" className={classes.labels}>

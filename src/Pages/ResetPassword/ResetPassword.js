@@ -48,9 +48,9 @@ const ResetPassword = () => {
   const onOTPSubmitted = (event) => {
     event.preventDefault();
 
-    if (Inputedotp.length < 5) {
+    if (!Inputedotp.length === 5) {
       setUnAuth(true);
-      setError("OTP should be 6 degit");
+      setError("OTP should be 5 degit");
       return;
     }
 

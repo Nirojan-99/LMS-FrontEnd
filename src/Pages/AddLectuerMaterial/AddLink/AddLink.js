@@ -151,7 +151,7 @@ const AddLink = (props) => {
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       {success && <Success redirect={onRedirect} />}
-      <h2 className={classes.title}>LINK</h2>
+      <h2 className={classes.title}>ADD LINK</h2>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>
         <label className={classes.labels} for="link">
@@ -165,6 +165,7 @@ const AddLink = (props) => {
           className={classes.inputs}
           type="text"
           id="link"
+          placeholder="link.."
           required
         />
 
@@ -173,6 +174,7 @@ const AddLink = (props) => {
         </label>
         <br />
         <input
+        placeholder="title.."
           required
           value={title}
           onChange={titleHandler}

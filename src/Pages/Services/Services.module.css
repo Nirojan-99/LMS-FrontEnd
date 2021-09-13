@@ -1,9 +1,9 @@
 .service_container{
     border-radius: 20px;
-    padding: 10px;
+    padding: 1rem;
     margin: auto;
-    width: 60%;
-    background-color: #fff;
+    width: 50%;
+    /* background-color: #fff; */
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -11,7 +11,7 @@
     margin-bottom: 20px;
     margin-top: 10px;
     width: 100%;
-    height: 1px;
+    height: .2rem;
     border-width: 0;
     color: gray;
     background-color: rgba(128, 128, 128, 0.658);
@@ -23,25 +23,29 @@ a{
     letter-spacing: 1.5px;
     size: 45px;
     font-family: roboto;
-    color: #046666;
-    width: 70%;
+    color: #fff;
+    width: 80%;
     margin: auto;
     margin-bottom: 25px;
     padding: 15px;
-    border: 2px solid #046666;
+    /* border: 2px solid #046666; */
+    border-radius: .3rem;
     transition: all .4s ease-in-out;
+    background-color: #333;
+    box-shadow: 0 0 4px 1px rgba(238, 238, 238, 0.534);
 }
 .links:hover{
     transition-property: all;
     transition-duration: .5s;
     background-color:#046666;
     color: #fff;
-    transform: scaleX(1.05); 
+    transform: scaleX(1.03); 
 }
 .title{
-    color:#046666 ;
-    font-size: 35px;
-    font-family: roboto;
+    color:#fff ;
+    font-size: 2rem;
+   font-weight: 600;
     letter-spacing: 2px;
-    margin:10px 30px 10px 10px;
+    margin:10px 30px 10px 0;
+    text-transform: uppercase;
 }

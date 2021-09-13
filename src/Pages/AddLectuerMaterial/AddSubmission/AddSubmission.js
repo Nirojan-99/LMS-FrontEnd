@@ -194,6 +194,7 @@ const AddSubmission = (props) => {
           Title
         </label>
         <input
+        placeholder="title"
           value={title}
           onChange={titlehandler}
           required
