@@ -93,6 +93,12 @@ const BookSave = (props) => {
         } else {
           if (res.data.ack === false) {
             setError("Unable to save! try again.");
+            setBtn("SAVE");
+          } else if (res.data.fileError === true) {
+            setError(
+              "Poster should be in jpeg format and book should be in pdf format"
+            );
+            setBtn("SAVE");
           } else {
             setBtn("SAVE");
             setSuccess(true);
@@ -114,6 +120,7 @@ const BookSave = (props) => {
   };
   const bookPosterHandler = (event) => {
     setbookPoster(event.target.files[0]);
+    console.log(event.target.files[0])
   };
   const bookHandler = (event) => {
     setbook(event.target.files[0]);

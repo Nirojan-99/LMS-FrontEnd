@@ -34,7 +34,7 @@ const authStore = createSlice({
         localStorage.removeItem("isLogedIn");
         localStorage.removeItem("userName");
         localStorage.removeItem("id");
-      }, 60000 * 30);
+      }, 60000 * 60);
     },
     logout(state) {
       state.isLogedIn = false;
