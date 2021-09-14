@@ -11,6 +11,7 @@ const AddForum = (props) => {
 
   const type = useSelector((state) => state.loging.type);
   const userID = useSelector((state) => state.loging.userID);
+  const userType = useSelector((state) => state.loging.type);
 
   const [topic, setTopic] = useState();
   const [msg, setMsg] = useState();
@@ -78,6 +79,8 @@ const AddForum = (props) => {
 
   
   return (
+    <>
+    {userType==="admin" && (
     <div className={classes.CardView}>
       <h2 className={classes.title}>ADD DISCUSSION FORUM</h2>
       <hr className={classes.line}></hr>
@@ -134,7 +137,8 @@ const AddForum = (props) => {
           <button className={classes.btnCancel} onClick={CancelHandler}>CANCEL</button>
         </div>
       </form>
-    </div>
+    </div>)}
+    </>
   );
 };
 

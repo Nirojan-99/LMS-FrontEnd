@@ -8,20 +8,53 @@ import { useEffect } from "react";
 import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
 
+
+import { useSelector} from "react-redux";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+
+
+
 const UserReport = () => {
   const history=useHistory();
   const [users, setUsers] = useState([]);
   const [updatedList, setList] = useState(users);
   const [isEmptyList, setEmpty] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const userType = useSelector((state) => state.loging.type);
+
+
+  const token = useSelector((state) => state.loging.token);
+  const [isUploaded, setIsUploaded] = useState(true);
+const [error, setError] = useState(null);
+
+const clickedHandler = (event) => {
+  setIsUploaded(true);
+};
+
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/userManagement/get_users")
+      .post("http://localhost:5000/userManagement/get_users",{
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setUsers(res.data);
+        // if (res.data.auth === false) {
+        //   setError("You Are not Authorized !");
+        //   setIsUploaded(false);
+        // }
+        // else 
+        if(res.data.noData===true){
+          setError("No data Availabe");
+        }
+        else if(res.data.dbError===true){
+          setError("Cann't connect with database");
+        }
+        else{
+          setUsers(res.data);
         setList(res.data);
         setLoaded(true);
+        }
+        
       })
       .catch((er) => {
         console.log("error");
@@ -35,10 +68,7 @@ const UserReport = () => {
       return;
     }
 
-    // const updated = users.filter(
-    //   (user) => user.ID === value || user.name === value
-    // );
-
+    
     const updated = users.filter(
       (user) =>
         user.ID.toUpperCase().includes(value.toUpperCase()) ||
@@ -61,6 +91,9 @@ const UserReport = () => {
   }
 
   return (
+    <>
+      {userType === "admin" && (
+   
     <div className={classes.container}>
       <h2 className={classes.title}>USER REPORT</h2>
       <hr className={classes.line}></hr>
@@ -88,7 +121,9 @@ const UserReport = () => {
       <button className={classes.add} onClick={AddUserHandler}>
           ADD USER
         </button>
-    </div>
+    </div>)}
+
+    </>
   );
 };
 
