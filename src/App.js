@@ -47,6 +47,7 @@ import page404 from "./Pages/404/404";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
 import StudenList from "./Pages/Studentportal/StudentList/StudentList";
+import UpdateGPA from "./Pages/Studentportal/AdminUpdateGPA/UpdateGPA";
 
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
@@ -105,6 +106,7 @@ function App() {
         <Route path="/services/eticket/:ticketID" exact component={TicketView}/>
 
         <Route path="/services/student_portal" exact component={StudenList}/>
+        <Route path="/services/student_portal/:SID" exact component={UpdateGPA}/>
 
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>
