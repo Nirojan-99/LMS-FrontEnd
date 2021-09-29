@@ -7,6 +7,7 @@ import { logout } from "../../Store/auth";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router";
+import Loader from "../../Components/Loader/Loader";
 
 const ModulePage = (props) => {
   const [weeks, setWeeks] = useState(true);
@@ -87,6 +88,7 @@ const ModulePage = (props) => {
           )}
         </main>
       )}
+      {!loaded && <div className={classes.loader}><Loader/></div>}
     </>
   );
 };
