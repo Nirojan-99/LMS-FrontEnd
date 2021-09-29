@@ -20,7 +20,7 @@ const Services = () => {
       >
         <div className={classes.links}>HELP DESK</div>
       </a>
-      <a href="services/portal">
+      <a href="services/student_portal">
         <div className={classes.links}>STUDENT PORTAL</div>
       </a>
       <a href="services/timetable">

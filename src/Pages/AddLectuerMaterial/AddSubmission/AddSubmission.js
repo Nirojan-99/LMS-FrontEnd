@@ -86,9 +86,19 @@ const AddSubmission = (props) => {
     e.preventDefault();
     setText("SAVING..");
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     const selecetDate = new Date(Sdate);
 
@@ -120,7 +130,7 @@ const AddSubmission = (props) => {
       maxSize: size,
       visibility: visibleRef,
       type: "submission",
-      date_time: date + "/" + time,
+      date_time: datetime,
       week: week,
     };
 
@@ -167,6 +177,7 @@ const AddSubmission = (props) => {
 
   const onRedirect = () => {
     if (material) {
+      history.goBack()
     } else {
       axios
         .get("http://localhost:5000/admin/get_module?week=" + week)

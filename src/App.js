@@ -46,6 +46,8 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 import page404 from "./Pages/404/404";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
+import StudenList from "./Pages/Studentportal/StudentList/StudentList";
+
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
 import AddForum from "./Pages/ForumManagement/AddForum/AddForum";
@@ -101,6 +103,8 @@ function App() {
         <Route path="/services/help_desk" exact component={HelpDesk}/>
         <Route path="/services/admin/help_desk" exact component={HelpDeskAdmin}/>
         <Route path="/services/eticket/:ticketID" exact component={TicketView}/>
+
+        <Route path="/services/student_portal" exact component={StudenList}/>
 
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>

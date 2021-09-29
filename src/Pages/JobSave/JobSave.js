@@ -72,7 +72,7 @@ const JobSave = (props) => {
       setIsUploaded(false);
       setError("Job Name should be more longer");
       return;
-    } else if (!companyname.trim() || companyname.length < 6) {
+    } else if (!companyname.trim() || companyname.length < 4) {
       setIsUploaded(false);
       setError("Company Name should be more longer");
       return;
@@ -210,7 +210,7 @@ const JobSave = (props) => {
         {id && (
           <div className={classes.inputContainer}>
             <input
-              required
+              // required
               onChange={jobPosterHandler}
               // value={jobposter}
               type="file"
