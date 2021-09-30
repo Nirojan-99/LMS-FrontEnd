@@ -14,23 +14,23 @@ const SearchBar = (props) => {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.title}></div>
+        <div className={classes.title}>Student List</div>
         <div className={classes.search}>
           <form className={classes.Searchform} onSubmit={onSearch}>
             <input
               ref={searchValue}
               onChange={onSearch}
               className={classes.searchInput}
-              placeholder="student ID"
+              placeholder="Search with student ID.."
             ></input>
-            <label for="submit" className={classes.iconLabel}>
+            {/* <label for="submit" className={classes.iconLabel}>
               <img className={classes.icon} src={search} />
-            </label>
+            </label> */}
             <button type="submit" hidden id="submit"></button>
           </form>
         </div>
       </div>
-      <hr className={classes.line}></hr>
+      {/* <hr className={classes.line}></hr> */}
     </>
   );
 };

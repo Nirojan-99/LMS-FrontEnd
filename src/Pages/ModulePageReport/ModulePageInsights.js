@@ -60,8 +60,12 @@ const ModulePageInsights = (props) => {
     <>
       {loaded && students && (
         <div className={classes.container}>
+          <div className={classes.head_container}>
           <h2 className={classes.title}>REPORT</h2>
-          <hr className={classes.line}></hr>
+          <button className={classes.btn_pdf}>Generate PDF</button>
+          </div>
+          
+          {/* <hr className={classes.line}></hr> */}
           <Table editDate={editedDate} viewers={students.length} />
           <SearchBar onSearch={getSearchValue} />
           <div className={classes.report_container}>
