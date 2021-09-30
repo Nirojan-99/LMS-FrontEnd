@@ -1,10 +1,13 @@
 .container{
     transition: all .5s ease-in-out;
-    width: 60%;
+    width: 80%;
     margin: auto;
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
+    background-color: #ddd;
+    border-radius: .3rem;
+    padding: .4rem .5rem;
 }
 .line {
     width: 60%;

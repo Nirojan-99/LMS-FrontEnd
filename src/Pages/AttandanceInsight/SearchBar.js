@@ -23,9 +23,6 @@ const SearchBar = (props) => {
               className={classes.searchInput}
               placeholder="student ID"
             ></input>
-            <label for="submit" className={classes.iconLabel}>
-              <img className={classes.icon} src={search} />
-            </label>
             <button type="submit" hidden id="submit"></button>
           </form>
         </div>

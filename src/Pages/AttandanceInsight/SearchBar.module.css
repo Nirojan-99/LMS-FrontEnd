@@ -16,7 +16,7 @@
 .search {
 }
 .line {
-  width: 85%;
+  width: 80%;
   margin-top: 10px;
   height: 1px;
   border-width: 0;
@@ -29,9 +29,9 @@
   outline: 0;
   margin-right: 20px;
   border: 2px solid #046666;
-  border-radius: 20px;
+  border-radius: .3rem;
   background: transparent;
-  padding: .25rem;
+  padding: .4rem .5rem;
   padding-left: 15px;
   font-size: 15px;
 }

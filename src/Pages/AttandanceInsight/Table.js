@@ -5,7 +5,7 @@ const ModulePageInsights = (props) => {
     <div className={classes.container}>
       <table className={classes.table_container}>
         <tr>
-          <td>Total Attandees</td>
+          <td>Total Attandees : </td>
           <td>{props.viewers}</td>
         </tr>
       </table>
