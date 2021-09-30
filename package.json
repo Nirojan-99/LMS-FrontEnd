@@ -10,6 +10,8 @@
     "axios": "^0.21.1",
     "axois": "^0.0.1-security",
     "bootstrap": "^5.1.0",
+    "jspdf": "^2.4.0",
+    "jspdf-autotable": "^3.5.20",
     "ka-table": "^7.1.3",
     "mdbreact": "^5.1.0",
     "react": "^17.0.2",
