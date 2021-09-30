@@ -7,7 +7,6 @@ const Details = (props) => {
         <div>{props.data.student}</div>
         <div>{props.data.date_time}</div>
       </div>
-      <hr className={classes.line}></hr>
     </>
   );
 };
