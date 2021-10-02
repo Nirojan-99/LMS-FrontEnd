@@ -61,7 +61,7 @@ const AttandanceInsight = (props) => {
         <div className={classes.container}>
           <div className={classes.head_container}>
           <h2 className={classes.title}>REPORT</h2>
-          <button className={classes.btn_pdf}>Generate PDF</button>
+          <a href={"http://localhost:5000/Reports/Attandance/insight"+material+".pdf"} className={classes.btn_pdf}>Generate PDF</a>
           </div>
           
           <hr className={classes.line}></hr>
