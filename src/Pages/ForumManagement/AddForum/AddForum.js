@@ -59,7 +59,8 @@ const AddForum = (props) => {
       weekNo: weekNo,
       moduleID: moduleID,
       msg: msg,
-      visibility: visibility,
+      // visibility: visibility,
+      visibility: "visible",
       userID:userID,
       type:type
     };
@@ -107,7 +108,7 @@ const AddForum = (props) => {
           onChange={MsgHandler}
         ></textarea>
 
-        <label for="faculty" className={classes.lables}>
+        {/* <label for="faculty" className={classes.lables}>
           Visibility to the Student
         </label>
         <br />
@@ -130,7 +131,7 @@ const AddForum = (props) => {
           className={classes.radio}
         ></input>
         <label className={classes.radioLabel}>Invisible</label>
-        <br />
+        <br /> */}
 
         <div className={classes.inline}>
           <button className={classes.btnUpdate}>ADD FORUM</button>

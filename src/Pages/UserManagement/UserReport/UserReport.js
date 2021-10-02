@@ -7,15 +7,17 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
+import { logout } from "../../../Store/auth";
 
 
-import { useSelector} from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 
 
 
 const UserReport = () => {
   const history=useHistory();
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([]);
   const [updatedList, setList] = useState(users);
   const [isEmptyList, setEmpty] = useState(false);
@@ -34,30 +36,35 @@ const clickedHandler = (event) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/userManagement/get_users",{
+      .get("http://localhost:5000/userManagement/get_users",{
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
-        // if (res.data.auth === false) {
-        //   setError("You Are not Authorized !");
-        //   setIsUploaded(false);
-        // }
-        // else 
-        if(res.data.noData===true){
+        if (res.data.auth === false) {
+          setError("You Are not Authorized !");
+          setIsUploaded(false);
+              setTimeout(() => {
+            dispatch(logout());
+          }, 500);
+        }
+        else if(res.data.noData===true){
           setError("No data Availabe");
         }
         else if(res.data.dbError===true){
+          setIsUploaded(false);
           setError("Cann't connect with database");
         }
         else{
           setUsers(res.data);
         setList(res.data);
         setLoaded(true);
+        setIsUploaded(true);
         }
         
       })
       .catch((er) => {
-        console.log("error");
+        setError("Cann't connect with database");
+        setIsUploaded(false);
       });
   }, []);
 
@@ -93,8 +100,9 @@ const clickedHandler = (event) => {
   return (
     <>
       {userType === "admin" && (
-   
+  
     <div className={classes.container}>
+       {!isUploaded && (<ErrorPopup error={error} clickedHandler={clickedHandler}/>)}
       <h2 className={classes.title}>USER REPORT</h2>
       <hr className={classes.line}></hr>
       <UserTable totalUsers={users.length} />

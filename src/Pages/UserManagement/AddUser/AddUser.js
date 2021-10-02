@@ -8,6 +8,7 @@ import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import classes from "./AddUser.module.css";
 import useInput from "./useInput";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@");
@@ -22,8 +23,7 @@ const AddUser = () => {
   const [userID, setUserID] = useState();
   const [error, setError] = useState(null);
   const [isUploaded, setIsUploaded] = useState(true);
- 
-
+  const [success, setSuccess] = useState(false);
 
 
   //get today date
@@ -45,9 +45,18 @@ const AddUser = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/userManagement/get_userID")
+      .get("http://localhost:5000/userManagement/get_userID", {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setUserID(res.data);
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to Create Users !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 500)
+        }else {setUserID(res.data);}
+        
       })
       .catch((er) => {
         console.log("error");
@@ -153,19 +162,23 @@ const AddUser = () => {
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
-      //   if (res.data.auth === false) {
-      //     setError("You Are not Authorized to Create Users !");
-      //     setIsUploaded(false);
-      //     setTimeout(() => {
-      //       dispatch(logout());
-      //     }, 3000);
-      // }else 
-      if (res.data.notAdded === true) {
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to Create Users !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 500);
+        } else if (res.data.notAdded === true) {
           setIsEmailExist(true);
           resetEmail();
           setError("Email is Already Exsist. Enter New One");
           setIsUploaded(false);
-        } else {
+        }else if(res.data.error === true){
+          setError("Something wrong. Try again later");
+          setIsUploaded(false);
+
+        }
+         else {
           resetEmail();
           resetName();
           resetDate();
@@ -174,13 +187,16 @@ const AddUser = () => {
           resetFaculty();
           resetRole();
           setIsEmailExist(false);
-          window.location.reload();
+          setSuccess(true);
+
+
+          // window.location.reload();
         }
       })
       .catch((er) => {
-        console.log(er);
+        setError("Something wrong. Try again later");
+        setIsUploaded(false);
       });
-    
   };
 
   const IDClass = classes.inputs;
@@ -209,14 +225,18 @@ const AddUser = () => {
   const clickedHandler = (event) => {
     setIsUploaded(true);
   };
-  
+  const onRedirect = () => {
+    window.location.reload();
+  };
 
   return (
     <>
-      {(userType === "admin") && (
-        
+      {userType === "admin" && (
         <div className={classes.CardView}>
-          {!isUploaded && (<ErrorPopup error={error} clickedHandler={clickedHandler}/>)}
+          {!isUploaded && (
+            <ErrorPopup error={error} clickedHandler={clickedHandler} />
+          )}
+          {success && <Success redirect={onRedirect} />}
           <h2 className={classes.title}>ADD USER</h2>
           <hr className={classes.line}></hr>
           <form className={classes.formContainer} onSubmit={submitHandler}>
@@ -285,7 +305,7 @@ const AddUser = () => {
               onChange={dateChangeHandler}
               onBlur={dateBlurHandler}
               min="1930-01-01"
-              max={getTodayDate}
+              max={getTodayDate()}
             ></input>
             {dateHasError && (
               <p className={classes.errorText}>Please Select a Date !!!</p>
