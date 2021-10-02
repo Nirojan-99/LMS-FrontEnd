@@ -3,10 +3,21 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const EditUser = (props) => {
+  const dispatch = useDispatch();
+  const userType = useSelector((state) => state.loging.type);
+
   const history = useHistory();
   const id = props.match.params.editID;
+  const [error, setError] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(true);
+  const token = useSelector((state) => state.loging.token);
+  const [success, setSuccess] = useState(false);
 
   const [userID, setUserID] = useState();
   const [name, setName] = useState();
@@ -20,21 +31,53 @@ const EditUser = (props) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/userManagement/edit_user", { id: id })
+      .get("http://localhost:5000/userManagement/edit_user?id=" + id, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        setUserID(res.data.ID);
-        setEmail(res.data.email);
-        setName(res.data.name);
-        setDOB(res.data.date);
-        setContact(res.data.contact);
-        setAddress(res.data.address);
-        setFaculty(res.data.faculty);
-        setRole(res.data.type);
-        setPassword(res.data.password);
-        // history.goBack(); //to go back  should put in SubmitHandler
+        if (res.data.auth === false) {
+          setError("You Are not Authorized!");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 500);
+        } else if (res.data.fetch === false) {
+          setError("Requested ID is wrong");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 600);
+        } else if (res.data.noData === true) {
+          setError("Cann't find user");
+          setIsUploaded(false);
+          setTimeout(() => {
+            history.goBack();
+          }, 600);
+        } else if (res.data.dbError === true) {
+          setError("Cann't connect with database");
+          setIsUploaded(false);
+          setTimeout(() => {
+            history.goBack();
+          }, 600);
+        } else {
+          setUserID(res.data.ID);
+          setEmail(res.data.email);
+          setName(res.data.name);
+          setDOB(res.data.date);
+          setContact(res.data.contact);
+          setAddress(res.data.address);
+          setFaculty(res.data.faculty);
+          setRole(res.data.type);
+          setPassword(res.data.password);
+        }
+
       })
       .catch((er) => {
-        console.log("error");
+        setError("Cann't connect with database");
+        setIsUploaded(false);
+        setTimeout(() => {
+          history.goBack();
+        }, 600);
       });
   }, []);
 
@@ -54,14 +97,39 @@ const EditUser = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/userManagement/update_user", updatedUser)
+      .post("http://localhost:5000/userManagement/update_user", updatedUser, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        console.log(res.data);
-        // setBtn("Saved")
-        history.replace("/user-report");
+        if (res.data.auth === false) {
+          setError("You Are not Authorized!");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 500);
+        } else if (res.data.fetch === false) {
+          setError("Wrong Request");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 600);
+        } else if (res.data.updated === false) {
+          setError("Cann't find user");
+          setIsUploaded(false);
+          setTimeout(() => {
+            history.goBack();
+          }, 600);
+        } else {
+          setSuccess(true);
+          // history.replace("/user-report");
+        }
       })
       .catch((er) => {
-        console.log(er);
+        setError("Cann't connect with database");
+        setIsUploaded(false);
+        setTimeout(() => {
+          history.goBack();
+        }, 600);
       });
   };
 
@@ -93,9 +161,19 @@ const EditUser = (props) => {
   const PasswordHandler = (event) => {
     setPassword(event.target.value);
   };
-  console.log(email, name);
+  const clickedHandler = (event) => {
+    setIsUploaded(true);
+  };
+  const onRedirect = () => {
+    history.replace("/user-report");
+  };
+
   return (
     <div className={classes.CardView}>
+      {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>EDIT USER</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={updateHandler}>
@@ -198,7 +276,7 @@ const EditUser = (props) => {
           className={classes.select}
           onChange={FacultyHandler}
         >
-          <option selected="true" value={faculty}>
+          <option selected="true" value={faculty} hidden>
             {faculty}
           </option>
           <option value="Computing">Computing</option>

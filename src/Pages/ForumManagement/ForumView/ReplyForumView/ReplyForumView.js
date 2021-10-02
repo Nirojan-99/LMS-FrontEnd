@@ -59,7 +59,7 @@ const ReplyForumView = (props) => {
           <img src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         </div>
         <div className={classes.Name}>{userName}{"  "}{lmsID}</div>
-        <div className={classes.Time}>{postedDate}</div>
+        <div className={classes.Time}>Posted on  {postedDate}</div>
       </div>
       <hr className={classes.line}></hr>
       <form onSubmit={submitHandler}>

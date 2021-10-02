@@ -76,7 +76,7 @@ const NormalForumView = (props) => {
             {"  "}
             {lmsID}
           </div>
-          <div className={classes.Time}>{postedDate}</div>
+          <div className={classes.Time}>Posted on {postedDate}</div>
         </div>
         <hr className={classes.line}></hr>
         <form onSubmit={submitHandler}>
