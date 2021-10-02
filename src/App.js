@@ -119,6 +119,7 @@ function App() {
         <Route path="/services/exam_marks" exact component={ExamViewMark}/>
         <Route path="/services/exam_marks/new" exact component={NewExamMark}/>
         <Route path="/services/exam_marks/edit/:id" exact component={EditExamMark}/>
+        
         <Route path="/services/student_portal" exact component={StudenList}/>
         <Route path="/services/student_portal/:SID" exact component={UpdateGPA}/>
 
