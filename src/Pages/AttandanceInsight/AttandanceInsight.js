@@ -57,14 +57,18 @@ const AttandanceInsight = (props) => {
 
   return (
     <>
-      {loaded && students && (
+      {loaded && !isEmpty && students && (
         <div className={classes.container}>
+          <div className={classes.head_container}>
           <h2 className={classes.title}>REPORT</h2>
+          <button className={classes.btn_pdf}>Generate PDF</button>
+          </div>
+          
           <hr className={classes.line}></hr>
           <Table viewers={students.length} />
           <SearchBar onSearch={getSearchValue} />
           <div className={classes.report_container}>
-            <span>Students Name</span>
+            <span>Student Name</span>
             <span>Marked Time</span>
           </div>
           {updatedList.map((row) => {
