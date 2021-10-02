@@ -65,6 +65,9 @@ import { Provider } from "react-redux";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
 
+// test
+import dummy from "./Pages/dummy";
+
 function App() {
   const isLogedIn = useSelector((state) => state.loging.isLogedIn);
   const type = useSelector((state) => state.loging.type);
@@ -151,6 +154,9 @@ function App() {
         <Route path="/services/paper_save" exact component={PaperSave}/>
         <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
+
+        {/* test */}
+        <Route path="/dummy" exact component={dummy}/>
 
         <Route path="*"  component={page404}/>
       </Switch>:
