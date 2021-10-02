@@ -6,7 +6,7 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-radius: 1rem;
+  border-radius: .3rem;
 }
 .title {
   padding: 1rem 0 0 1rem;
@@ -23,8 +23,6 @@
   background-color: rgb(119, 119, 119);
 }
 .new {
-  width: 80%;
-  margin: auto;
   margin-top: 1.5rem;
   color: blue;
   font-family: "open sans";
@@ -38,4 +36,30 @@
 .loader {
   margin-left: 45%;
   height: 5%;
+}
+.head{
+  padding-top: .1rem;
+}
+.nothing{
+  width: 100%;
+  text-align: center;
+  color: red;
+  font-family: "open sans";
+  font-weight: 700;
+}
+.new_box{
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.report{
+  background-color:#046666 ;
+  padding: .4rem .6rem;
+  font-family: "open sans";
+  font-weight: 700;
+  color: #fff;
+  border-radius: .3rem;
+  font-size: .8rem;
 }
