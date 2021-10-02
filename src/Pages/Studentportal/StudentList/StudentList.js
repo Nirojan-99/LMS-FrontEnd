@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../../../Components/Loader/Loader";
+import { useSelector, useDispatch } from "react-redux";
 
 const StudenList = () => {
   const [studentList, setStudents] = useState([]);
@@ -11,10 +12,13 @@ const StudenList = () => {
   const [loaded, setLoaded] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [count, setCount] = useState(0);
+  const token = useSelector((state) => state.loging.token);
 
   //useEffect call
   useEffect(() => {
-    axios.post("http://localhost:5000/userManagement/get_users").then((res) => {
+    axios.get("http://localhost:5000/userManagement/get_users" ,{
+      headers: { Authorization: "lmsvalidation " + token },
+    }).then((res) => {
       if (!res.data.error) {
         setStudents(res.data);
         setStusetUpdatedents(res.data)
