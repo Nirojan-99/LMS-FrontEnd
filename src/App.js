@@ -48,6 +48,7 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 
 import StudenList from "./Pages/Studentportal/StudentList/StudentList";
 import UpdateGPA from "./Pages/Studentportal/AdminUpdateGPA/UpdateGPA";
+import StudentPortal from "./Pages/Studentportal/StudentView/StudentPortal";
 
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
@@ -119,9 +120,10 @@ function App() {
         <Route path="/services/exam_marks" exact component={ExamViewMark}/>
         <Route path="/services/exam_marks/new" exact component={NewExamMark}/>
         <Route path="/services/exam_marks/edit/:id" exact component={EditExamMark}/>
-        
+
         <Route path="/services/student_portal" exact component={StudenList}/>
         <Route path="/services/student_portal/:SID" exact component={UpdateGPA}/>
+        <Route path="/services/student_portal/view/:SID" exact component={StudentPortal}/>
 
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>
