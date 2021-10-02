@@ -69,10 +69,19 @@ const AddLink = (props) => {
     event.preventDefault();
     setLoaded("SAVING...");
 
-    const currentdate = new Date();
-    const month = currentdate.getMonth() + 1;
-    const date = currentdate.getDate() + "-" + month;
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     if (!(link.includes("http") || link.includes("https"))) {
       setError("please input a valid link");
@@ -90,7 +99,7 @@ const AddLink = (props) => {
       title: title,
       link: link,
       visibility: visibleRef,
-      date_time: date + "/" + time,
+      date_time: datetime,
     };
     console.log(error);
     if (!error) {

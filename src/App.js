@@ -46,6 +46,9 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 import page404 from "./Pages/404/404";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
+import StudenList from "./Pages/Studentportal/StudentList/StudentList";
+import UpdateGPA from "./Pages/Studentportal/AdminUpdateGPA/UpdateGPA";
+
 import ForumView from "./Pages/ForumManagement/ForumView/ForumView";
 import WeekForumView from "./Pages/ForumManagement/WeekForumView/WeekForumView";
 import AddForum from "./Pages/ForumManagement/AddForum/AddForum";
@@ -60,6 +63,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
+import ExamView from "./Pages/Exams/View";
+import NewExam from "./Pages/Exams/new";
+import EditExam from "./Pages/Exams/edit";
+import ExamViewMark from "./Pages/ExamMarks/View";
+import NewExamMark from "./Pages/ExamMarks/new";
+import EditExamMark from "./Pages/ExamMarks/edit";
 
 function App() {
   const isLogedIn = useSelector((state) => state.loging.isLogedIn);
@@ -101,6 +110,16 @@ function App() {
         <Route path="/services/help_desk" exact component={HelpDesk}/>
         <Route path="/services/admin/help_desk" exact component={HelpDeskAdmin}/>
         <Route path="/services/eticket/:ticketID" exact component={TicketView}/>
+
+        <Route path="/services/exams" exact component={ExamView}/>
+        <Route path="/services/exams/new" exact component={NewExam}/>
+        <Route path="/services/exams/edit/:id" exact component={EditExam}/>
+
+        <Route path="/services/exam_marks" exact component={ExamViewMark}/>
+        <Route path="/services/exam_marks/new" exact component={NewExamMark}/>
+        <Route path="/services/exam_marks/edit/:id" exact component={EditExamMark}/>
+        <Route path="/services/student_portal" exact component={StudenList}/>
+        <Route path="/services/student_portal/:SID" exact component={UpdateGPA}/>
 
         <Route path="/add-user" exact component={AddUser} />
         <Route path="/user-report" exact component={UserReport}/>

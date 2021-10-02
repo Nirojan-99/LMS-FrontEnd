@@ -58,9 +58,19 @@ const AddAttandance = (props) => {
   const onAttandanceSubmit = (event) => {
     setLoaded("SAVING...");
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     event.preventDefault();
     const material = {
@@ -68,7 +78,7 @@ const AddAttandance = (props) => {
       week: week,
       title: "attandance",
       visibility: visibleRef,
-      date_time: date + "/" + time,
+      date_time: datetime,
       _id: materialID ? materialID : undefined,
     };
 

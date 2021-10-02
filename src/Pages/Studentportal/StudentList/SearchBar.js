@@ -1,6 +1,5 @@
 import classes from "./SearchBar.module.css";
-import Table from "./Table";
-import search from "../../Assets/search.svg";
+import search from "../../../Assets/search.svg";
 import { useRef } from "react";
 
 const SearchBar = (props) => {
@@ -14,14 +13,14 @@ const SearchBar = (props) => {
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.title}>Student List</div>
+        <div className={classes.title}>Student Portal</div>
         <div className={classes.search}>
           <form className={classes.Searchform} onSubmit={onSearch}>
             <input
               ref={searchValue}
               onChange={onSearch}
               className={classes.searchInput}
-              placeholder="Search with student ID.."
+              placeholder="student ID"
             ></input>
             {/* <label for="submit" className={classes.iconLabel}>
               <img className={classes.icon} src={search} />
@@ -30,7 +29,6 @@ const SearchBar = (props) => {
           </form>
         </div>
       </div>
-      {/* <hr className={classes.line}></hr> */}
     </>
   );
 };

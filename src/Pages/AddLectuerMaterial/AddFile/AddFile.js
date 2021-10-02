@@ -70,25 +70,35 @@ const AddFile = (props) => {
     const files = new FormData();
 
     if (!title.trim()) {
-      setError("pleae input valid title");
+      setError("Please input valid title");
       setload("SAVE");
       return;
     } else if (!setSelectedFile && !material) {
-      setError("pleae input valid file");
+      setError("Please input valid file");
       setload("SAVE");
       return;
     }
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     files.append("_id", material ? material : undefined);
     files.append("edit", material ? true : false);
     files.append("title", title);
     files.append("file", selectedFile);
     files.append("type", "file");
-    files.append("date_time", date + "/" + time);
+    files.append("date_time", datetime);
     files.append("visibility", visibleRef);
     files.append("week", week);
 
