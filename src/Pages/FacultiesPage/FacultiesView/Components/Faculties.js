@@ -51,6 +51,8 @@ const Faculties = (props) => {
             onDelete={onDeleteA}
             name={props.data.name}
             id={props.data._id}
+        
+            
           />
         )}
       </div>

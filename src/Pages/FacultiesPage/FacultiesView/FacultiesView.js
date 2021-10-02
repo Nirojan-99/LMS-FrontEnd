@@ -6,21 +6,34 @@ import axios from "axios";
 import plus from "../../../Assets/plusFaculty.png"
 import Loader from "../../../Components/Loader/Loader";
 import Faculties from "./Components/Faculties";
-import { useSelector,useDispatch } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 
 const FacultiesView = (props) => {
   const [facultys, setfacultys] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const userType = useSelector((state) => state.loging.type);
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Faculty/get_faculties")
+      .get("http://localhost:5000/Faculty/get_faculties",{
+        headers: { Authorization: "lmsvalidation " + token },})
       .then((res) => {
-        setfacultys(res.data);
-        setLoaded(true);
+ 
+        if (res.data.auth === false) {
+          setTimeout(() => {
+            dispatch(logout());
+          }, 300);
+        }else {
+
+          setfacultys(res.data);
+          setLoaded(true);
+        }
       })
       .catch((er) => {
         console.log("error");

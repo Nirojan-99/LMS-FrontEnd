@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import Success from "../../../../Components/SuccessPopup/Success";
 
 const AddModule = (props) => {
   const courseID = props.match.params.moduleid;
@@ -12,6 +13,7 @@ const AddModule = (props) => {
 
   const history = useHistory();
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (moduleID) {
@@ -85,8 +87,10 @@ const AddModule = (props) => {
         })
         .then((res) => {
       
-          setError("successfully created Module !!");
+          // setError("successfully created Module !!");
+          setSuccess(true);
           setTimeout(() => {
+            setSuccess(true);
             setError(null);
             history.goBack();
           }, 2200);
@@ -101,8 +105,10 @@ const AddModule = (props) => {
       axios
         .post("http://localhost:5000/Module/UpdateModule", Moduledata)
         .then((res) => {
-          setError(" Module successfully update !!");
+          // setError(" Module successfully update !!");
+          setSuccess(true);
           setTimeout(() => {
+            setSuccess(true);
             setError(null);
             history.goBack();
           }, 2200);
@@ -128,6 +134,9 @@ const AddModule = (props) => {
   const clickedHandler = (event) => {
     setError(null);
   };
+  const onRedirect = () => {
+    window.location.reload();
+  };
   const ModuleNameHandler = (event) => {
     setModuleNameHandler(event.target.value);
   };
@@ -147,6 +156,7 @@ const AddModule = (props) => {
   return (
     <div className={classes.squareview}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Add Module</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={onSubmitModule}>
