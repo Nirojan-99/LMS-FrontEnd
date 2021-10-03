@@ -20,6 +20,7 @@ const StudenList = () => {
       headers: { Authorization: "lmsvalidation " + token },
     }).then((res) => {
       if (!res.data.error) {
+        console.log(res.data)
         setStudents(res.data);
         setStusetUpdatedents(res.data)
         setLoaded(true)

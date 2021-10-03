@@ -82,6 +82,14 @@
     cursor: pointer;
     padding-left: 1rem;
   }
+  .icon_container a:first-child{
+    color: rgb(7, 190, 38);
+    cursor: pointer;
+    padding-right: 1rem;
+  }
+  .icon_container a:first-child:hover{
+    color: rgb(9, 226, 45);
+  }
   .icon_container a:last-child:hover{
     color: red;
   }

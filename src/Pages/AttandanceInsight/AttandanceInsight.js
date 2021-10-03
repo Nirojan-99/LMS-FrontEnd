@@ -7,6 +7,7 @@ import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../Store/auth";
+import generatePDF from "./GeneratePDF";
 
 const AttandanceInsight = (props) => {
   const material = props.match.params.ID;
@@ -61,7 +62,7 @@ const AttandanceInsight = (props) => {
         <div className={classes.container}>
           <div className={classes.head_container}>
           <h2 className={classes.title}>REPORT</h2>
-          <a href={"http://localhost:5000/Reports/Attandance/insight"+material+".pdf"} className={classes.btn_pdf}>Generate PDF</a>
+          <a onClick={()=>{generatePDF(students,material)}} className={classes.btn_pdf}>Generate PDF</a>
           </div>
           
           <hr className={classes.line}></hr>
