@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../Store/auth";
 import ErrorPopup from "../../Components/ErrorPopup/ErrorPopup";
 import SearchBar from "./SearchBar";
+import generatePDF from "./generatePDF";
 
 const EventSummary = () => {
   const [loaded, setLoaded] = useState(false);
@@ -88,7 +89,7 @@ const EventSummary = () => {
         <a className={classes.new} href={"/new_calendar"}>
           Create New
         </a>
-        <a className={classes.report} href={"http://localhost:5000/Reports/Events/insight"+userID+".pdf"}>
+        <a className={classes.report} onClick={()=>{generatePDF(events)}}>
           Generate Report
         </a>
       </div>

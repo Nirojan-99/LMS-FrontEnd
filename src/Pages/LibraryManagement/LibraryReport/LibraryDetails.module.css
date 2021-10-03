@@ -1,24 +1,18 @@
 .container{
-    width: 60%;
+    width: 80%;
     margin: auto;
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: .6rem;
     justify-content: space-between;
+    background-color: #ddd;
+    padding: .4rem .5rem;
+    border-radius: .3rem;
 }
-.line {
-    width: 60%;
-    margin-top: 10px;
-    height: 1px;
-    border-width: 0;
-    background-color: rgba(114, 114, 114, 0.747);
-  }
   .container div{
       font-family: "open sans";
-      size: 13px;
+      font-size: 13px;
       font-weight: 800;
       color: #444;
-      width: 12.89999%;
-      
   }
 
   .img_buttons {

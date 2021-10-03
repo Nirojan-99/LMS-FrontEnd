@@ -64,6 +64,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
+
 import ExamView from "./Pages/Exams/View";
 import NewExam from "./Pages/Exams/new";
 import EditExam from "./Pages/Exams/edit";
@@ -166,6 +167,8 @@ function App() {
         <Route path="/services/paper_save" exact component={PaperSave}/>
         <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
+        <Route path="/services/digital_library/report/:ID" exact component={LibraryReport}/>
+        {/* //nirush */}
 
         <Route path="*"  component={page404}/>
       </Switch>:
