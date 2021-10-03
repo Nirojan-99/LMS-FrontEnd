@@ -4,28 +4,44 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
 import Success from "../../../../Components/SuccessPopup/Success";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../../Store/auth";
 
 const AddModule = (props) => {
   const courseID = props.match.params.moduleid;
   const year = props.match.params.Year;
   const semester = props.match.params.semester;
   const moduleID = props.match.params.moduleid1;
+  const token = useSelector((state) => state.loging.token);
 
   const history = useHistory();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (moduleID) {
       axios
-        .get("http://localhost:5000/Module/get_module?moduleID=" + moduleID)
+        .get("http://localhost:5000/Module/get_module?moduleID=" + moduleID, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
-          if (res) {
-            setModuleNameHandler(res.data.Modulename);
-            setModuleCodeHandler(res.data.ModuleCode);
-            setModuleEnrollmentkeyHandler(res.data.ModuleEnrollmentkey);
-            setModuleWeekCountsHandler(res.data.ModuleWeekCounts);
-            setModuleLectureInchargeHandler(res.data.ModuleLectureIncharge);
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to get faculty !");
+            // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 1000);
+          } else if (res.data.fetch === false) {
+            setError("No matching Job found ! redirecting to portal");
+            //setIsUploaded(false);
+            history.replace("/faculties");
+          } else {
+          setModuleNameHandler(res.data.Modulename);
+          setModuleCodeHandler(res.data.ModuleCode);
+          setModuleEnrollmentkeyHandler(res.data.ModuleEnrollmentkey);
+          setModuleWeekCountsHandler(res.data.ModuleWeekCounts);
+          setModuleLectureInchargeHandler(res.data.ModuleLectureIncharge);
           }
         })
         .catch((er) => {
@@ -37,33 +53,35 @@ const AddModule = (props) => {
   const onSubmitModule = (event) => {
     event.preventDefault();
 
-    if (ModuleCode.trim().length <6) {
+    if (ModuleCode.trim().length < 6) {
       setError("please enter 6 digit ModuleCode!!");
 
       return;
-    } else if (ModuleEnrollmentkey.trim().length <6) {
+    } else if (ModuleEnrollmentkey.trim().length < 6) {
       setError(" please enter 6 digit ModuleEnrollmentkey!!! ");
       return;
     } else if (ModuleCode.trim().length > 6) {
       setError("please enter 6 digit ModuleCode!!! don't enter more than 6");
       return;
-    } else if (ModuleEnrollmentkey.trim().length >6) {
+    } else if (ModuleEnrollmentkey.trim().length > 6) {
       setError(
         "please enter 6 digit ModuleEnrollmentkey!!! don't enter more than 6"
       );
       return;
     } else if (ModuleWeekCounts.trim() <= 8) {
-      setError("please enter 8 - 18 range ModuleWeekCounts !!! don't enter less than 8");
+      setError(
+        "please enter 8 - 18 range ModuleWeekCounts !!! don't enter less than 8"
+      );
       return;
     } else if (ModuleWeekCounts.trim() >= 18) {
-      setError("please enter 8 - 18 range ModuleWeekCounts !!! don't enter greater than 18");
+      setError(
+        "please enter 8 - 18 range ModuleWeekCounts !!! don't enter greater than 18"
+      );
       return;
-    
-    } else if (ModuleEnrollmentkey=== ModuleCode) {
+    } else if (ModuleEnrollmentkey === ModuleCode) {
       setError("please enter different 'ModuleCode' and 'ModuleEnrollmentkey'");
       return;
-    }
-    else if (!ModuleName.trim()) {
+    } else if (!ModuleName.trim()) {
       setError("invaild ModuleName");
       return;
     }
@@ -84,9 +102,10 @@ const AddModule = (props) => {
         .post("http://localhost:5000/Module/addModule", {
           data: Moduledata,
           courseID: courseID,
+          headers: { Authorization: "lmsvalidation " + token },
         })
+
         .then((res) => {
-      
           // setError("successfully created Module !!");
           setSuccess(true);
           setTimeout(() => {
@@ -103,19 +122,43 @@ const AddModule = (props) => {
         });
     } else {
       axios
-        .post("http://localhost:5000/Module/UpdateModule", Moduledata)
+        .post("http://localhost:5000/Module/UpdateModule", Moduledata, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
-          // setError(" Module successfully update !!");
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to update module !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 300);
+          }else if (res.data.uploaded === true) {
+           
+            
+            // history.replace("/faculties");
           setSuccess(true);
           setTimeout(() => {
             setSuccess(true);
             setError(null);
             history.goBack();
           }, 2200);
+            
+          }else if (res.data.uploaded === false) {
+           
+            //setIsUploaded(false);
+           // history.replace("/faculties");
+           setError("You Are nothing to Update, make changes!");
+            
+          }
+          // setError(" Module successfully update !!");
+          // setSuccess(true);
+          // setTimeout(() => {
+          //   setSuccess(true);
+          //   setError(null);
+          //   history.goBack();
+          // }, 2200);
           // history.goBack();
           // setError("successfully updated Module");
-        
-         
 
           // setBtn("Saved")
           // history.replace("/services/job_portal");

@@ -26,15 +26,15 @@ const AddFaculties = (props) => {
      // setEdit(true);
       setBtn("ADD..");
       axios
-        .post("http://localhost:5000/Faculty/getfaculty", { id: id },{
+        .get("http://localhost:5000/Faculty/getfaculty?id=" + id ,{
           headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
           if (res.data.auth === false) {
-            setError("You Are not Authorized to Create Jobs !");
+            setError("You Are not Authorized to get faculty !");
            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
-            }, 300);
+            }, 1000);
           }else if (res.data.fetch === false) {
             setError("No matching Job found ! redirecting to portal");
             //setIsUploaded(false);
@@ -56,6 +56,12 @@ const AddFaculties = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
+    // if (name.length === 0 && Incharge.length === 0 && id.length === 0) {
+    //   setError("invaild facultyname 1!! ");
+
+    //   return;
+    // }else
+    
     if (!name.trim()) {
       setError("invaild facultyname!! ");
 

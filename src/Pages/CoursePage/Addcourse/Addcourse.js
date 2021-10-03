@@ -4,7 +4,10 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 const Addcourse = (props) => {
+  const dispatch = useDispatch();
   const facultyID = props.match.params.facultyID;
   const courseid = props.match.params.courseid;
 
@@ -13,6 +16,7 @@ const Addcourse = (props) => {
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("ADD");
   const [error, setError] = useState(null);
+  const token = useSelector((state) => state.loging.token);
 
   useEffect(() => {
     if (!courseid) {
@@ -22,10 +26,23 @@ const Addcourse = (props) => {
       setEdit(true);
       setBtn("Edit");
       axios
-        .post("http://localhost:5000/course/getcourse", { id: courseid })
+        .get("http://localhost:5000/course/getcourse?id=" +courseid,{
+          headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
-          console.log(res.data._id);
+          //console.log(res.data._id);
           // console.log(res.data.name);
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to get course !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 1000);
+          }else if (res.data.fetch === false) {
+            setError("No matching course found ! redirecting to");
+            //setIsUploaded(false);
+            history.replace("/faculties");
+            
+          }else
 
           setcourseNameHandler(res.data.coursename);
           setcourseIDHandler(res.data.courseID);
@@ -72,9 +89,9 @@ const Addcourse = (props) => {
         .post("http://localhost:5000/course/addcourse", {
           data: coursedata,
           facultyID: facultyID,
-        })
+            headers: { Authorization: "lmsvalidation " + token },})
+        
         .then((res) => {
-  
           history.replace("/faculties");
           // setBtn("Saved")
         })
@@ -83,11 +100,30 @@ const Addcourse = (props) => {
         });
     } else {
       axios
-        .post("http://localhost:5000/course/Updatecourse", coursedata)
+        .post("http://localhost:5000/course/Updatecourse", coursedata,{
+          headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
      
-          history.replace("/faculties");
-          // setBtn("Saved")
+          // history.replace("/faculties");
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to update course !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 300);
+          }else if (res.data.uploaded === true) {
+           
+            
+            history.replace("/faculties");
+            
+          }else if (res.data.uploaded === false) {
+           
+            //setIsUploaded(false);
+           // history.replace("/faculties");
+           setError("You Are nothing to Update, make changes!");
+            
+          }
+          
         })
         .catch((er) => {
           console.log(er);

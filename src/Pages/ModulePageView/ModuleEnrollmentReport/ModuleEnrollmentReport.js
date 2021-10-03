@@ -5,6 +5,9 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import Table from "./Table";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
@@ -28,6 +31,10 @@ const ModuleEnrollmentReport = (props) => {
   const [list, setlist] = useState(false);
   const [totalEnrollments, settotalEnrollments] = useState("0");
   const [moduleName, setmoduleName] = useState(false);
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
+  const [isUploaded, setIsUploaded] = useState(true);
 
   const getSearchValue = (value) => {
     if (!value.trim()) {
@@ -42,38 +49,62 @@ const ModuleEnrollmentReport = (props) => {
       setEmpty(true);
     }
   };
-
+  const clickedHandler = (event) => {
+    setIsUploaded(true);
+  };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Module/get_Modulecheck?moduleId=" + moduleId)
+      .get(
+        // Module details fetch
+        "http://localhost:5000/Module/get_Moduledetails?moduleId=" + moduleId,
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
       .then((res) => {
-        setmoduleName(res.data[0].Modulename);
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
+        } else if (res.data.fetch === false) {
+          setError("No matching Module details found !");
+          setIsUploaded(false);
+        } else {
+          //setmoduleName(res.data[0].Modulename);
 
-        setModule(res.data);
+          setModule(res.data);
 
-        console.log(res.data);
+          //console.log(res.data);
 
-        setLoaded(true);
+          setLoaded(true);
+        }
       })
       .catch((er) => {
         console.log(er);
       });
 
     axios
-      .post("http://localhost:5000/Enroll/get_enrollcount", {
-        moduleId: moduleId,
-      })
-      .then((resp) => {
-        console.log("hiii");
-        // setstudentdetails(resp.data);
-        // console.log(resp.data);
-        console.log("heelo");
+      .post(
+        "http://localhost:5000/Enroll/get_enrollcount",
+        { moduleId: moduleId },
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
+      .then((res) => {
+        if (res.data.auth === false) {
+        setError("You Are not Authorized to get faculty !");
+        setIsUploaded(false);
+        setTimeout(() => {
+          dispatch(logout());
+        }, 1600);
+           
 
-        settotalEnrollments(resp.data.students.length);
-
-        // setUsers(res.data);
-
-        // setLoaded(true);
+      }else if(res.data.students.length !==0){
+        settotalEnrollments(res.data.students.length);
+    }
       })
       .catch((er) => {
         console.log("error");
@@ -84,10 +115,13 @@ const ModuleEnrollmentReport = (props) => {
 
   return (
     <div className={classes.container}>
+      {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
       <h2 className={classes.title}>
-        {Module.map((row1) => (
+        {/* {Module.map((row1) => (
           <div>{row1.Modulename}</div>
-        ))}
+        ))} */}
       </h2>
       <hr className={classes.line}></hr>
 
