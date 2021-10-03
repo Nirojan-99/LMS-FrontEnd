@@ -15,8 +15,7 @@ const NormalForumView = (props) => {
   const [userName, setUserName] = useState();
   const [lmsID, setLmsID] = useState();
 
-  const [showReplies,setShowReplies]=useState(false);
-
+  const [showReplies, setShowReplies] = useState(false);
 
   useEffect(() => {
     axios
@@ -52,17 +51,13 @@ const NormalForumView = (props) => {
   const roleClass = classes.inputs;
   const cardClass = classes.newCardView;
 
-  const ShowRepliesHandler=()=>{
-    if(showReplies===false){
+  const ShowRepliesHandler = () => {
+    if (showReplies === false) {
       setShowReplies(true);
-    }
-    else if(showReplies===true){
+    } else if (showReplies === true) {
       setShowReplies(false);
     }
-
-  }
-
-
+  };
 
   return (
     <>
@@ -104,7 +99,9 @@ const NormalForumView = (props) => {
                     Reply
                   </button>
                   {/* <button className={classes.edit}>Update</button> */}
-                  <button className={classes.edit} onClick={ShowRepliesHandler}>Replies..</button>
+                  <button className={classes.edit} onClick={ShowRepliesHandler}>
+                    Replies..
+                  </button>
                 </div>
               )}
             </div>
@@ -112,11 +109,13 @@ const NormalForumView = (props) => {
         </form>
       </div>
 
-     {showReplies && <div>
-        {replies.map((row, i) => {
-          return <ReplyForumView data={row} key={i} />;
-        })}
-      </div>}
+      {showReplies && (
+        <div>
+          {replies.map((row, i) => {
+            return <ReplyForumView data={row} key={i} />;
+          })}
+        </div>
+      )}
       <div>
         {isEditing && (
           <NewForumForm
