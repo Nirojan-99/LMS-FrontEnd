@@ -57,7 +57,7 @@
   background-color: #088f8f;
 }
 
-/* .lock_button {
+.lock_button {
   margin: auto;
   padding: 10px 10px;
   /* background-color: #14b6c8; */
@@ -66,16 +66,16 @@
   width: 20px;
   border-radius: 10px;
   height: 20px;
-} */
+}
 
 
 
-/* .check_box {
+ .check_box {
   margin: auto;
   margin-left: 10px;
   margin-right: 10px;
   width: 25px;
-  height: 25px; */
+  height: 25px; 
 }
 .line {
   margin-top: 10px;

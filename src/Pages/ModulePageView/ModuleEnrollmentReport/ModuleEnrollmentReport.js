@@ -32,13 +32,13 @@ const ModuleEnrollmentReport = (props) => {
       return;
     }
 
-    const updated = students.filter((student) => {
-      return (
-        student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
-        student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
-        student.name.toUpperCase().includes(value.toUpperCase().trim())
-      );
-    });
+    // const updated = students.filter((student) => {
+    //   return (
+    //     student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
+    //     student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
+    //     student.name.toUpperCase().includes(value.toUpperCase().trim())
+    //   );
+    // });
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
