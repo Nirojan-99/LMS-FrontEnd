@@ -2,19 +2,23 @@ import classes from "./ModuleEnrollmentPage.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 const ModuleEnrollment = (props) => {
   const id = props.match.params.moduleID;
   const [lic, setLIC] = useState();
   const [name, setNAme] = useState();
   const [studentIDNo, setstudentIDNo] = useState();
+  const dispatch = useDispatch();
 
   const [valid, setvalid] = useState(true);
   const [Ekey, setKey] = useState();
   const userID = useSelector((state) => state.loging.userID);
   const history = useHistory();
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.loging.token);
 
   const clickedHandler = () => {
     setvalid(true);
@@ -25,8 +29,17 @@ const ModuleEnrollment = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Module/get_LIC?moduleID=" + id)
+      .get("http://localhost:5000/Module/get_LIC?moduleID=" + id, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((resp) => {
+        if (resp.data.auth === false) {
+          setError("You Are not Authorized to get module details !");
+         // setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1000);
+        }
         if (resp.data.LIC) {
           setLIC(resp.data.LIC);
           setNAme(resp.data.name);
@@ -44,11 +57,20 @@ const ModuleEnrollment = (props) => {
       studentID: userID,
     };
     axios
-      .post("http://localhost:5000/Module/enroll", data)
+      .post("http://localhost:5000/Module/enroll", data, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((resp) => {
-        if (resp.data.ack === true) {
+        if (resp.data.auth === false) {
+          setError("You Are not Authorized to make enrollment !");
+         // setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1000);
+        }
+        else if (resp.data.ack === true) {
           history.replace("/my-courses/" + id);
-        } else {
+        } else if (resp.data.ack === false){
           setvalid(false);
         }
       })

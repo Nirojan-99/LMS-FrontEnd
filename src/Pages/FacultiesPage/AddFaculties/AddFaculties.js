@@ -4,34 +4,51 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+
 
 const AddFaculties = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const id = props.match.params.facultyId;
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("ADD");
   const [error, setError] = useState(null);
   const [update, setupdate] = useState(false);
+  const token = useSelector((state) => state.loging.token);
 
   useEffect(() => {
     if (!id) {
-      setEdit(false);
+      //setEdit(false);
     } else {
-      setEdit(true);
+     // setEdit(true);
       setBtn("ADD..");
       axios
-        .post("http://localhost:5000/Faculty/getfaculty", { id: id })
+        .get("http://localhost:5000/Faculty/getfaculty?id=" + id ,{
+          headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
-          // console.log(res.data._id);
-          // console.log(res.data.name);
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to get faculty !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 1000);
+          }else if (res.data.fetch === false) {
+            setError("No matching Job found ! redirecting to portal");
+            //setIsUploaded(false);
+            history.replace("/faculties");
+            
+          }else{
 
           setNamehandlder(res.data.name);
           setidhandlder(res.data.id);
           setInchargehandlder(res.data.Incharge);
+          }
         })
         .catch((er) => {
-          console.log("error in data coming");
+          console.log("error");
         });
     }
   }, []);
@@ -39,6 +56,12 @@ const AddFaculties = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
+    // if (name.length === 0 && Incharge.length === 0 && id.length === 0) {
+    //   setError("invaild facultyname 1!! ");
+
+    //   return;
+    // }else
+    
     if (!name.trim()) {
       setError("invaild facultyname!! ");
 
@@ -67,18 +90,53 @@ const AddFaculties = (props) => {
 
     if (!id) {
       axios
-        .post("http://localhost:5000/Faculty/addFaculty", Facultydata)
+        .post("http://localhost:5000/Faculty/addFaculty", Facultydata,{
+          headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
-          history.replace("/faculties");
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to Create Jobs !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 300);
+          }else if(res.data.insert === true) {
+           
+            //setIsUploaded(false);
+            history.replace("/faculties");
+            
+          }
+          else if(res.data.insert === false){
+            setError("Unable to add details, try again !");
+          }
         })
         .catch((er) => {
           console.log(er);
         });
+
+        
     } else {
       axios
-        .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata)
+        .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata,{
+          headers: { Authorization: "lmsvalidation " + token },})
         .then((res) => {
-          history.replace("/faculties");
+          if (res.data.auth === false) {
+            setError("You Are not Authorized to Create faculty !");
+           // setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 300);
+          }else if (res.data.uploaded === true) {
+           
+            
+            history.replace("/faculties");
+            
+          }else if (res.data.uploaded === false) {
+           
+            //setIsUploaded(false);
+           // history.replace("/faculties");
+           setError("You Are nothing to Update, make changes!");
+            
+          }
         })
         .catch((er) => {
           console.log(er);
