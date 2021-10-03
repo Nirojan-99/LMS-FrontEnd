@@ -2,12 +2,17 @@ import classes from "./StudentPortal.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import GPA from "./GPA";
+import generatePDF from "./GeneratePDF";
+import { useSelector, useDispatch } from "react-redux";
 
 const StudentPortal = (props) => {
   const sid = props.match.params.SID;
   const [list, setupdateList] = useState([]);
+  const [student, setStudent] = useState();
   const [loaded, setLoaded] = useState(false);
   const [isEmpty, setEmpty] = useState(false);
+
+  const token = useSelector((state) => state.loging.token);
 
   useEffect(() => {
     axios
@@ -21,6 +26,16 @@ const StudentPortal = (props) => {
         }
       })
       .catch(() => {});
+
+    axios
+      .get("http://localhost:5000/userManagement/edit_user?id=" + sid, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
+      .then((res) => {
+        if (res.data) {
+          setStudent(res.data)
+        }
+      });
   }, []);
 
   return (
@@ -33,10 +48,18 @@ const StudentPortal = (props) => {
       {isEmpty && (
         <div className={classes.nothing}>Currently no data available.</div>
       )}
-      {!isEmpty && <div className={classes.btn}>
-        {" "}
-        <button>Print</button>
-      </div>}
+      {!isEmpty && (
+        <div className={classes.btn}>
+          {" "}
+          <button
+            onClick={() => {
+              generatePDF(list, sid,student);
+            }}
+          >
+            Print
+          </button>
+        </div>
+      )}
     </div>
   );
 };
