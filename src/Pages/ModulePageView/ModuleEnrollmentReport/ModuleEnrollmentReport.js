@@ -32,13 +32,13 @@ const ModuleEnrollmentReport = (props) => {
       return;
     }
 
-    // const updated = students.filter((student) => {
-    //   return (
-    //     student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
-    //     student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
-    //     student.name.toUpperCase().includes(value.toUpperCase().trim())
-    //   );
-    // });
+    const updated = students.filter((student) => {
+      return (
+        student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.name.toUpperCase().includes(value.toUpperCase().trim())
+      );
+    });
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
@@ -104,13 +104,22 @@ const ModuleEnrollmentReport = (props) => {
       });
 
     axios
-      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId)
+      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId,   {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
         if (res.data) {
           setList(res.data);
           setStudents(res.data);
         } else if (res.data.ack === false) {
+        } else if (res.data.auth === false) {
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
         }
+
       });
   }, []);
 
@@ -121,6 +130,7 @@ const ModuleEnrollmentReport = (props) => {
       {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
+      <button className={classes.save}>generatePDF</button>
       <h2 className={classes.title}>
         {/* {Module.map((row1) => (
           <div>{row1.Modulename}</div>
