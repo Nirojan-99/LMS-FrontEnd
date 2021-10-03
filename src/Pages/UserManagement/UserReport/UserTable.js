@@ -1,4 +1,5 @@
 import classes from "./UserTable.module.css";
+import generateUserReport from "./generateUserReport";
 
 const UserTable = (props) => {
     return <div className={classes.container}>
@@ -8,6 +9,7 @@ const UserTable = (props) => {
                 <td>{props.totalUsers}</td>
             </tr>
         </table>
+        <button className={classes.add} onClick={()=>generateUserReport(props.allUsers)}>Generate Report</button>
     </div>;
   };
   
