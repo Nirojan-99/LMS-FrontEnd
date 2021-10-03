@@ -153,7 +153,7 @@ const ModuleEnrollmentReport = (props) => {
         <span>Name</span>
         <span>Type</span>
         <span>Faculty</span>
-        <span>Email</span>
+        {/* <span>Email</span> */}
       </div>
       {updatedList.map((row) => {
         return <Details data={row} key={row.id} />;

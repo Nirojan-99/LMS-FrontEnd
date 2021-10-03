@@ -155,6 +155,16 @@ const ModuleView = (props) => {
              </div>
          
             )}
+            {lock && (
+              // <a>
+              //   <img src={lock11} className={classes.lock_button}></img>
+                
+              // </a>
+              <div class={classes.tooltip}> <img src={lock11} className={classes.lock_button}></img>
+                 <span class={classes.tooltiptext}>enroll</span>
+             </div>
+         
+            )}
           </span>
         </span>
       </div>
