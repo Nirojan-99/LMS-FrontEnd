@@ -1,0 +1,53 @@
+.container {
+  width: 35%;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #eee;
+  border-radius: 0.3rem;
+  padding: 1rem;
+}
+.head {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  color: #333;
+  font-weight: 700;
+  font-family: "open sans";
+}
+.inputs {
+  margin: auto;
+  width: 80%;
+  margin-top: 1rem;
+  border: 2px solid #296464;
+  padding: 0.4rem 0.5rem;
+  outline: none;
+  border-radius: 0.3rem;
+  font-family: "open sans";
+  font-weight: 700;
+  font-size: 1rem;
+  background: transparent;
+  color: #333;
+}
+.input_container {
+  margin: auto;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.btn{
+    width: 50%;
+    padding: .6rem .5rem;
+    background-color:#296464 ;
+    color: #fff;
+    font-family: roboto;
+    margin: auto;
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+.btn_container{
+    margin: auto;
+    text-align: center;
+    margin-bottom: 1rem;
+}
