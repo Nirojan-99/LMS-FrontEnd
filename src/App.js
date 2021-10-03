@@ -168,7 +168,6 @@ function App() {
         <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
         <Route path="/services/digital_library/report/:ID" exact component={LibraryReport}/>
-        {/* //nirush */}
 
         <Route path="*"  component={page404}/>
       </Switch>:
