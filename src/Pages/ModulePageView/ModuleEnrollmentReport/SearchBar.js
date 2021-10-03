@@ -19,7 +19,7 @@ const SearchBar = (props) => {
         <div className={classes.title}></div>
         <div className={classes.search}>
             <form className={classes.Searchform} onSubmit={onSearch}>
-                <input ref={searchValue} className={classes.searchInput} placeholder="student ID"></input>
+                <input onChange={onSearch} ref={searchValue} className={classes.searchInput} placeholder="student ID || Name || Type"></input>
                 <label for="submit" className={classes.iconLabel}><img className={classes.icon} src={search}/></label>
                 <button type="submit" hidden id="submit" ></button>
             </form>

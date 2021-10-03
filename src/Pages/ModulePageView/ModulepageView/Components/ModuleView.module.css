@@ -57,6 +57,19 @@
   background-color: #088f8f;
 }
 
+.lock_button {
+  margin: auto;
+  padding: 10px 10px;
+  /* background-color: #14b6c8; */
+  margin: 0 2px 0 2px;
+  border-radius: 2px;
+  width: 20px;
+  border-radius: 10px;
+  height: 20px;
+}
+
+
+
 .check_box {
   margin: auto;
   margin-left: 10px;
@@ -83,4 +96,34 @@
 }
 .popup{
   position: absolute;
+}
+
+
+
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
