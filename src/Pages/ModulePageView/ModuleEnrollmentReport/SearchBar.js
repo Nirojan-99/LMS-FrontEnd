@@ -12,6 +12,11 @@ const SearchBar = (props) => {
     props.onSearch(searchValue.current.value)
 
     }
+
+
+
+
+    
     
   return (
     <>
