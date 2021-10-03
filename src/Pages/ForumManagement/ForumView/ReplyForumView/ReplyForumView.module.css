@@ -110,7 +110,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 15px;
+    font-size: 13px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -141,11 +141,10 @@
   }
   
   .inline {
-    display: flex;
-    margin-left: 80%;
+    
+    margin-left: 2%;
     margin-bottom: 0%;
     margin-top: 0%;
-    justify-content: space-evenly;
     
   }
   
