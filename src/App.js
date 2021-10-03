@@ -47,6 +47,7 @@ import page404 from "./Pages/404/404";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
 import NewTimetable from "./Pages/Timetable/NewTimeTable/NewTimetable";
+import timetable from "./Pages/Timetable/TimeTable/TimeTable";
 
 import StudenList from "./Pages/Studentportal/StudentList/StudentList";
 import UpdateGPA from "./Pages/Studentportal/AdminUpdateGPA/UpdateGPA";
@@ -134,6 +135,7 @@ function App() {
         <Route path="/add-role" exact component={AddRole}/>
 
         <Route path="/services/timetable/new" exact component={NewTimetable}/>
+        <Route path="/services/timetable" exact component={timetable}/>
 
         <Route path="/faculties" exact component={FacultiesView}/>
         <Route path="/faculties/module/insight/:moduleId" exact component={ModuleEnrollmentReport}/>
