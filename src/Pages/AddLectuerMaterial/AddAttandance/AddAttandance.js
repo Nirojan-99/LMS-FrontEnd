@@ -2,28 +2,53 @@ import classes from "./AddAttandance.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddAttandance = (props) => {
   const week = props.match.params.weekID;
   const materialID = props.match.params.MaterialID;
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (materialID) {
       axios
         .get(
-          "http://localhost:5000/admin/get_material?materialID=" + materialID
+          "http://localhost:5000/admin/get_material?materialID=" + materialID,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
         )
         .then((resp) => {
-          console.log(resp.data);
-          setVisibility(resp.data.visibility);
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("No matching Material found !");
+            setDidUpdated(false);
+            setTimeout(() => {
+              history.replace("/my-courses");
+            }, 500);
+          } else {
+            setVisibility(resp.data.visibility);
+            console.log(resp.data);
+          }
         });
     }
   }, []);
+  const clickHandler = () => {
+    setDidUpdated(true);
+  };
 
   const history = useHistory();
 
   const [visibleRef, setVisibility] = useState("visible");
-  const [loaded, setLoaded] = useState("Save");
+  const [loaded, setLoaded] = useState("SAVE");
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState(false);
+  const [didUpdated, setDidUpdated] = useState(true);
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -31,11 +56,21 @@ const AddAttandance = (props) => {
   };
 
   const onAttandanceSubmit = (event) => {
-    setLoaded("Saving...");
+    setLoaded("SAVING...");
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     event.preventDefault();
     const material = {
@@ -43,44 +78,72 @@ const AddAttandance = (props) => {
       week: week,
       title: "attandance",
       visibility: visibleRef,
-      date_time: date + "/" + time,
+      date_time: datetime,
       _id: materialID ? materialID : undefined,
     };
 
     if (materialID) {
       axios
-        .post("http://localhost:5000/admin/update_attandance", material)
+        .post("http://localhost:5000/admin/update_attandance", material, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((resp) => {
-          history.goBack();
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.updated === false) {
+            setError("Unable to update!");
+            setDidUpdated(false);
+            setLoaded("SAVE");
+          } else {
+            setSuccess(true);
+          }
         })
         .catch((er) => {
-          console.log(er);
+          setError("check your network connection !");
+          setDidUpdated(false);
+          setLoaded("SAVE");
         });
     } else {
       axios
-        .post("http://localhost:5000/admin/add_material", material)
-        .then((resp) => {
-          // console.log(resp.data);
-
-          axios
-            .get("http://localhost:5000/admin/get_module?week=" + week)
-            .then((res) => {
-              history.replace("/my-courses/" + res.data[0].module);
-            });
+        .post("http://localhost:5000/admin/add_material", material, {
+          headers: { Authorization: "lmsvalidation " + token },
         })
-        .catch((er) => {
-          console.log(er);
+        .then((resp) => {
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.inserted === false) {
+            setError("Unable to create!");
+            setDidUpdated(false);
+            setLoaded("SAVE");
+          } else {
+            setSuccess(true)
+          }
+        })
+        .catch((er) => {});
+    }
+  };
+
+  const onredirect = () => {
+    if (materialID) {
+      history.goBack();
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
         });
     }
   };
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>ATTANDANCE</h2>
+      {!didUpdated && (
+        <ErrorPopup error={error} clickedHandler={clickHandler} />
+      )}
+      {success && <Success redirect={onredirect} />}
+      <h2 className={classes.title}>CREATE ATTANDANCE</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onAttandanceSubmit} className={classes.form_container}>
-        {/* <label for="file" className={classes.labels}>Add File</label><br/>
-            <input className={classes.inputs} type="file" id="file" /> */}
         <input
           checked={materialID && visibleRef === "visible" && true}
           onChange={onRadioClicked}

@@ -25,18 +25,20 @@
   }
   .report_container{
       
-      width: 60%;
+      width:75%;
       margin: auto;
       margin-top: 30px;
       display: flex;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       justify-content: space-between;
       font-weight: bold;
   }
   .report_container span{
+    letter-spacing: 0.5px;
       font-family: roboto;
-      font-size: 19px;
+      font-size: 20px;
       color:#046666 ;
+      margin-bottom: 10px;
   }
   .message{
       margin: auto;
@@ -46,4 +48,35 @@
       color: red;
       font-size: 20px;
       font-weight: bold;
+  }
+
+  .loader{
+    margin: auto;
+    margin-left: 45%;
+    margin-top: 3.4rem;
+    margin-bottom: 3.4rem;
+}
+
+
+.add {
+    margin: auto;
+    margin-top: 25px;
+    padding: 3px 15px;
+    display: flex;
+    background-color: #046666;
+    border: 2px solid #14b6c8;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    width: 145px;
+    height: 35px;
+  }
+  .add:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
   }

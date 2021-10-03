@@ -4,10 +4,9 @@ const Details = (props) => {
   return (
     <>
       <div className={classes.container}>
-        <div>{props.data.id}</div>
-        <div>{props.data.access}</div>
+        <div>{props.data.student}</div>
+        <div>{props.data.date_time}</div>
       </div>
-      <hr className={classes.line}></hr>
     </>
   );
 };

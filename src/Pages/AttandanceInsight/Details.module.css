@@ -1,0 +1,33 @@
+.container {
+  transition: all 0.5s ease-in-out;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  background-color: #ddd;
+  border-radius: 0.3rem;
+  padding: 0.4rem 0.5rem;
+}
+.line {
+  width: 60%;
+  margin-top: 10px;
+  height: 1px;
+  border-width: 0;
+  background-color: rgba(114, 114, 114, 0.747);
+}
+.container div {
+  font-family: "open sans";
+  size: 13px;
+  font-weight: 800;
+  color: #444;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 85%;
+  }
+  .line {
+    width: 85%;
+  }
+}

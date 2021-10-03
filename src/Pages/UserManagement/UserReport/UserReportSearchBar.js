@@ -20,7 +20,7 @@ const UserReportSearchBar = (props) => {
             <input
               ref={searchValue}
               className={classes.searchInput}
-              placeholder="User ID"
+              placeholder="User ID / Name / Role / Faculty"
             ></input>
             <label for="submit" className={classes.iconLabel}>
               <img className={classes.icon} src={search} />

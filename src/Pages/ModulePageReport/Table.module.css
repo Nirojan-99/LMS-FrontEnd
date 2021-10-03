@@ -1,23 +1,37 @@
 .table_container{
-    width: 80%;
+    width: 85%;
     background-color: #ddd;
     margin: auto;
     text-align: justify;
-    margin-top: 25px;
-    padding: 10px;
+    margin-top: 1.6rem;
+    padding: .5rem , .5rem;
+    border-radius: .3rem;
+    padding: .5rem .4rem;
     border-collapse: collapse;
 }
 .table_container tr{
-    padding: 10px;
+    padding: .6rem;
     /* border: 2px solid #333; */
+    margin-top: 1rem;
+    
+}
+.row1{
+    border-bottom: 1.5px solid #999;
 }
 .table_container td{
+    background-color: #ddd;
+   border-radius: .3rem;
     width: 50%;
-    border: 2px solid #088F8F;
-    padding: 15px;
+    padding: .5rem .4rem;
     font-family: "open sans";
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     letter-spacing: -.5px;
-    color: #088F8F;
+    color: #333;
 }
+@media screen and (max-width: 530px) {
+    .table_container td{
+        font-size: 1rem;
+        overflow: visible;
+    }
+  }

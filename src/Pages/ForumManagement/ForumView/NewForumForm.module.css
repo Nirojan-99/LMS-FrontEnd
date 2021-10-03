@@ -1,0 +1,185 @@
+.newCardView {
+  border-radius: 20px;
+  width: 40%;
+  background-color: #ffffff;
+  padding: 5px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #14b6c8;
+}
+
+.replyCardView{
+  border-radius: 20px;
+  width: 40%;
+  background-color: #ffffff;
+  padding: 5px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 35%;
+  border: 2px solid #14b6c8;
+
+}
+.title {
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 27px;
+  color: #046666;
+}
+.line {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+
+.User {
+  display: flex;
+  letter-spacing: 1px;
+  font-family: roboto;
+}
+
+.Avatar img {
+  border-radius: 50%;
+  width: 75px;
+  margin: 5px 25px 0px 5px;
+}
+
+.Name {
+  margin-top: 30px;
+  font-size: 23px;
+  color: #046666;
+  font-weight: bold;
+}
+
+.label {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 20px;
+  color: #046666;
+}
+.formContainer {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+.inputs {
+  margin-bottom: 5px;
+  margin-left: 10px;
+  width: 95%;
+  height: auto;
+  padding: 5px;
+  margin-top: 5px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1.1rem;
+  outline: none;
+  color: #333;
+  background-color: white;
+  
+}
+
+.inputs:focus {
+  outline: none;
+  border-color: #046666;
+  background-color: #6bdfec;
+}
+
+.select {
+  margin-bottom: 20px;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #046666;
+  font-family: roboto;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #eee;
+}
+
+.inputs:last-child {
+  background-color: #333;
+}
+.add {
+  background-color: rgb(63, 63, 63);
+  border: 2px solid black;
+  font-family: roboto;
+  font-size: 15px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+.add:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.cancel {
+  background-color: rgb(63, 63, 63);
+  border: 2px solid black;
+  font-family: roboto;
+  font-size: 15px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+.cancel:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.inline {
+  display: flex;
+  margin-left: 80%;
+  margin-bottom: 0%;
+  margin-top: 0%;
+  justify-content: space-evenly;
+  
+}
+
+.inlineNew {
+  margin-left: 90%;
+  margin-bottom: 0%;
+  margin-top: 0%;
+}
+
+.invalid_inputs {
+  border: 2px solid #b40e0e;
+  background-color: #fddddd;
+  margin-bottom: 15px;
+  width: 95%;
+  height: auto;
+  padding: 2%;
+  margin-top: 2%;
+  font-family: roboto;
+  font-size: 1.1rem;
+  outline: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.errorText {
+  margin-top: -10px;
+  color: #f11010;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.add:disabled {
+  background-color: #ccc;
+  color: #292929;
+  border-color: 2px solid black;
+  cursor: not-allowed;
+}

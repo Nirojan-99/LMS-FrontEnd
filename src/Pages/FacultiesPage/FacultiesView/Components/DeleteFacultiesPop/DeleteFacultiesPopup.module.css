@@ -1,5 +1,6 @@
 .container {
-    padding: 15px;
+    margin: auto;
+    padding: 5px;
     position: fixed;
     height: 30%;
     top: 30vh;
@@ -26,12 +27,14 @@
       font-size: 25px;
   }
   .buttons{
-      margin: 40px 150px;
+      margin: 40px 50px;
+
       display: flex;
-    
-      justify-content: space-around;
+      justify-content: space-between;
   }
   .deleteButton{
+   
+      justify-content: left;
       font-weight: bold;
       border-radius: 10px;
       border: 0px;
@@ -43,6 +46,7 @@
       font-family: "open sans";
   }
   .cancel{
+    justify-content: right;
       font-weight: bolder;
       border: 0px;
       outline: 0px;
@@ -60,7 +64,9 @@
   }
   .deleteButton:hover{
       cursor: pointer;
+      color: #000000;
       background-color: red;
+      font-size: 18px;
       transition-property: all;
       transition-duration: .5s;
   }
@@ -68,7 +74,7 @@
     margin-bottom: 20px;
     width: 50%;
     height: auto;
-    padding: 10px;
+    padding: 5px;
     margin-left: 25%;
     margin-top: 10px;
     border: 0px ;
@@ -80,6 +86,7 @@
     outline-style: solid;
     border-radius: 10px;
     outline-width: 2px;
+ 
 }
 .lables{
     font-family: "open sans";
@@ -87,4 +94,15 @@
     font-size: 15px;
     margin-left: 30%;
     color:#444444;
+}
+.img{
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+    position: absolute;
+    margin-left: -28px;
+    margin-top: 14px;
+
+ 
 }

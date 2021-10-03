@@ -1,0 +1,37 @@
+.container {
+  width: 60%;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.title {
+  font-family: roboto;
+  font-size: 10rem;
+  text-align: center;
+  color: #14b6c8;
+  letter-spacing: 0.5rem;
+}
+.sub {
+  font-size: 2rem;
+  font-family: arial;
+  text-align: center;
+  font-weight: 700;
+}
+.oops {
+  color: rgb(207, 30, 30);
+}
+.ani {
+  position: relative;
+  animation: spin 1.4s infinite ease-out;
+}
+@keyframes spin {
+  from {
+    transform: scale(2);
+    top: -10px;
+  }
+  to {
+    transform: scale(1);
+
+    top: 0px;
+  }
+}

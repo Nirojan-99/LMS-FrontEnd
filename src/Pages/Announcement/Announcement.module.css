@@ -1,0 +1,134 @@
+.container {
+  width: 65%;
+  margin: auto;
+  background-color: #eee;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.Announcement_container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 65%;
+  height: auto;
+  border-right: 1px solid #333;
+}
+.side {
+  width: 35%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.add_new {
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+  background-color: #e2a500;
+  width: 80%;
+  margin: auto;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  padding: 0;
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: arial;
+  letter-spacing: 2px;
+  font-size: 2rem;
+  text-align: center;
+  color: #046666;
+}
+.image {
+  height: 1.5rem;
+}
+.prompt {
+  width: 70%;
+  font-family: "open sans";
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.add_new:hover {
+  transform: scale(1.04);
+}
+.announce_container {
+  transition: all 0.3s ease-in;
+  margin: auto;
+  margin-top: 1rem;
+  width: 80%;
+  background-color: #e2a500;
+  display: flex;
+  /* justify-content: space-between; */
+  border-radius: 0.5rem;
+}
+.image_part {
+  border-radius: 0.5rem 0 0 0.5rem;
+  padding: 1rem;
+  background-color: #14b6c8;
+}
+.image_noti {
+  height: 2.5rem;
+}
+.message {
+  font-family: roboto;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 700;
+  padding-left: 1rem;
+  padding-bottom: 0;
+}
+.box {
+  padding-right: 1rem;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.details {
+  font-family: "open sans";
+  font-size: 0.9rem;
+  color: rgb(230, 227, 227);
+  font-weight: 800;
+  padding-left: 1rem;
+}
+.announce_container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 4px 1px #046666;
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 1rem;
+  }
+  .container {
+    width: 90%;
+  }
+  .message {
+    font-size: 0.7rem;
+  }
+  .prompt {
+    font-size: 0.9rem;
+  }
+}
+.loader{
+  margin: 3.5rem 45%;
+}
+.nodata{
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: roboto;
+  size: 1rem;
+}

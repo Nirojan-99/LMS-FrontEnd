@@ -1,16 +1,19 @@
 import classes from "./AddSubmission.module.css";
 import insight1 from "../../../Assets/bar-graph.svg";
-import { useRef } from "react";
-import { useState, useEffect , useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { deepStrictEqual } from "assert";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddSubmission = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const week = props.match.params.weekID;
   const material = props.match.params.MaterialID;
+  const token = useSelector((state) => state.loging.token);
 
   const date1 = new Date();
   const month = date1.getMonth() + 1;
@@ -20,14 +23,31 @@ const AddSubmission = (props) => {
   useEffect(() => {
     if (material) {
       axios
-        .get("http://localhost:5000/admin/get_material?materialID=" + material)
+        .get(
+          "http://localhost:5000/admin/get_material?materialID=" + material,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
+        )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setTitle(resp.data.title);
-          setDate(resp.data.deadlineDate);
-          setTime(resp.data.deadlineTime);
-          setSize(resp.data.maxSize);
-        }).catch(()=>{});
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("No matching data found!");
+            setTimeout(() => {
+              history.goBack();
+            }, 1300);
+          } else {
+            setVisibility(resp.data.visibility);
+            setTitle(resp.data.title);
+            setDate(resp.data.deadlineDate);
+            setTime(resp.data.deadlineTime);
+            setSize(resp.data.maxSize);
+          }
+        })
+        .catch(() => {
+          setError("Some error occured! try again");
+        });
     }
   }, []);
 
@@ -38,7 +58,8 @@ const AddSubmission = (props) => {
   const [size, setSize] = useState();
   const [text, setText] = useState("SAVE");
   const [error, setError] = useState(null);
- 
+  const [success, setSuccess] = useState(false);
+
   const titlehandler = (event) => {
     setTitle(event.target.value);
   };
@@ -53,7 +74,7 @@ const AddSubmission = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onRadioClicked = (event) => {
@@ -65,9 +86,19 @@ const AddSubmission = (props) => {
     e.preventDefault();
     setText("SAVING..");
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     const selecetDate = new Date(Sdate);
 
@@ -90,7 +121,7 @@ const AddSubmission = (props) => {
       setText("SAVE");
       return;
     }
-    
+
     const submissionData = {
       _id: material ? material : undefined,
       title: title,
@@ -99,41 +130,67 @@ const AddSubmission = (props) => {
       maxSize: size,
       visibility: visibleRef,
       type: "submission",
-      date_time: date + "/" + time,
+      date_time: datetime,
       week: week,
     };
 
     if (!error) {
       if (!material) {
         axios
-          .post("http://localhost:5000/admin/add_submission", submissionData)
+          .post("http://localhost:5000/admin/add_submission", submissionData, {
+            headers: { Authorization: "lmsvalidation " + token },
+          })
           .then((resp) => {
-            // console.log(resp.data);
-
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+            if (resp.data.auth === false) {
+              dispatch(logout());
+            } else if (resp.data.updated === false) {
+              setError("Unable to add data! try again.");
+              setText("SAVE");
+            } else {
+              setSuccess(true);
+            }
           })
           .catch((er) => {
             console.log(er);
           });
       } else {
         axios
-          .post("http://localhost:5000/admin/edit_submission", submissionData)
-          .then((resp) => {
-            console.log("called");
-            history.goBack()
+          .post("http://localhost:5000/admin/edit_submission", submissionData, {
+            headers: { Authorization: "lmsvalidation " + token },
           })
-          .catch(() => {});
+          .then((resp) => {
+            if (resp.data.auth === false) {
+              dispatch(logout);
+            } else if (resp.data.updated === false) {
+              setError("Unable to update! try again.");
+              setText("SAVE");
+            } else {
+              setSuccess(true);
+            }
+          })
+          .catch(() => {
+            setError("Some error occured! try again.");
+          });
       }
+    }
+  };
+
+  const onRedirect = () => {
+    if (material) {
+      history.goBack()
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
+        });
     }
   };
 
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <div className={classes.title_div}>
         <h2 className={classes.title}>ADD SUBMISSION</h2>
         {material && (
@@ -148,6 +205,7 @@ const AddSubmission = (props) => {
           Title
         </label>
         <input
+        placeholder="title"
           value={title}
           onChange={titlehandler}
           required

@@ -3,36 +3,55 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddNotes = (props) => {
   const week = props.match.params.weekID;
   const MaterialID = props.match.params.MaterialID;
-
+  const token = useSelector((state) => state.loging.token);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (MaterialID) {
       axios
         .get(
-          "http://localhost:5000/admin/get_material?materialID=" + MaterialID
+          "http://localhost:5000/admin/get_material?materialID=" + MaterialID,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
         )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setNotes(resp.data.title);
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("Unable to fetch data! try again.");
+            setTimeout(() => {
+              history.goBack();
+            }, 800);
+          } else {
+            setVisibility(resp.data.visibility);
+            setNotes(resp.data.title);
+          }
         })
-        .catch(() => {});
+        .catch(() => {
+          setError("some error occured! try again");
+        });
     }
   }, []);
 
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const [visibleRef, setVisibility] = useState("visible");
   const [notes, setNotes] = useState();
   const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState();
+  const [success, setSuccess] = useState(false);
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -48,67 +67,91 @@ const AddNotes = (props) => {
     e.preventDefault();
 
     if (!notes.trim() && notes.length < 40) {
-      setError("notes shout be greater than 40 words in length");
+      setError("notes shout be more longer");
+      setLoaded("SAVE");
       return;
     }
 
-    const currentdate = new Date();
-    const date = currentdate.getDate();
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     const material = {
-      _id:MaterialID?MaterialID:null,
+      _id: MaterialID ? MaterialID : null,
       type: "notes",
       week: week,
       title: notes,
       visibility: visibleRef,
-      date_time: date + "/" + time,
+      date_time: datetime,
     };
 
     if (!MaterialID) {
       axios
-        .post("http://localhost:5000/admin/add_material", material)
+        .post("http://localhost:5000/admin/add_material", material, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((resp) => {
-          // console.log(resp.data);
-
-          axios
-            .get("http://localhost:5000/admin/get_module?week=" + week)
-            .then((res) => {
-              setLoaded("SAVE");
-              history.replace("/my-courses/" + res.data[0].module);
-            });
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.inserted === false) {
+            setError("unable to add material! try again.");
+            setLoaded("SAVE");
+          } else {
+            setSuccess(true);
+          }
         })
         .catch((er) => {
           console.log(er);
         });
     } else {
       axios
-      .post("http://localhost:5000/admin/edit_notes", material)
-      .then((resp) => {
-        setLoaded("SAVE");
-        history.goBack();
-      })
-      .catch(() => {});
+        .post("http://localhost:5000/admin/edit_notes", material, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
+        .then((resp) => {
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.updated === false) {
+            setError("Unable to update! try again.");
+            setLoaded("SAVE");
+          } else {
+            setLoaded("SAVE");
+            setSuccess(true);
+          }
+        })
+        .catch(() => {});
+    }
+  };
+
+  const onRedirect = () => {
+    if (MaterialID) {
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          setLoaded("SAVE");
+          history.replace("/my-courses/" + res.data[0].module);
+        });
     }
   };
 
   return (
     <div className={classes.container}>
       {error && <ErrorPopup error={error} clickedHandler={clickedHandler} />}
-      <h2 className={classes.title}>NOTES</h2>
+      {success && <Success redirect={onRedirect} />}
+      <h2 className={classes.title}>ADD NOTES</h2>
       <hr className={classes.line}></hr>
       <form onSubmit={onNotesSubmit} className={classes.form_container}>
-        {/* <label className={classes.labels} htmlFor="title">
-          Title
-        </label>
-        <br />
-        <input
-          ref={titleRef}
-          className={classes.inputs_text}
-          id="title"
-          type="text"
-          required
-        /> */}
         <label htmlFor="type" className={classes.labels}>
           Add Notes
         </label>

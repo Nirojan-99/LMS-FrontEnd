@@ -1,0 +1,27 @@
+.table_container {
+  width: 80%;
+  background-color: #ddd;
+  margin: auto;
+  text-align: justify;
+  margin-top: 1.6rem;
+  padding: 10px;
+  border-collapse: collapse;
+  border-radius: .3rem;
+}
+.table_container tr {
+  padding: 0.6rem;
+}
+.table_container td {
+  width: 50%;
+  padding: 0.4rem 0.5rem;
+  font-family: "open sans";
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #088f8f;
+}
+@media screen and (max-width: 530px) {
+  .table_container td {
+    font-size: 1rem;
+    overflow: visible;
+  }
+}

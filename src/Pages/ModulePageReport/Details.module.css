@@ -1,9 +1,13 @@
 .container{
-    width: 60%;
+    transition: all .5s ease-in-out;
+    width: 85%;
     margin: auto;
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
+    background-color: #ccc;
+    padding: .5rem .4rem;
+    border-radius: .3rem;
 }
 .line {
     width: 60%;
@@ -17,4 +21,13 @@
       size: 13px;
       font-weight: 800;
       color: #444;
+  }
+
+  @media screen and (max-width: 600px) {
+    .container{
+        width: 85%;
+    }
+    .line {
+        width: 85%;
+    }
   }

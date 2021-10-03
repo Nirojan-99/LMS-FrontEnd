@@ -1,0 +1,117 @@
+.conatiner {
+  width: 60%;
+  background-color: #eee;
+  border-radius: 0.2rem;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+.side {
+  width: 45%;
+  height: auto;
+  background-color: #14b6c8;
+  padding: 1rem;
+  border-radius: 0.2rem 0 0 0.2rem;
+}
+.form_Container {
+  width: 55%;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0 0.2rem 0.2rem 0;
+}
+.title {
+  font-family: arial;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.2px;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  margin-left: 1rem;
+}
+.image {
+  width: 1.8rem;
+  height: 1.8rem;
+  height: auto;
+  padding: 0.4rem;
+  border: 1px solid #333;
+  border-radius: 50%;
+}
+.details {
+  margin-left: 1rem;
+  font-weight: 800;
+  color: #333;
+  font-size: 1rem;
+}
+.labels {
+  font-family: arial;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+  font-size: 1rem;
+}
+.inputs {
+  border: 0;
+  border-bottom: 1.2px solid #333;
+  width: 100%;
+  color: #088f8f;
+  text-transform: capitalize;
+  outline: 0;
+  padding: 0.5rem 0;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.inputs::placeholder ,.inputsText::placeholder {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.submit{
+
+}
+.inputsText{
+    border: 0;
+    border-bottom: 1.2px solid #333;
+    width: 100%;
+    color: #088f8f;
+    text-transform: capitalize;
+    outline: 0;
+    padding: 0.5rem 0;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+    height: 10%;
+}
+.submit{
+    transition: all .3s ease-in-out;
+    outline: 0;
+    border: 0;
+    background-color: #14b6c8;
+    padding: .4rem .6rem;
+    font-weight: 700;
+    border-radius: .2rem;
+cursor: pointer;
+}
+.submit:hover{
+    background-color: #0ea5b6;
+}
+.loader{
+  background-color: rgba(51, 51, 51, 0.534);
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  position: fixed;
+}
+.loader_in{
+  width: 20%;
+  margin-left: 45%;
+}

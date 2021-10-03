@@ -4,23 +4,39 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddLink = (props) => {
   const week = props.match.params.weekID;
   const MaterialID = props.match.params.MaterialID;
-
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     if (MaterialID) {
       axios
         .get(
-          "http://localhost:5000/admin/get_material?materialID=" + MaterialID
+          "http://localhost:5000/admin/get_material?materialID=" + MaterialID,
+          {
+            headers: { Authorization: "lmsvalidation " + token },
+          }
         )
         .then((resp) => {
-          setVisibility(resp.data.visibility);
-          setLink(resp.data.link);
-          setTitle(resp.data.title);
+          if (resp.data.auth === false) {
+            dispatch(logout());
+          } else if (resp.data.fetch === false) {
+            setError("Unable to fetch data ! try again.");
+            setTimeout(() => {
+              history.goBack();
+            }, 700);
+          } else {
+            setVisibility(resp.data.visibility);
+            setLink(resp.data.link);
+            setTitle(resp.data.title);
+          }
         });
     }
   }, []);
@@ -30,6 +46,7 @@ const AddLink = (props) => {
   const [title, setTitle] = useState();
   const [loaded, setLoaded] = useState("SAVE");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const onRadioClicked = (event) => {
     const valueq = event.target.value;
@@ -45,17 +62,26 @@ const AddLink = (props) => {
   };
   const clickedHandler = () => {
     setError(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onSubmitted = (event) => {
     event.preventDefault();
     setLoaded("SAVING...");
 
-    const currentdate = new Date();
-    const month = currentdate.getMonth()+1
-    const date = currentdate.getDate() + "-" + month;
-    const time = currentdate.getHours() + ":" + currentdate.getMinutes();
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     if (!(link.includes("http") || link.includes("https"))) {
       setError("please input a valid link");
@@ -64,7 +90,7 @@ const AddLink = (props) => {
     } else if (!title.trim()) {
       setError("please input a valid title");
       setLoaded("SAVE");
-      return
+      return;
     }
     const material = {
       _id: MaterialID ? MaterialID : undefined,
@@ -73,45 +99,68 @@ const AddLink = (props) => {
       title: title,
       link: link,
       visibility: visibleRef,
-      date_time: date + "/" + time,
+      date_time: datetime,
     };
-    console.log(error)
+    console.log(error);
     if (!error) {
-      console.log(error)
+      console.log(error);
       if (!MaterialID) {
         axios
-          .post("http://localhost:5000/admin/add_material", material)
+          .post("http://localhost:5000/admin/add_material", material, {
+            headers: { Authorization: "lmsvalidation " + token },
+          })
           .then((resp) => {
-            // console.log(resp.data);
-
-            axios
-              .get("http://localhost:5000/admin/get_module?week=" + week)
-              .then((res) => {
-                history.replace("/my-courses/" + res.data[0].module);
-              });
+            if (resp.data.auth === false) {
+              dispatch(logout());
+            } else if (resp.data.inserted === false) {
+              setError("Unable to add material! try again.");
+            } else {
+              setSuccess(true);
+            }
           })
           .catch((er) => {
-            console.log(er);
+            setError("Some error oocured , try again !");
           });
       } else {
         axios
-          .post("http://localhost:5000/admin/edit_link", material)
-          .then((resp) => {
-            console.log("called");
-            history.goBack();
+          .post("http://localhost:5000/admin/edit_link", material, {
+            headers: { Authorization: "lmsvalidation " + token },
           })
-          .catch(() => {});
+          .then((resp) => {
+            if (resp.data.auth === false) {
+              dispatch(logout());
+            } else if (resp.data.updated === false) {
+              setError("Unable to update! try again.");
+            } else {
+              setSuccess(true);
+            }
+          })
+          .catch(() => {
+            setError("Some error occured ! try again.");
+          });
       }
+    } else {
+      return;
     }
-    else{
-      return
+  };
+
+  const onRedirect = () => {
+    if (MaterialID) {
+      history.goBack();
+    } else {
+      axios
+        .get("http://localhost:5000/admin/get_module?week=" + week)
+        .then((res) => {
+          history.replace("/my-courses/" + res.data[0].module);
+        });
     }
   };
 
   return (
     <div className={classes.container}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
-      <h2 className={classes.title}>LINK</h2>
+      {success && <Success redirect={onRedirect} />}
+      <h2 className={classes.title}>ADD LINK</h2>
       <hr className={classes.line}></hr>
       <form className={classes.form_container} onSubmit={onSubmitted}>
         <label className={classes.labels} for="link">
@@ -125,6 +174,7 @@ const AddLink = (props) => {
           className={classes.inputs}
           type="text"
           id="link"
+          placeholder="link.."
           required
         />
 
@@ -133,6 +183,7 @@ const AddLink = (props) => {
         </label>
         <br />
         <input
+        placeholder="title.."
           required
           value={title}
           onChange={titleHandler}

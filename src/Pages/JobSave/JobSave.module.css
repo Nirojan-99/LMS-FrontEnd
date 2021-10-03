@@ -1,92 +1,173 @@
-.CardView{
-    border-radius: 20px;
+.CardView {
+  border-radius: 0.5rem;
+  width: 40%;
+  background-color: #ddd;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 5rem;
+  box-shadow: 0 0 5px 2px #333;
+}
+.title {
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 1.6rem;
+  color: #046666;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.line {
+  margin-bottom: 1.8rem;
+  margin-top: 0.6rem;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 1rem;
+  color: #000066;
+}
+.formContainer {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+.inputs {
+  transition: all 0.3s ease-in;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: auto;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.1rem solid #046666;
+  font-size: 1rem;
+  outline: none;
+  font-weight: 600;
+  color: #333;
+  background-color: #d1d1d1;
+  letter-spacing: 0.5px;
+  border-radius: 0.3rem;
+}
+.textArea {
+  border-radius: 0.3rem;
+  transition: all 0.3s ease-in;
+  resize: vertical;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: 7rem;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.12rem solid #046666;
+  font-weight: 600;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #d1d1d1;
+}
+.inputs:last-child {
+  background-color: #333;
+}
+.save {
+  margin: auto;
+  margin-top: 2rem;
+  padding: 0.3rem 5rem;
+  display: flex;
+  background-color: transparent;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: #14b6c8;
+  text-align: center;
+  transition: all .3s ease-in;
+}
+.save:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.posterView {
+  padding: 5px;
+  width: 100%;
+  height: auto;
+}
 
-    width: 45%;
-    background-color: #ddd;
-    padding: 20px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 40px;
-}
-.title{
-    margin: 0px;
-    text-transform: uppercase;
-    font-family: roboto;
-    font-size: 27px;
-    color: #046666;
-}
-.line{
-    margin-bottom: 20px;
-    margin-top: 10px;
+@media screen and (max-width: 950px) {
+  .inputs {
     width: 100%;
-    height: 1px;
-    border-width: 0;
-    color: #046666;
-    background-color: #046666;
+  }
+  .CardView {
+    padding: 1rem;
+    width: 85%;
+  }
 }
-.lables{
-    font-family: "open sans";
-    font-weight: bold;
-    font-size: 15px;
-    color:#046666 ;
+.inputs:focus,
+.textArea:focus {
+  box-shadow: 0 0 2px 2px #04666665;
 }
-.formContainer{
-    padding-left: 6rem;
-    padding-right: 6rem;
-}
-.inputs{
-    margin-bottom: 20px;
+
+@media screen and (max-width: 500px) {
+  .inputs {
     width: 100%;
-    height: auto;
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #046666;
-    font-family: "open sans";
-    font-size: 1rem;
-    outline: none;
-    font-weight: 700;
-    color: #333;
-    background-color: #eee;
+  }
+  .formContainer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .save {
+    padding-left: 30%;
+    padding-right: 30%;
+    margin-bottom: 1rem;
+  }
 }
-.textArea{
-    resize: vertical;
-    margin-bottom: 20px;
-    width: 100%;
-    height: 150px;
-    overflow: scroll;
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #046666;
-    font-family: "open sans";
-    font-weight: 700;
-    font-size: 1rem;
-    outline: none;
-    color: #333;
-    background-color: #eee;
+.inputContainer {
+  margin-top: 0.7rem;
+  height: 7rem;
+  position: relative;
+  width: 100%;
+  background-color: #444;
+  padding: 10px 7px;
+  border-radius: 0.3rem;
+  cursor: pointer;
 }
-.inputs:last-child{
-    background-color: #333;
+.inputsimage {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
 }
-.save{
-    margin: auto;
-    margin-top: 25px;
-    padding: 3px 15px;
-    display: flex;
-    background-color: transparent;
-    border: 2px solid #14B6C8;
-    font-family: roboto;
-    font-size: 20px;
-    border-radius: 10px;
-    color: #14B6C8;
+.drag {
+  width: 50%;
+  position: absolute;
+  top: 45%;
+  left: 25%;
+  color: #fff;
+  text-align: center;
 }
-.save:hover{
-    cursor: pointer;
-    background-color: #14B6C8;
-    color: #333;
-    transition-property: all;
-    transition-duration: .5s;
+.selected {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: rgb(12, 12, 143);
+  background-color: #bbb;
+  padding: 10px 7px;
+  border-radius: 0.3rem;
+  width: 100%;
+  animation: fade ease-in 0.6s;
 }
-.posterView{
-    width: 100%;
-    height: auto;
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

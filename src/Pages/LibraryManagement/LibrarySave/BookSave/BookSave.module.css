@@ -1,0 +1,142 @@
+.CardView {
+  border-radius: 20px;
+
+  width: 45%;
+  background-color: #ddd;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 5rem;
+}
+.title {
+  margin: 0px;
+  text-transform: uppercase;
+  font-family: roboto;
+  font-size: 1.6rem;
+  color: #046666;
+}
+.line {
+  margin-bottom: 1.3rem;
+  margin-top: 0.6rem;
+  width: 100%;
+  height: 1px;
+  border-width: 0;
+  color: #046666;
+  background-color: #046666;
+}
+.lables {
+  font-family: "open sans";
+  font-weight: bold;
+  font-size: 1rem;
+  color: #046666;
+}
+.formContainer {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+.inputs {
+    border-radius: .2rem;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: auto;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.12rem solid #046666;
+  font-family: "open sans";
+  font-size: 1rem;
+  outline: none;
+  font-weight: 700;
+  color: #333;
+  background-color: #eee;
+}
+.textArea {
+    border-radius: .2rem;
+  transition: all 0.3s ease-in;
+  resize: vertical;
+  margin-bottom: 1.3rem;
+  width: 100%;
+  height: 10rem;
+  padding: 10px 5px 10px 5px;
+  margin-top: 0.6rem;
+  border: 0.12rem solid #046666;
+  font-family: "open sans";
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+  background-color: #eee;
+}
+.inputs:last-child {
+  background-color: #333;
+}
+.save {
+  margin: auto;
+  margin-top: 25px;
+  padding: 0.2rem 3rem;
+  display: flex;
+  background-color: transparent;
+  border: 2px solid #14b6c8;
+  font-family: roboto;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: #14b6c8;
+  text-align: center;
+}
+.save:hover {
+  cursor: pointer;
+  background-color: #14b6c8;
+  color: #333;
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.posterView {
+  padding: 5px;
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 950px) {
+  .inputs {
+    width: 100%;
+  }
+  .CardView {
+    padding: 1rem;
+    width: 85%;
+  }
+}
+.inputs:focus,
+.textArea:focus {
+  box-shadow: 0 0 2px 2px #046666a2;
+}
+
+@media screen and (max-width: 500px) {
+  .inputs {
+    width: 100%;
+  }
+  .formContainer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .save {
+    padding-left: 30%;
+    padding-right: 30%;
+    margin-bottom: 1rem;
+  }
+}
+
+.radio {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-right: 7px;
+  height: 15px;
+  width: 15px;
+}
+.link{
+  color: rgb(11, 11, 119);
+  cursor: pointer;
+  font-family: roboto;
+  font-size: 1rem;
+  padding: .3rem 1rem;
+  background-color: rgb(153, 151, 151);
+  border-radius: .3rem;
+}

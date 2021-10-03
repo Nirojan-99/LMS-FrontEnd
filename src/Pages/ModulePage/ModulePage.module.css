@@ -16,7 +16,6 @@
   width: 80%;
 }
 
-
 @media screen and (max-width: 950px) {
   .aside {
     display: none;
@@ -24,9 +23,8 @@
   .main_side {
     width: 100%;
   }
-    
 }
-.loader{
+.loader {
   display: flex;
   justify-content: center;
 }
@@ -34,4 +32,26 @@
   .mainSec {
     width: 95%;
   }
+}
+.addWeek {
+  cursor: pointer;
+  font-family: roboto;
+  font-size: 1rem;
+  color: rgb(14, 14, 172);
+  transition: all 0.3s ease-in;
+  text-align: center;
+  background-color: #aaa;
+  width: 10%;
+  margin: auto;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding: 5px 10px;
+  border-radius: 0.2rem;
+}
+.addWeek:hover {
+  background-color: #046666;
+  color: #fff;
+}
+.loader{
+  margin: auto;
 }

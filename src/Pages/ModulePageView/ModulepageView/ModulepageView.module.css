@@ -1,28 +1,28 @@
-.ModulepageView{
-    background-color:#FFFFFF;
-    margin-right: 100px;
-    margin-top: 50px;
-    margin-left: 100px;
-    padding-bottom: 80px;
-    padding-top: 10px;
-  
+.ModulepageView {
+  background-color: #ffffff;
+  margin-right: 100px;
+  margin-top: 50px;
+  margin-left: 100px;
+  padding-bottom: 80px;
+  padding-top: 10px;
 }
 .img_buttons {
-    margin: auto;
-    padding: 10px 10px;
-    /* background-color: #14b6c8; */
-    margin: 0 2px 0 70px;
-    border-radius: 2px;
-    width: 5%;
-    border-radius: 10px;
-    height: 5%;
-  }
-  
-  .img_buttons:hover {
-    cursor: pointer;
-    background-color: #088f8f;
-  }
-  .ModulepageView_view{
+  margin: auto;
+  padding: 10px 10px;
+  /* background-color: #14b6c8; */
+  margin: 0 2px 0 70px;
+  border-radius: 2px;
+  width: 3%;
+  border-radius: 10px;
+  height: 3%;
+}
 
-  }
-  
+.img_buttons:hover {
+  cursor: pointer;
+  /* background-color: #088f8f; */
+  background-color: #e7dcdc;
+}
+.loader {
+  justify-content: center;
+  display: flex;
+}

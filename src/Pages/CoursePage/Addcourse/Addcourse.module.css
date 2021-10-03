@@ -33,16 +33,37 @@
     margin-top: 10px;
     border: 2px solid #046666;
     font-family: roboto;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+    color: rgb(10, 10, 10);
+    /* background-color: #FFFFFF; */
+    background-color: #ffffff6c;
+}
+
+
+.inputs1{
+    margin-bottom: 20px;
+    border-radius: 10px;
+    width: 105%;
+    height: auto;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #046666;
+    font-family: roboto;
+    /* font-size: 1rem; */
+    font-size: 1.1rem;
+    font-weight: bold;
     outline: none;
     color: #333;
-    background-color: #FFFFFF;
+    background-color: #ffffff6c;
 }
 .squareview{
     
 
     width: 45%;
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
+    background-color: #ddd;
     padding: 20px;
     margin: auto;
     margin-top: 30px;
@@ -68,3 +89,8 @@
     transition-property: all;
     transition-duration: .5s;
 }
+@media screen and (max-width: 800px) {
+    html {
+      font-size: 0.7em;
+    }
+  }
