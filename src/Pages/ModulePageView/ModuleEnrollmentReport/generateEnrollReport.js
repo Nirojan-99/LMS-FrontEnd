@@ -18,20 +18,24 @@ const GeneratePDF = (students, moduleId, Module) => {
     const ModuleName = row1.Modulename;
     const ModuleCode = row1.ModuleCode;
     const EnrollmentsKey = row1.ModuleEnrollmentkey;
+    const LectureInCharage = row1.ModuleLectureIncharge;
 
-    doc.autoTable(tableColumn, tableRows, { startY: 50 }, { Theme: "grid" });
-
+    doc.autoTable(tableColumn, tableRows, { startY: 100, theme: "grid" });
+    doc.setFontSize(30);
+    doc.text(43, 15, "Enrollment Report");
     doc.setFontSize(15);
     doc.text(
-      "Enrollment Report\n\nTotalEnrollment : " +
+      "\n\n\n\nTotalEnrollment :: " +
         students.length +
-        "\tModuleName :" +
+        "\n\nModuleName ::" +
         ModuleName +
-        "\nModuleCode : " +
+        "\n\nModuleCode :: " +
         ModuleCode +
-        "\tModuleEnrollmentkey :" +
-        EnrollmentsKey,
-      25,
+        "\n\nModuleEnrollmentkey :: " +
+        EnrollmentsKey +
+        "\n\nLectureInCharage :: " +
+        LectureInCharage.toUpperCase(),
+      13,
       15
     );
 

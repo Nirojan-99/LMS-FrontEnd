@@ -8,7 +8,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
-import GeneratePDF from "./generatePDF";
+import GeneratePDF from "./generateEnrollReport";
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
