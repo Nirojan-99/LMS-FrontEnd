@@ -1,70 +1,63 @@
 .container {
-    margin: auto;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    display: flex;
-    width: 100%;
-    justify-content:space-between;
-  }
-  .title {
-    margin-top: 25px;
-    margin-bottom: 5px;
-    align-items: baseline;
-    font-family: roboto;
-    font-size: 23px;
-    letter-spacing: 1px;
-    color: #046666;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.title {
+  margin-top: 25px;
+  margin-bottom: 5px;
+  align-items: baseline;
+  font-family: roboto;
+  font-size: 23px;
+  letter-spacing: 1px;
+  color: #046666;
+}
 
-  }
-    
-  .search {
-    margin: auto;
-    margin-left: 400px;
-    margin-top: 10px;
-   
-    
-  }
-  .line {
-    width: 100%;
-    margin-top: 10px;
-    height: 1px;
-    border-width: 0;
-    color: #444;
-    background-color: #444;
-  }
-  .searchInput {
-    width: 300px;
-    text-transform: capitalize;
-    outline: 0;
-    margin-right: 20px;
-    border: 2px solid #046666;
-    border-radius: 20px;
-    background: transparent;
-    padding: 4px;
-    padding-left: 15px;
-    font-size: 15px;
-  }
-  .icon {
-    padding: 10px;
-    background-color: #046666;
-    border-radius: 100%;
-    margin: 0;
-    width: 20px;
-    height: 20px;
-  }
-  .iconLabel {
-    margin: 0;
-    padding: 0;
-  }
-  .Searchform {
-    display: flex;
-    margin-left: 350px;
-  
-  }
-  .icon:hover {
-    transform: scale(1.1);
-    transition-property: all;
-    transition-duration: 0.5s;
-    cursor: pointer;
-  }
-  
+.search {
+  margin: auto;
+}
+.line {
+  width: 100%;
+  margin-top: 10px;
+  height: 1px;
+  border-width: 0;
+  color: #444;
+  background-color: #444;
+}
+.searchInput {
+  width: 300px;
+  text-transform: capitalize;
+  outline: 0;
+  margin-right: 20px;
+  border: 2px solid #046666;
+  border-radius: 0.3rem;
+  background: transparent;
+  padding: 0.4rem 0.5rem;
+  padding-left: 1rem;
+  font-size: 15px;
+}
+.icon {
+  padding: 10px;
+  background-color: #046666;
+  border-radius: 100%;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+.iconLabel {
+  margin: 0;
+  padding: 0;
+}
+.Searchform {
+  display: flex;
+  margin-left: 350px;
+}
+.icon:hover {
+  transform: scale(1.1);
+  transition-property: all;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}

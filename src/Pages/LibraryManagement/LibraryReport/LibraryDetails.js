@@ -4,11 +4,9 @@ const LibraryDetails = (props) => {
   return (
     <>
       <div className={classes.container}>
-        <div>{props.data.userId}</div>
-        <div>{props.data.accessTime}</div>
+        <div>{props.data.id}</div>
+        <div>{props.data.date_time}</div>
       </div>
-
-      <hr className={classes.line}></hr>
     </>
   );
 };

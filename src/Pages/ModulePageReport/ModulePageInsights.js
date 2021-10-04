@@ -5,7 +5,7 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../../Components/Loader/Loader";
-
+import generatePDF from "./PDFGenerate";
 
 const ModulePageInsights = (props) => {
   const material = props.match.params.moduleID;
@@ -62,10 +62,20 @@ const ModulePageInsights = (props) => {
       {loaded && students && (
         <div className={classes.container}>
           <div className={classes.head_container}>
-          <h2 className={classes.title}>REPORT</h2>
-          <a href={"http://localhost:5000/Reports/ModuleMaterial/insight"+material+".pdf"} className={classes.btn_pdf}>Generate PDF</a>
+            <h2 className={classes.title}>REPORT</h2>
+            <a
+              // href={
+              //   "http://localhost:5000/Reports/ModuleMaterial/insight" +
+              //   material +
+              //   ".pdf"
+              // }
+              onClick={()=>{generatePDF(students,material)}}
+              className={classes.btn_pdf}
+            >
+              Generate PDF
+            </a>
           </div>
-          
+
           {/* <hr className={classes.line}></hr> */}
           <Table editDate={editedDate} viewers={students.length} />
           <SearchBar onSearch={getSearchValue} />

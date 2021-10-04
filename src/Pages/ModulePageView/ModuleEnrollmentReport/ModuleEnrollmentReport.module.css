@@ -47,3 +47,24 @@
       text-align: center;
       color: red;
   }
+  .save{
+    margin: auto;
+    margin-top: 25px;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: right;
+    background-color: #046666;
+    border: 0px solid #14B6C8;
+    font-family: roboto;
+    font-weight: bolder;
+    font-size: 15px;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+.save:hover{
+    cursor: pointer;
+    background-color: #14B6C8;
+    color: #333;
+    transition-property: all;
+    transition-duration: .5s;
+}

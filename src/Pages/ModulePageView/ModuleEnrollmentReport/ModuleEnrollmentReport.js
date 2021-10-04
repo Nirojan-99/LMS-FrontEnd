@@ -11,39 +11,34 @@ import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
-  const students = [
-    {
-      id: "210000005",
-      FirstAccess: "13/9/2021 @ 8:43:27",
-      LastAccess: "13/9/2021 @ 9:43:27",
-    },
-    {
-      id: "210000005",
-      FirstAccess: "13/9/2021 @ 8:43:27",
-      LastAccess: "13/9/2021 @ 9:43:27",
-    },
-  ];
 
-  const [updatedList, setList] = useState(students);
+  const [students, setStudents] = useState([]);
+  const [updatedList, setList] = useState([]);
+
   const [isEmptyList, setEmpty] = useState(false);
   const [Module, setModule] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [list, setlist] = useState(false);
   const [totalEnrollments, settotalEnrollments] = useState("0");
-  const [moduleName, setmoduleName] = useState(false);
   const [error, setError] = useState(null);
   const token = useSelector((state) => state.loging.token);
   const dispatch = useDispatch();
   const [isUploaded, setIsUploaded] = useState(true);
 
   const getSearchValue = (value) => {
+    setEmpty(false);
     if (!value.trim()) {
       setEmpty(false);
       setList(students);
       return;
     }
 
-    const updated = students.filter((student) => student.id === value);
+    const updated = students.filter((student) => {
+      return (
+        student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.name.toUpperCase().includes(value.toUpperCase().trim())
+      );
+    });
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
@@ -95,19 +90,36 @@ const ModuleEnrollmentReport = (props) => {
       )
       .then((res) => {
         if (res.data.auth === false) {
-        setError("You Are not Authorized to get faculty !");
-        setIsUploaded(false);
-        setTimeout(() => {
-          dispatch(logout());
-        }, 1600);
-           
-
-      }else if(res.data.students.length !==0){
-        settotalEnrollments(res.data.students.length);
-    }
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
+        } else if (res.data.students.length !== 0) {
+          settotalEnrollments(res.data.students.length);
+        }
       })
       .catch((er) => {
         console.log("error");
+      });
+
+    axios
+      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId,   {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
+      .then((res) => {
+        if (res.data) {
+          setList(res.data);
+          setStudents(res.data);
+        } else if (res.data.ack === false) {
+        } else if (res.data.auth === false) {
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
+        }
+
       });
   }, []);
 
@@ -118,6 +130,7 @@ const ModuleEnrollmentReport = (props) => {
       {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
+      <button className={classes.save}>generatePDF</button>
       <h2 className={classes.title}>
         {/* {Module.map((row1) => (
           <div>{row1.Modulename}</div>
@@ -147,8 +160,10 @@ const ModuleEnrollmentReport = (props) => {
       <SearchBar onSearch={getSearchValue} />
       <div className={classes.report_container}>
         <span>Student ID</span>
-        <span>First Access</span>
-        <span>Last Access</span>
+        <span>Name</span>
+        <span>Type</span>
+        <span>Faculty</span>
+        {/* <span>Email</span> */}
       </div>
       {updatedList.map((row) => {
         return <Details data={row} key={row.id} />;
