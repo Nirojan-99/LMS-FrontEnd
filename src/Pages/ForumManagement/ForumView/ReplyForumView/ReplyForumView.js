@@ -225,7 +225,7 @@ const ReplyForumView = (props) => {
           </div>
         </form>
         <span className={classes.icons}>
-          <a>
+          {(userID === currentLoginUserID) && <a>
             <img
               src={deleteI}
               className={classes.img_buttonsD}
@@ -233,7 +233,7 @@ const ReplyForumView = (props) => {
                 clickD(replyForumID);
               }}
             ></img>
-          </a>
+          </a>}
         </span>
       </div>
     </>
