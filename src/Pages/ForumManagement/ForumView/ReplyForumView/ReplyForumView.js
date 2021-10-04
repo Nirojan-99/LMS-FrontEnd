@@ -48,14 +48,40 @@ const ReplyForumView = (props) => {
           axios
             .get(
               "http://localhost:5000/ForumManagement/get_userName?userID=" +
-                res.data.userID
+                res.data.userID, {
+                  headers: { Authorization: "lmsvalidation " + token },
+                }
             )
             .then((res) => {
+              if (res.data.auth === false) {
+                setError("You Are not Authorized!");
+                setIsUploaded(false);
+                setTimeout(() => {
+                  dispatch(logout());
+                }, 500);
+              } else if (res.data.fetch === false) {
+                setError("Requested ID is wrong");
+                setIsUploaded(false);
+                setTimeout(() => {
+                  dispatch(logout());
+                }, 600);
+              } else if (res.data.noData === true) {
+                setError("No Data Avialable");
+                setIsUploaded(false);
+              }
+              else if(res.data.error===true){
+                setError("Something wrong. Try again later");
+                setIsUploaded(false);
+              }
+              else{
               setUserName(res.data.name);
               setLmsID(res.data.ID);
+              }
+              
             })
             .catch((er) => {
-              console.log("error");
+              setError("Something wrong. Try again later");
+              setIsUploaded(false);
             });
         }
       })
