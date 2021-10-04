@@ -9,7 +9,8 @@ import DeleteFacultiesPopup from "../../../FacultiesPage/FacultiesView/Component
 import { logout } from "../../../../Store/auth";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
 import { useEffect } from "react";
-import lock11 from "../../../../Assets/lock2.png";
+import lock11 from "../../../../Assets/lock.png";
+import unlock from "../../../../Assets/unlock.png";
 
 const ModuleView = (props) => {
   const userType = useSelector((state) => state.loging.type);
@@ -150,7 +151,7 @@ const ModuleView = (props) => {
               //   <img src={lock11} className={classes.lock_button}></img>
                 
               // </a>
-              <div class={classes.tooltip}> <img src={lock11} className={classes.lock_button}></img>
+              <div class={classes.tooltip}> <img src={unlock} className={classes.lock_button}></img>
                  <span class={classes.tooltiptext}>enroll</span>
              </div>
          

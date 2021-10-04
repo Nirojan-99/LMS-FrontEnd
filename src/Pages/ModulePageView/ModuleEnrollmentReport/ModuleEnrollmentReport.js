@@ -8,6 +8,8 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import GeneratePDF from "../ModuleEnrollmentReport/GeneratePdf";
+
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
@@ -108,18 +110,18 @@ const ModuleEnrollmentReport = (props) => {
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
+        console.log("ho");
+        console.log(res.data);
         if (res.data) {
+          setLoaded(true);
           setList(res.data);
           setStudents(res.data);
-        } else if (res.data.ack === false) {
-        } else if (res.data.auth === false) {
-          setError("You Are not Authorized to get faculty !");
-          setIsUploaded(false);
-          setTimeout(() => {
-            dispatch(logout());
-          }, 1600);
+        }else if(!res.data){
+          setEmpty(true)
         }
-
+        
+        else if (res.data.ack === false) {
+        }
       });
   }, []);
 
@@ -130,7 +132,7 @@ const ModuleEnrollmentReport = (props) => {
       {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
-      <button className={classes.save}>generatePDF</button>
+      {/* <button className={classes.save} onClick = {GeneratePDF}>generatePDF</button> */}
       <h2 className={classes.title}>
         {/* {Module.map((row1) => (
           <div>{row1.Modulename}</div>
@@ -163,9 +165,9 @@ const ModuleEnrollmentReport = (props) => {
         <span>Name</span>
         <span>Type</span>
         <span>Faculty</span>
-        {/* <span>Email</span> */}
+   
       </div>
-      {updatedList.map((row) => {
+      {loaded && updatedList.map((row) => {
         return <Details data={row} key={row.id} />;
       })}
       {isEmptyList && <div className={classes.message}>no results found !</div>}

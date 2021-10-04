@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const generatePDF = marks => {
+const GeneratePDF = marks => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
@@ -33,4 +33,4 @@ const generatePDF = marks => {
   doc.save(`report_${dateStr}.pdf`);
 };
 
-export default generatePDF;
+export default GeneratePDF;
