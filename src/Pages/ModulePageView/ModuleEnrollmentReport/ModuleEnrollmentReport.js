@@ -169,7 +169,7 @@ const ModuleEnrollmentReport = (props) => {
       {loaded && updatedList.map((row) => {
         return <Details data={row} key={row.id} />;
       })}
-      {/* {!loaded && <div className={classes.message}>no data found !</div> } */}
+      {!loaded && <div className={classes.message}>no data found !</div> }
       {isEmptyList && <div className={classes.message}>no results found !</div>}
     </div>
   );
