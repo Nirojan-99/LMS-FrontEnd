@@ -4,49 +4,45 @@ import LibraryReportSearchBar from "./LibraryReportSearchBar";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import generatePDF from "./generatePDF";
 
-const LibraryReport = () => {
-  const users = [
-    { userId: "IT20223458", accessTime: "2021-09-07" },
-    { userId: "IT20223458", accessTime: "2021-09-07"},
-    { userId: "IT20223458", accessTime: "2021-09-07" },
-    { userId: "IT20223458", accessTime: "2021-09-07"},
-    { userId: "IT20223458", accessTime: "2021-09-07"},
-  ];
+const LibraryReport = (props) => {
+  const id = props.match.params.ID;
 
-  const [updatedList, setList] = useState(users);
+  const [students, setStudents] = useState([]);
+  const [updatedList, setList] = useState([]);
   const [isEmptyList, setEmpty] = useState(false);
   // const [users, setUsers] = useState([]);
- 
 
-  
-
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:5000/get_users")
-  //     .then((res) => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/library/get_insight?bookID=" + id)
+      .then((res) => {
+        if (res.data.students) {
+          setStudents(res.data.students);
+          setList(res.data.students);
+        }else{
+          setEmpty(true)
+        }
         
-  //       setUsers(res.data);
-  //       // history.goBack(); //to go back  should put in SubmitHandler
-  //     })
-  //     .catch((er) => {
-  //       console.log("error");
-  //     });
-  // }, []);
-
-
-
-
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
 
   const getSearchValue = (value) => {
+    setEmpty(false);
     if (!value.trim()) {
       setEmpty(false);
-      setList(users);
+      setList(students);
       return;
     }
 
-    const updated = users.filter((user) => user.userId === value)
-    setList(updated)
+    const updated = students.filter((user) =>
+      user.id.toUpperCase().includes(value.toUpperCase())
+    );
+    setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
     }
@@ -54,15 +50,22 @@ const LibraryReport = () => {
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>USER REPORT</h2>
+      <div className={classes.head_cont}>
+      <h2 className={classes.title}>BOOK DOWNLOAD REPORT</h2>
+      <a onClick={()=>{generatePDF(students,id)}}>Generate PDF</a>
+      </div>
+      
       <hr className={classes.line}></hr>
-      <h3 className={classes.downloads}> Total Download: 100</h3>
-      <LibraryReportSearchBar onSearch={getSearchValue} />
+      <h3 className={classes.downloads}> Total Download: {students.length}</h3>
+      <div className={classes.search_bar}>
+        <LibraryReportSearchBar onSearch={getSearchValue} />
+      </div>
+
       <div className={classes.report_container}>
         <span>Student ID</span>
         <span>Access Time</span>
       </div>
-      {updatedList.map((row) => {
+      {!isEmptyList && updatedList.map((row) => {
         return <LibraryDeatils data={row} key={row.userId} />;
       })}
       {isEmptyList && <div className={classes.message}>No Users Found !!!</div>}

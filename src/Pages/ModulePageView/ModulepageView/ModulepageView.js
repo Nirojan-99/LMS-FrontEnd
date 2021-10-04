@@ -9,11 +9,15 @@ import plus from "../../../Assets/plusFaculty.png";
 import { useHistory } from "react-router";
 import Loader from "../../../Components/Loader/Loader";
 import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
 
 
 const ModulepageView = (props) => {
   const userType = useSelector((state) => state.loging.type);
+  const token = useSelector((state) => state.loging.token);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
   // const history = useHistory();
   const moduleid = props.match.params.ModuleID;
   const year = props.match.params.Year;
@@ -30,13 +34,26 @@ const ModulepageView = (props) => {
           "&semester=" +
           semester +
           "&courseID=" +
-          moduleid
-      )
+          moduleid,{
+            headers: { Authorization: "lmsvalidation " + token },
+          })
+      
       .then((res) => {
-        setLoaded(true);
 
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to get modules !");
+          // setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1000);
+        }else if (res.data.modules === false) {
+          setError("No matching modules found ! redirecting to portal");
+          //setIsUploaded(false);
+          history.goBack();
+        }else{
+        setLoaded(true);
         setModule(res.data);
-       
+        }
       })
       .catch((er) => {
         console.log(er);

@@ -47,3 +47,39 @@
       text-align: center;
       color: red;
   }
+  .save{
+    margin: auto;
+    margin-top: 25px;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: right;
+    background-color: #046666;
+    border: 0px solid #14B6C8;
+    font-family: roboto;
+    font-weight: bolder;
+    font-size: 15px;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+.save:hover{
+    cursor: pointer;
+    background-color: #14B6C8;
+    color: #333;
+    transition-property: all;
+    transition-duration: .5s;
+}
+.head_cont{
+    display: flex;
+    justify-content: space-between;
+    justify-content: baseline;
+  }
+  .head_cont a{
+    background-color: #046666;
+    padding: .5rem .5rem;
+    border-radius: .3rem;
+    color: #fff;
+    font-family: "open sans";
+    font-weight: 700;
+    font-size: .8rem;
+    cursor: pointer;
+  }

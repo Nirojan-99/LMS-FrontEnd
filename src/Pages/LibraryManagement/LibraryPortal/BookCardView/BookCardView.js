@@ -1,7 +1,4 @@
 import classes from "./BookCardView.module.css";
-import edit from "../../../../Assets/edit.svg";
-import deleteIcon from "../../../../Assets/delete.svg";
-import bookImg from "../../../../Assets/SampleBook.jpg";
 import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
 import { useState } from "react";
 import axios from "axios";
@@ -11,6 +8,7 @@ import { useSelector } from "react-redux";
 const BookCardView = (props) => {
   const history = useHistory();
   const type = useSelector((state) => state.loging.type);
+  const id = useSelector((state) => state.loging.id);
 
   const [onDelete, setOnDelete] = useState(false);
 
@@ -19,6 +17,29 @@ const BookCardView = (props) => {
   };
   const hide = () => {
     setOnDelete((state) => !state);
+  };
+  const addInsight = () => {
+    var currentdate = new Date();
+    var datetime =
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
+    const data = {
+      ID: id,
+      date_time: datetime,
+      bookID: props.row._id,
+    };
+    axios
+      .post("http://localhost:5000/library/add_insight", data)
+      .then((res) => {});
   };
 
   const deleteMaterial = () => {
@@ -48,7 +69,11 @@ const BookCardView = (props) => {
       </div>
       {type === "student" && (
         <div>
-          <a href={props.row.book} className={classes.viewMore}>
+          <a
+            onClick={addInsight}
+            href={props.row.book}
+            className={classes.viewMore}
+          >
             DOWNLOAD
           </a>
         </div>
@@ -56,6 +81,7 @@ const BookCardView = (props) => {
 
       {type === "admin" && (
         <div className={classes.icon_container}>
+          <a href={"/services/digital_library/report/" + props.row._id}>INSIGHT{" "}</a>
           <a href={"/services/book/" + props.row._id}>EDIT</a>
           <a
             onClick={() => {

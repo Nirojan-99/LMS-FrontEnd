@@ -5,124 +5,171 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import Table from "./Table";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import GeneratePDF from "./generateEnrollReport";
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
-  const students = [
-    { id: "210000005", FirstAccess: "13/9/2021 @ 8:43:27", LastAccess: "13/9/2021 @ 9:43:27" },
-    { id: "210000005", FirstAccess: "13/9/2021 @ 8:43:27", LastAccess: "13/9/2021 @ 9:43:27" },
 
-  ];
+  const [students, setStudents] = useState([]);
+  const [updatedList, setList] = useState([]);
 
-  const [updatedList, setList] = useState(students);
   const [isEmptyList, setEmpty] = useState(false);
   const [Module, setModule] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [list, setlist] = useState(false);
   const [totalEnrollments, settotalEnrollments] = useState("0");
-  const [moduleName, setmoduleName] = useState(false);
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.loging.token);
+  const dispatch = useDispatch();
+  const [isUploaded, setIsUploaded] = useState(true);
 
   const getSearchValue = (value) => {
+    setEmpty(false);
     if (!value.trim()) {
       setEmpty(false);
       setList(students);
       return;
     }
 
-    const updated = students.filter((student) => student.id === value);
+    const updated = students.filter((student) => {
+      return (
+        student.ID.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.type.toUpperCase().includes(value.toUpperCase().trim()) ||
+        student.name.toUpperCase().includes(value.toUpperCase().trim())
+      );
+    });
     setList(updated);
     if (updated.length === 0) {
       setEmpty(true);
     }
   };
-
+  const clickedHandler = (event) => {
+    setIsUploaded(true);
+  };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Module/get_Modulecheck?moduleId=" + moduleId)
+      .get(
+        // Module details fetch
+        "http://localhost:5000/Module/get_Moduledetails?moduleId=" + moduleId,
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
       .then((res) => {
-     
-        setmoduleName(res.data[0].Modulename);
-      
-        setModule(res.data);
-        
-        
- 
-        console.log(res.data);
-     
-        setLoaded(true);
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
+        } else if (res.data.fetch === false) {
+          setError("No matching Module details found !");
+          setIsUploaded(false);
+        } else {
+          //setmoduleName(res.data[0].Modulename);
+
+          setModule(res.data);
+
+          //console.log(res.data);
+
+          setLoaded(true);
+        }
       })
       .catch((er) => {
         console.log(er);
       });
 
-
-
-
-      
-
     axios
-      .post("http://localhost:5000/Enroll/get_enrollcount",{moduleId:moduleId})
-      .then((resp) => {
-        console.log("hiii");
-        // setstudentdetails(resp.data);
-        // console.log(resp.data);
-        console.log("heelo")
-     
-        
-        settotalEnrollments(resp.data.students.length);
-       
-  
-     
-        // setUsers(res.data);
-
-        // setLoaded(true);
+      .post(
+        "http://localhost:5000/Enroll/get_enrollcount",
+        { moduleId: moduleId },
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
+      .then((res) => {
+        if (res.data.auth === false) {
+          setError("You Are not Authorized to get faculty !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 1600);
+        } else if (res.data.students.length !== 0) {
+          settotalEnrollments(res.data.students.length);
+        }
       })
       .catch((er) => {
         console.log("error");
       });
 
-     
-   
-     }, []);
+    axios
+      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
+      .then((res) => {
+        console.log("ho");
+        console.log(res.data);
+        if (res.data.ack === false) {
+          setLoaded(false);
+         
+        } else if (res.data) {
+          setLoaded(true);
+          setList(res.data);
+          setStudents(res.data);
+        }
+      });
+  }, []);
 
-     //Module:moduleName
+  //Module:moduleName
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.title}>
-        {Module.map((row1) => (
-          <div>{row1.Modulename}</div>
-        ))}
-      </h2>
+      {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
+      <div className={classes.head_cont}>
+        <h2 className={classes.title}>
+          {Module.map((row1) => (
+            <div>{row1.Modulename.toUpperCase() + " REPORT"}</div>
+          ))}
+        </h2>
+        {/* <h2 className={classes.title}>BOOK DOWNLOAD REPORT</h2> */}
+        <a
+          onClick={() => {
+            GeneratePDF(students, moduleId,Module);
+          }}
+        >
+          Generate PDF
+        </a>
+      </div>
+
       <hr className={classes.line}></hr>
 
-      {loaded && Module.map((row) => {
+      {Module.map((row) => {
         return (
           <Table
-            ModuleName={row.Modulename}
-            ModuleCode={row.ModuleCode}
-            LectureInCharage={row.ModuleLectureIncharge}
+            ModuleName={row.Modulename.toUpperCase()}
+            ModuleCode={row.ModuleCode.toUpperCase()}
+            LectureInCharage={row.ModuleLectureIncharge.toUpperCase()}
             EnrollmentsKey={row.ModuleEnrollmentkey}
             TotalEnrollments={totalEnrollments}
           />
         );
       })}
-      {/* <Table
-        ModuleName={Module.Modulename}
-        ModuleCode={Module.ModuleCode}
-        LectureInCharage={Module.ModuleLectureIncharge}
-        EnrollmentsKey={Module.ModuleEnrollmentkey}
-        TotalEnrollments={100}
-      /> */}
+
       <SearchBar onSearch={getSearchValue} />
       <div className={classes.report_container}>
         <span>Student ID</span>
-        <span>First Access</span>
-        <span>Last Access</span>
+        <span>Name</span>
+        <span>Type</span>
+        <span>Faculty</span>
       </div>
-      {updatedList.map((row) => {
+      {loaded && updatedList.map((row) => {
         return <Details data={row} key={row.id} />;
       })}
+      {!loaded && <div className={classes.message}>no data found !</div> }
       {isEmptyList && <div className={classes.message}>no results found !</div>}
     </div>
   );

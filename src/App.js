@@ -46,6 +46,9 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 import page404 from "./Pages/404/404";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
+import NewTimetable from "./Pages/Timetable/NewTimeTable/NewTimetable";
+import timetable from "./Pages/Timetable/TimeTable/TimeTable";
+
 import StudenList from "./Pages/Studentportal/StudentList/StudentList";
 import UpdateGPA from "./Pages/Studentportal/AdminUpdateGPA/UpdateGPA";
 import StudentPortal from "./Pages/Studentportal/StudentView/StudentPortal";
@@ -64,6 +67,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
+
 import ExamView from "./Pages/Exams/View";
 import NewExam from "./Pages/Exams/new";
 import EditExam from "./Pages/Exams/edit";
@@ -130,6 +134,9 @@ function App() {
         <Route path="/edit-user/:editID" exact component={EditUser} />
         <Route path="/add-role" exact component={AddRole}/>
 
+        <Route path="/services/timetable/new" exact component={NewTimetable}/>
+        <Route path="/services/timetable" exact component={timetable}/>
+
         <Route path="/faculties" exact component={FacultiesView}/>
         <Route path="/faculties/module/insight/:moduleId" exact component={ModuleEnrollmentReport}/>
         <Route path="/faculties/Addfaculties" exact component={AddFaculties}/>
@@ -166,6 +173,7 @@ function App() {
         <Route path="/services/paper_save" exact component={PaperSave}/>
         <Route path="/services/paper/:paperId" exact component={PaperSave}/>
         <Route path="/services/digital_library" exact component={LibraryPortal}/>
+        <Route path="/services/digital_library/report/:ID" exact component={LibraryReport}/>
 
         <Route path="*"  component={page404}/>
       </Switch>:
