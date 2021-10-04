@@ -42,7 +42,7 @@ const Row = (props) => {
       )}
       <div className={classes.title}>{props.data.title}</div>
       {type !== "admin" && (
-        <img href={props.data.link} className={classes.logo} src={download} />
+        <a href={props.data.link}><img  className={classes.logo} src={download} /></a>
       )}
       {type === "admin" && (
         <img onClick={deleteHandler} className={classes.logo} src={deletel} />
