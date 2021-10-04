@@ -5,6 +5,8 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import classes from "./NewForumForm.module.css";
 import useInput from "../../UserManagement/AddUser/useInput";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -16,6 +18,9 @@ const NewForumForm = (props) => {
   const [userName, setUserName] = useState();
   const [lmsID, setLmsID] = useState();
   const history=useHistory();
+
+  const [error, setError] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(true);
 
 
  //For New Forum
@@ -59,6 +64,8 @@ const NewForumForm = (props) => {
     event.preventDefault();
 
     if (!formIsValid) {
+      setError("Forum should not be Empty");
+        setIsUploaded(false);
       return;
     }
     if (forumtype == "newforum") {
@@ -112,7 +119,18 @@ const NewForumForm = (props) => {
       : classes.inputs;
   const cardClass =
     forumtype == "replyforum" ? classes.replyCardView : classes.newCardView;
+
+
+    const clickedHandler = (event) => {
+      setIsUploaded(true);
+    };
+
+
   return (
+    <>
+    {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
     <div className={cardClass}>
       <div className={classes.User}>
         <div className={classes.Avatar}>
@@ -140,7 +158,7 @@ const NewForumForm = (props) => {
             <button
               type="submit"
               className={classes.add}
-              disabled={!formIsValid}
+              
             >
               Post
             </button>
@@ -159,7 +177,6 @@ const NewForumForm = (props) => {
             <button
               type="submit"
               className={classes.add}
-              disabled={!formIsValid}
             >
               Post
             </button>
@@ -167,6 +184,7 @@ const NewForumForm = (props) => {
         )}
       </form>
     </div>
+    </>
   );
 };
 
