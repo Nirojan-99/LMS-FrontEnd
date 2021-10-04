@@ -80,6 +80,7 @@ const LibraryPortal = () => {
     <>
       <>
         {isError && <ErrorPopup error={errorMsg} clickedHandler={hideError} />}
+        <div className={classes.title}>Books</div>
         <div className={classes.bookBar}>
           <br />
           <div className={classes.search}>
@@ -110,7 +111,7 @@ const LibraryPortal = () => {
       </>
       <>
         {isError && <ErrorPopup error={errorMsg} clickedHandler={hideError} />}
-        <div className={classes.title}>PastPaers</div>
+        <div className={classes.title}>PastPapers</div>
         <div className={classes.jobCard}>
           {loaded1 && papers ? (
             papers.map((row) => {

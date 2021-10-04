@@ -1,0 +1,70 @@
+.row_container{
+    background-color: #ddd;
+    padding: .4rem .5rem;
+    border-radius: .3rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.title{
+    font-family: "open sans";
+    font-weight: 700;
+    color: #333;
+    font-size: 1.1rem;
+}
+.logo{
+    width: 1.7rem;
+    height: 1.7rem;
+    cursor: pointer;
+    transition: all .4s ease-in;
+    padding: .4rem;
+    border-radius: .3rem;
+}
+.logo:hover{
+    background-color:#14b6c8 ;
+}
+.container{
+    background-color: #eee;
+    width: 45%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: .3rem;
+    padding-bottom: 1rem;
+}
+.head{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    font-family: "open sans";
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #14b6c8;
+    background-color: rgba(51, 51, 51, 0.808);
+    padding: 1rem 0;
+}
+.nothing{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.addnew{
+    display: flex;
+    justify-content: center;
+    
+}
+.addnew a{
+    font-weight: 700;
+    background-color: #333;
+    color: #fff;
+    padding: .3rem .6rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}

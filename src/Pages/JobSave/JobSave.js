@@ -137,7 +137,6 @@ const JobSave = (props) => {
   };
   const jobPosterHandler = (event) => {
     setJobPoster(event.target.files[0]);
-    console.log(event.target.files[0])
     event.target.files[0] && setSFile(event.target.files[0].name);
   };
   const clickedHandler = (event) => {

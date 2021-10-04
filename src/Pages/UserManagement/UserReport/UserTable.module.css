@@ -21,3 +21,29 @@
     letter-spacing: -.5px;
     color: #088F8F;
 }
+
+.add {
+    margin: auto;
+    margin-top: 25px;
+    margin-left: 43%;
+    /* padding: 3px 15px; */
+    padding: 5px 5px 5px 5px;
+    /* display: flex; */
+    background-color: #046666;
+    border: 2px solid #14b6c8;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    width: 200px;
+    height: 40px;
+  }
+
+  .add:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
