@@ -175,7 +175,7 @@ const NormalForumView = (props) => {
       {showReplies && (
         <div>
           {replies.map((row, i) => {
-            return <ReplyForumView data={row} key={i} />;
+            return <ReplyForumView data={row} key={i} parentNormalForumID={normalForumID}/>;
           })}
         </div>
       )}

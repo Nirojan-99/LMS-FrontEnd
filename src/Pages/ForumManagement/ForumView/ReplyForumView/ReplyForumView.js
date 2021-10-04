@@ -5,20 +5,21 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../../Store/auth";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import deleteI from "../../../../Assets/delete.svg";
+import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
 
 import classes from "./ReplyForumView.module.css";
 
-
-
 const ReplyForumView = (props) => {
   const currentLoginUserID = useSelector((state) => state.loging.userID);
-  const replyForumID=props.data;
-  const [replyForum,setReplyForum]=useState();
+  const replyForumID = props.data;
+  const parentNormalForumID = props.parentNormalForumID;
+  const [replyForum, setReplyForum] = useState();
   const [userName, setUserName] = useState();
   const [lmsID, setLmsID] = useState();
   const [postedDate, setPostedDate] = useState();
   const [msg, setMsg] = useState();
-  const [userID,setUserID]=useState();
+  const [userID, setUserID] = useState();
 
   const dispatch = useDispatch();
   const userType = useSelector((state) => state.loging.type);
@@ -26,21 +27,25 @@ const ReplyForumView = (props) => {
   const [isUploaded, setIsUploaded] = useState(true);
   const token = useSelector((state) => state.loging.token);
   const [success, setSuccess] = useState(false);
-  
- 
 
+  const [onDelete, setOnDelete] = useState(false);
+  const [deleteID, setOnDeleteID] = useState("");
 
   useEffect(() => {
-      axios
-          .get(
-            "http://localhost:5000/ForumManagement/get_replyForum?replyForumID=" +replyForumID
-          )
-          .then((res) => {
-            setReplyForum(res.data);
-            setPostedDate(res.data.postedDate);
-            setMsg(res.data.msg);
-            setUserID(res.data.userID);
-            axios
+    axios
+      .get(
+        "http://localhost:5000/ForumManagement/get_replyForum?replyForumID=" +
+          replyForumID
+      )
+      .then((res) => {
+        if (res.data.noData === true) {
+          console.log("No reply Forum");
+        } else {
+          setReplyForum(res.data);
+          setPostedDate(res.data.postedDate);
+          setMsg(res.data.msg);
+          setUserID(res.data.userID);
+          axios
             .get(
               "http://localhost:5000/ForumManagement/get_userName?userID=" +
                 res.data.userID
@@ -52,13 +57,12 @@ const ReplyForumView = (props) => {
             .catch((er) => {
               console.log("error");
             });
-            
-          })
-          .catch((er) => {
-            console.log("error");
-          });
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
   }, []);
-
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -106,9 +110,7 @@ const ReplyForumView = (props) => {
           window.location.reload();
         }, 600);
       });
-
   };
-
 
   const MsgChangeHandler = (event) => {
     setMsg(event.target.value);
@@ -118,44 +120,122 @@ const ReplyForumView = (props) => {
     setIsUploaded(true);
   };
 
+  const clickD = (id) => {
+    console.log("Clicked ", parentNormalForumID);
+    setOnDelete((state) => !state);
+    setOnDeleteID(id);
+  };
+  const hide = () => {
+    setOnDelete((state) => !state);
+  };
 
-  const roleClass =classes.inputs;
-  const cardClass =classes.replyCardView;
+  const deleteMaterial = () => {
+    const deleteIDs = {
+      _id: deleteID,
+      parentNormalForumID: parentNormalForumID,
+    };
+    axios
+      .post(
+        "http://localhost:5000/ForumManagement/delete_replyForum",
+        deleteIDs,
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
+      .then((res) => {
+        if (res.data.auth === false) {
+          setError("You Are not Authorized!");
+          setIsUploaded(false);
+          setTimeout(() => {
+            // dispatch(logout());
+          }, 900);
+        } else if (res.data.fetch === false) {
+          setError("Wrong Request");
+          setIsUploaded(false);
+          setTimeout(() => {
+            // dispatch(logout());
+          }, 900);
+        } else if (res.data.deleted === false) {
+          setError("Cann't find ReplyForum");
+          setIsUploaded(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 900);
+        } else {
+          setOnDelete((state) => !state);
+          setIsUploaded(false);
+          setError("ReplyForum Deleted!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 900);
+        }
+      })
+      .catch((er) => {
+        setIsUploaded(false);
+        setError("Something went wrong try again");
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+      });
+  };
+
+  const roleClass = classes.inputs;
+  const cardClass = classes.replyCardView;
   return (
     <>
-     {!isUploaded && (
+      {onDelete && (
+        <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
+      )}
+      {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
-    <div className={cardClass}>
-      <div className={classes.User}>
-        <div className={classes.Avatar}>
-          <img src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+      <div className={cardClass}>
+        <div className={classes.User}>
+          <div className={classes.Avatar}>
+            <img src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+          </div>
+          <div className={classes.Name}>
+            {userName}
+            {"  "}
+            {lmsID}
+          </div>
+          <div className={classes.Time}>Posted on {postedDate}</div>
         </div>
-        <div className={classes.Name}>{userName}{"  "}{lmsID}</div>
-        <div className={classes.Time}>Posted on  {postedDate}</div>
-      </div>
-      <hr className={classes.line}></hr>
-      <form onSubmit={submitHandler}>
-        <textarea
-          readOnly={!(userID === currentLoginUserID)}
-          id="discussForum"
-          name="discussForum"
-          className={roleClass}
-          value={msg}
-          onChange={MsgChangeHandler}
-          // onBlur={roleBlurHandler}
-          rows="3"
-        ></textarea>
+        <hr className={classes.line}></hr>
+        <form onSubmit={submitHandler}>
+          <textarea
+            readOnly={!(userID === currentLoginUserID)}
+            id="discussForum"
+            name="discussForum"
+            className={roleClass}
+            value={msg}
+            onChange={MsgChangeHandler}
+            // onBlur={roleBlurHandler}
+            rows="3"
+          ></textarea>
 
-        <div className={classes.inline}>
-        {userID === currentLoginUserID && (
-              <button type="submit" className={classes.add}>
-                Update
-              </button>
+          <div className={classes.inline}>
+            {userID === currentLoginUserID && (
+              <>
+                <button type="submit" className={classes.add}>
+                  Update
+                </button>
+              </>
             )}
-        </div>
-      </form>
-    </div>
+          </div>
+        </form>
+        <span className={classes.icons}>
+          <a>
+            <img
+              src={deleteI}
+              className={classes.img_buttonsD}
+              onClick={() => {
+                clickD(replyForumID);
+              }}
+            ></img>
+          </a>
+        </span>
+      </div>
     </>
   );
 };

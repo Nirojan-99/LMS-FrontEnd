@@ -190,3 +190,19 @@
     font-weight: bold;
     color: gray;
   }
+
+  .img_buttonsD {
+    margin: auto;
+    padding: 10px 10px;
+    background-color: #e95541;
+    margin: 0 2px 0 2px;
+    border-radius: 2px;
+    width: 15px;
+    border-radius: 10px;
+    height: 15px;
+  }
+  
+  .img_buttonsD:hover {
+    cursor: pointer;
+    background-color: #bb3422;
+  }
