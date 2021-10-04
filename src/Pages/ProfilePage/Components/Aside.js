@@ -49,11 +49,11 @@ const Aside = (props) => {
           </a>
         </li>
 
-        <li>
+        {/* <li>
           <a href="#" onClick={props.grades}>
             <div>Grades</div>
           </a>
-        </li>
+        </li> */}
         <li>
           <a href="#" onClick={props.mycourses}>
             <div>My Courses</div>

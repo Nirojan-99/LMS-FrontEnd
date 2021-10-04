@@ -1,7 +1,6 @@
 .container {
   margin: auto;
   width: 80%;
-  background-color: transparent;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -15,9 +14,12 @@
 .span {
   width: 90%;
   margin: auto;
-  margin-bottom: .3rem;
+  margin-bottom: 1rem;
   display: flex;
+  background-color: #ddd;
   justify-content: space-between;
+  padding: .4rem .5rem;
+  border-radius: .3rem;
 }
 .name {
   font-family: "open sans";
@@ -45,4 +47,13 @@
   color: #666;
   background-color: #666;
   margin-bottom: 1rem;
+}
+.head{
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-family: "open sans";
+  font-size: 1rem;
 }

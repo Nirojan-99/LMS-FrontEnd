@@ -14,9 +14,9 @@ const SelectMaterial = (props) => {
       <a href={"../add_link/" + week}>
         <div className={classes.selection}>Link</div>
       </a>
-      <a href={"../add_quiz/" + week}>
+      {/* <a href={"../add_quiz/" + week}>
         <div className={classes.selection}>Quiz</div>
-      </a>
+      </a> */}
       <a href={"../add_attandance/" + week}>
         <div className={classes.selection}>Attandance</div>
       </a>

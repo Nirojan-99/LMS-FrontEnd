@@ -55,6 +55,7 @@ const ModuleCourseInsights = () => {
 
   return (
     <div className={classes.container}>
+      <div className={classes.head}>My Enrollments</div>
       {courses.map((row) => {
         return (
           <>
@@ -70,7 +71,6 @@ const ModuleCourseInsights = () => {
                 </span>
               </div>
             </div>
-            <hr className={classes.line}></hr>
           </>
         );
       })}
