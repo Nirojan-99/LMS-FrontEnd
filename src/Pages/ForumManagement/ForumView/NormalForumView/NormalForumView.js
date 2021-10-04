@@ -218,9 +218,7 @@ const NormalForumView = (props) => {
                 Update
               </button>
             )}
-          </div>
-        </form>
-        <span className={classes.icons}>
+            <span className={classes.icons}>
          {(userID === currentLoginUserID) && <a>
             <img
               src={deleteI}
@@ -231,6 +229,19 @@ const NormalForumView = (props) => {
             ></img>
           </a>} 
         </span>
+          </div>
+        </form>
+        {/* <span className={classes.icons}>
+         {(userID === currentLoginUserID) && <a>
+            <img
+              src={deleteI}
+              className={classes.img_buttonsD}
+              onClick={() => {
+                clickD(normalForumID);
+              }}
+            ></img>
+          </a>} 
+        </span> */}
         <div className={classes.inline}>
           <div className={classes.replyForm}>
             {!isEditing && (
