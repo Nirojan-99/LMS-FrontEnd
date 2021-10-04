@@ -144,6 +144,8 @@ const AddUser = () => {
     event.preventDefault();
 
     if (!formIsValid) {
+      setError("Check that you filled all the field");
+      setIsUploaded(false);
       return;
     }
 
@@ -393,7 +395,7 @@ const AddUser = () => {
             {/* <label for="password" className={classes.lables}>Password :</label><br/>
                <input type="password" id="password"  name="password" className={classes.inputs}></input> */}
 
-            <button disabled={!formIsValid} className={classes.add}>
+            <button  className={classes.add}>
               ADD
             </button>
           </form>
