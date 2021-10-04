@@ -106,7 +106,7 @@ const UserDetails = (props) => {
         </div>
       </div>
 
-      <hr className={classes.line}></hr>
+      {/* <hr className={classes.line}></hr> */}
     </>
   );
 };

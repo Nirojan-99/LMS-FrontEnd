@@ -3,7 +3,8 @@
     border-radius: 20px;
     margin: auto;
     width: 70%;
-    background-color: #eee;
+    /* background-color: #eee; */
+    background-color: white;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -25,20 +26,28 @@
   }
   .report_container{
       
-      width:75%;
+      width:80%;
       margin: auto;
       margin-top: 30px;
       display: flex;
-      margin-bottom: 5px;
+      margin-bottom: 20px;
       justify-content: space-between;
-      font-weight: bold;
+      font-family: roboto;
+      background-color: rgb(8, 143, 143);
+      border-radius: 8px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 2px solid #046666;
   }
   .report_container span{
     letter-spacing: 0.5px;
       font-family: roboto;
       font-size: 20px;
-      color:#046666 ;
+      color:white ;
       margin-bottom: 10px;
+      margin-top: 10px;
+      margin-right: 2%;
+      margin-left: 2%;
   }
   .message{
       margin: auto;
@@ -61,7 +70,7 @@
 .add {
     margin: auto;
     margin-top: 25px;
-    padding: 3px 15px;
+    padding: 3px 23px;
     display: flex;
     background-color: #046666;
     border: 2px solid #14b6c8;
