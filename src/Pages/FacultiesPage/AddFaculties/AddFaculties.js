@@ -62,7 +62,7 @@ const AddFaculties = (props) => {
     //   return;
     // }else
 
-    if (!name.trim() || name.length < 8) {
+    if (!name.trim() ) {
       setError("invaild facultyname!! ");
 
       return;

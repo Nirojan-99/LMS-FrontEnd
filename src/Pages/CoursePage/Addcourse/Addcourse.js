@@ -95,7 +95,12 @@ const Addcourse = (props) => {
         })
 
         .then((res) => {
-          history.replace("/faculties");
+          setSuccess(true);
+          setTimeout(() => {
+            setSuccess(true);
+            history.replace("/faculties");
+          }, 2200);
+          //history.replace("/faculties");
           // setBtn("Saved")
         })
         .catch((er) => {
