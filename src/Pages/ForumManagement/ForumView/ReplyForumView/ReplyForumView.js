@@ -99,7 +99,7 @@ const ReplyForumView = (props) => {
     };
 
     axios
-      .post(
+      .put(
         "http://localhost:5000/ForumManagement/update_replyForum",
         updatedReplyForum,
         {

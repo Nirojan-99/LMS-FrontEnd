@@ -81,7 +81,7 @@ const NormalForumView = (props) => {
     };
 
     axios
-      .post(
+      .put(
         "http://localhost:5000/ForumManagement/update_normalForum",
         updatedNormalForum,
         {
@@ -189,7 +189,7 @@ const NormalForumView = (props) => {
         } else {
           setOnDelete((state) => !state);
           setIsUploaded(false);
-          setError("ReplyForum Deleted!");
+          setError("NormalForum Deleted!");
           setTimeout(() => {
             window.location.reload();
           }, 900);
