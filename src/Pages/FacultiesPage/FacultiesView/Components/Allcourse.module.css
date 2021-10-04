@@ -52,3 +52,9 @@
   margin-left: -50px;
  
 }
+.loader {
+  margin: auto;
+  margin-left: 45%;
+  margin-top: 3.4rem;
+  margin-bottom: 3.4rem;
+}

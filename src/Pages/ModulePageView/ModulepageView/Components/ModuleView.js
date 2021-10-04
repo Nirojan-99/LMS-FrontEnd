@@ -22,6 +22,7 @@ const ModuleView = (props) => {
   const [isCompleted, setIsCompleted] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const [lock, setlock] = useState(true);
+
   const clickH = () => {
     setOnDelete((state) => !state);
     setOnDeleteID(props.data._id);
@@ -141,7 +142,7 @@ const ModuleView = (props) => {
                 
               // </a>
               <div class={classes.tooltip}> <img src={lock11} className={classes.lock_button}></img>
-                 <span class={classes.tooltiptext}>not enroll</span>
+                 <span class={classes.tooltiptext}>Not yet enrolled</span>
              </div>
          
             )}
@@ -152,7 +153,7 @@ const ModuleView = (props) => {
                 
               // </a>
               <div class={classes.tooltip}> <img src={unlock} className={classes.lock_button}></img>
-                 <span class={classes.tooltiptext}>enroll</span>
+                 <span class={classes.tooltiptext}>Already enrolled</span>
              </div>
          
             )}

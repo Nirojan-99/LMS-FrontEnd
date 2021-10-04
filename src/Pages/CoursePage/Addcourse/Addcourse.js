@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
+import Success from "../../../Components/SuccessPopup/Success";
 const Addcourse = (props) => {
   const dispatch = useDispatch();
   const facultyID = props.match.params.facultyID;
@@ -16,35 +17,34 @@ const Addcourse = (props) => {
   const [edit, setEdit] = useState(false);
   const [btn, setBtn] = useState("ADD");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const token = useSelector((state) => state.loging.token);
 
   useEffect(() => {
     if (!courseid) {
       setEdit(false);
-      setBtn("ADD..");
+      setBtn("ADD");
     } else {
       setEdit(true);
-      setBtn("Edit");
+      setBtn("SAVE");
       axios
-        .get("http://localhost:5000/course/getcourse?id=" +courseid,{
-          headers: { Authorization: "lmsvalidation " + token },})
+        .get("http://localhost:5000/course/getcourse?id=" + courseid, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
           //console.log(res.data._id);
           // console.log(res.data.name);
           if (res.data.auth === false) {
             setError("You Are not Authorized to get course !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
             }, 1000);
-          }else if (res.data.fetch === false) {
+          } else if (res.data.fetch === false) {
             setError("No matching course found ! redirecting to");
             //setIsUploaded(false);
             history.replace("/faculties");
-            
-          }else
-
-          setcourseNameHandler(res.data.coursename);
+          } else setcourseNameHandler(res.data.coursename);
           setcourseIDHandler(res.data.courseID);
           setcourseInchangerHandler(res.data.courseIncharge);
           setcourseDurationHandler(res.data.courseDuration);
@@ -60,7 +60,7 @@ const Addcourse = (props) => {
   const history = useHistory();
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    
+
     if (!courseName.trim()) {
       setError("invaild coursename!! ");
 
@@ -68,9 +68,10 @@ const Addcourse = (props) => {
     } else if (courseID.trim().length < 8) {
       setError("please enter 8 digit courseID!!!");
       return;
-    }
-    else if (courseID.trim().length > 8) {
-      setError("please enter 8 digit courseID!!! don't enter greater than 8 digit");
+    } else if (courseID.trim().length > 8) {
+      setError(
+        "please enter 8 digit courseID!!! don't enter greater than 8 digit"
+      );
       return;
     }
     const coursedata = {
@@ -81,16 +82,18 @@ const Addcourse = (props) => {
       courseDuration: courseDuration,
       courseYear: courseYear,
       semester: semester,
-      modules:[],
+      modules: [],
     };
 
     if (!courseid) {
+      setBtn("ADD..");
       axios
         .post("http://localhost:5000/course/addcourse", {
           data: coursedata,
           facultyID: facultyID,
-            headers: { Authorization: "lmsvalidation " + token },})
-        
+          headers: { Authorization: "lmsvalidation " + token },
+        })
+
         .then((res) => {
           history.replace("/faculties");
           // setBtn("Saved")
@@ -99,31 +102,31 @@ const Addcourse = (props) => {
           console.log(er);
         });
     } else {
+      setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/course/Updatecourse", coursedata,{
-          headers: { Authorization: "lmsvalidation " + token },})
+        .post("http://localhost:5000/course/Updatecourse", coursedata, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
-     
           // history.replace("/faculties");
           if (res.data.auth === false) {
             setError("You Are not Authorized to update course !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
             }, 300);
-          }else if (res.data.uploaded === true) {
-           
-            
-            history.replace("/faculties");
-            
-          }else if (res.data.uploaded === false) {
-           
+          } else if (res.data.uploaded === true) {
+            // history.replace("/faculties");
+            setSuccess(true);
+            setTimeout(() => {
+              setSuccess(true);
+              history.replace("/faculties");
+            }, 2200);
+          } else if (res.data.uploaded === false) {
             //setIsUploaded(false);
-           // history.replace("/faculties");
-           setError("You Are nothing to Update, make changes!");
-            
+            // history.replace("/faculties");
+            setError("You Are nothing to Update, make changes!");
           }
-          
         })
         .catch((er) => {
           console.log(er);
@@ -158,10 +161,13 @@ const Addcourse = (props) => {
   const semesterHandler = (event) => {
     setsemesterHandler(event.target.value);
   };
-
+  const onRedirect = () => {
+    window.location.reload();
+  };
   return (
     <div className={classes.squareview}>
-       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Add course</h2>
       <hr className={classes.line}></hr>
       <form className={classes.formContainer} onSubmit={onSubmitHandler}>

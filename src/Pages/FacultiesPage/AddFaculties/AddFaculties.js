@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
-
+import Success from "../../../Components/SuccessPopup/Success";
 
 const AddFaculties = (props) => {
   const history = useHistory();
@@ -18,33 +18,33 @@ const AddFaculties = (props) => {
   const [error, setError] = useState(null);
   const [update, setupdate] = useState(false);
   const token = useSelector((state) => state.loging.token);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (!id) {
       //setEdit(false);
     } else {
-     // setEdit(true);
-      setBtn("ADD..");
+      // setEdit(true);
+      setBtn("SAVE");
       axios
-        .get("http://localhost:5000/Faculty/getfaculty?id=" + id ,{
-          headers: { Authorization: "lmsvalidation " + token },})
+        .get("http://localhost:5000/Faculty/getfaculty?id=" + id, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
           if (res.data.auth === false) {
             setError("You Are not Authorized to get faculty !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
             }, 1000);
-          }else if (res.data.fetch === false) {
+          } else if (res.data.fetch === false) {
             setError("No matching Job found ! redirecting to portal");
             //setIsUploaded(false);
             history.replace("/faculties");
-            
-          }else{
-
-          setNamehandlder(res.data.name);
-          setidhandlder(res.data.id);
-          setInchargehandlder(res.data.Incharge);
+          } else {
+            setNamehandlder(res.data.name);
+            setidhandlder(res.data.id);
+            setInchargehandlder(res.data.Incharge);
           }
         })
         .catch((er) => {
@@ -61,8 +61,8 @@ const AddFaculties = (props) => {
 
     //   return;
     // }else
-    
-    if (!name.trim()) {
+
+    if (!name.trim() || name.length < 8) {
       setError("invaild facultyname!! ");
 
       return;
@@ -77,9 +77,7 @@ const AddFaculties = (props) => {
 
       return;
     }
-   
 
-   
     const Facultydata = {
       _id: id ? id : null,
       id: facultyid,
@@ -89,53 +87,59 @@ const AddFaculties = (props) => {
     };
 
     if (!id) {
+      setBtn("ADD..");
       axios
-        .post("http://localhost:5000/Faculty/addFaculty", Facultydata,{
-          headers: { Authorization: "lmsvalidation " + token },})
+        .post("http://localhost:5000/Faculty/addFaculty", Facultydata, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
           if (res.data.auth === false) {
             setError("You Are not Authorized to Create Jobs !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
             }, 300);
-          }else if(res.data.insert === true) {
-           
+          } else if (res.data.insert === true) {
             //setIsUploaded(false);
-            history.replace("/faculties");
-            
-          }
-          else if(res.data.insert === false){
+            // history.replace("/faculties");
+            setSuccess(true);
+            setTimeout(() => {
+              setSuccess(true);
+              history.replace("/faculties");
+            }, 2200);
+          } else if (res.data.insert === false) {
             setError("Unable to add details, try again !");
           }
         })
         .catch((er) => {
           console.log(er);
         });
-
-        
     } else {
+      setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata,{
-          headers: { Authorization: "lmsvalidation " + token },})
+        .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
         .then((res) => {
           if (res.data.auth === false) {
             setError("You Are not Authorized to Create faculty !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
-            }, 300);
-          }else if (res.data.uploaded === true) {
-           
-            
-            history.replace("/faculties");
-            
-          }else if (res.data.uploaded === false) {
-           
+            }, 1600);
+          } else if (res.data.uploaded === true) {
+            // history.replace("/faculties");
+            // //setSuccess(true);
+            setSuccess(true);
+
+            setTimeout(() => {
+              setSuccess(true);
+              history.replace("/faculties");
+            }, 2200);
+          } else if (res.data.uploaded === false) {
             //setIsUploaded(false);
-           // history.replace("/faculties");
-           setError("You Are nothing to Update, make changes!");
-            
+            // history.replace("/faculties");
+            setError("You Are nothing to Update, make changes!");
           }
         })
         .catch((er) => {
@@ -160,10 +164,14 @@ const AddFaculties = (props) => {
   const Inchargehandlder = (event) => {
     setInchargehandlder(event.target.value);
   };
+  const onRedirect = () => {
+    window.location.reload();
+  };
 
   return (
     <div className={classes.squareview}>
       {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
+      {success && <Success redirect={onRedirect} />}
       <h2 className={classes.title}>Add Faculties</h2>
 
       <hr className={classes.line}></hr>

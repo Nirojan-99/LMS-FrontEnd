@@ -21,8 +21,8 @@ const GeneratePDF = (students, moduleId, Module) => {
     const LectureInCharage = row1.ModuleLectureIncharge;
 
     doc.autoTable(tableColumn, tableRows, { startY: 100, theme: "grid" });
-    doc.setFontSize(30);
-    doc.text(43, 15, "Enrollment Report");
+    doc.setFontSize(21);
+    doc.text(13, 15, ModuleName+" Enrollment Report");
     doc.setFontSize(15);
     doc.text(
       "\n\n\n\nTotalEnrollment :: " +
