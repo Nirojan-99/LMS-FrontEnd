@@ -6,6 +6,9 @@ import ReplyForumView from "../ReplyForumView/ReplyForumView";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../../Store/auth";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import deleteI from "../../../../Assets/delete.svg";
+import DeletePopup from "../../../../Components/DeletePopup/DeletePopup";
+
 
 import classes from "./NormalForumView.module.css";
 
@@ -26,6 +29,9 @@ const NormalForumView = (props) => {
   const [isUploaded, setIsUploaded] = useState(true);
   const token = useSelector((state) => state.loging.token);
   const [success, setSuccess] = useState(false);
+
+  const [onDelete, setOnDelete] = useState(false);
+  const [deleteID, setOnDeleteID] = useState("");
 
   console.log(userID === currentLoginUserID);
   useEffect(() => {
@@ -118,8 +124,67 @@ const NormalForumView = (props) => {
     setIsUploaded(true);
   };
 
+
+  const clickD = (id) => {
+    setOnDelete((state) => !state);
+    setOnDeleteID(id);
+  };
+  const hide = () => {
+    setOnDelete((state) => !state);
+  };
+
+
+  const deleteMaterial = () => {
+    
+    axios
+      .delete(
+        "http://localhost:5000/ForumManagement/delete_normalForum?_id="+normalForumID,
+        {
+          headers: { Authorization: "lmsvalidation " + token },
+        }
+      )
+      .then((res) => {
+        if (res.data.auth === false) {
+          setError("You Are not Authorized!");
+          setIsUploaded(false);
+          setTimeout(() => {
+            // dispatch(logout());
+          }, 900);
+        } else if (res.data.fetch === false) {
+          setError("Wrong Request");
+          setIsUploaded(false);
+          setTimeout(() => {
+            // dispatch(logout());
+          }, 900);
+        } else if (res.data.deleted === false) {
+          setError("Cann't find ReplyForum");
+          setIsUploaded(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 900);
+        } else {
+          setOnDelete((state) => !state);
+          setIsUploaded(false);
+          setError("ReplyForum Deleted!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 900);
+        }
+      })
+      .catch((er) => {
+        setIsUploaded(false);
+        setError("Something went wrong try again");
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+      });
+  };
+
   return (
     <>
+    {onDelete && (
+        <DeletePopup hide={hide} onDelete={() => deleteMaterial("id")} />
+      )}
       {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
@@ -155,6 +220,17 @@ const NormalForumView = (props) => {
             )}
           </div>
         </form>
+        <span className={classes.icons}>
+          <a>
+            <img
+              src={deleteI}
+              className={classes.img_buttonsD}
+              onClick={() => {
+                clickD(normalForumID);
+              }}
+            ></img>
+          </a>
+        </span>
         <div className={classes.inline}>
           <div className={classes.replyForm}>
             {!isEditing && (
