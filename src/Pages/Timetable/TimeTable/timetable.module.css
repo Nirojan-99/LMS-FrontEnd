@@ -47,3 +47,24 @@
     background-color: rgba(51, 51, 51, 0.808);
     padding: 1rem 0;
 }
+.nothing{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.addnew{
+    display: flex;
+    justify-content: center;
+    
+}
+.addnew a{
+    font-weight: 700;
+    background-color: #333;
+    color: #fff;
+    padding: .3rem .6rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
