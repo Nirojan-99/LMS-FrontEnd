@@ -178,7 +178,9 @@ const AddUser = () => {
         }else if(res.data.error === true){
           setError("Something wrong. Try again later");
           setIsUploaded(false);
-
+        }else if(res.data.inValidReq === true){
+          setError("Invalid Request. or Empty Request");
+          setIsUploaded(false);
         }
          else {
           resetEmail();
@@ -190,9 +192,6 @@ const AddUser = () => {
           resetRole();
           setIsEmailExist(false);
           setSuccess(true);
-
-
-          // window.location.reload();
         }
       })
       .catch((er) => {
