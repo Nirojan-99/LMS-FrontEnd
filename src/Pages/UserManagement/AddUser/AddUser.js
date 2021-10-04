@@ -144,7 +144,7 @@ const AddUser = () => {
     event.preventDefault();
 
     if (!formIsValid) {
-      setError("Check that you filled all the field");
+      setError("Please Check that you filled all the field");
       setIsUploaded(false);
       return;
     }

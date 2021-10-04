@@ -84,6 +84,18 @@ const EditUser = (props) => {
   const updateHandler = (event) => {
     event.preventDefault();
 
+    if(name.trim()=="" || dob.trim()=="" || contact.trim()=="" || address.trim()=="" || faculty.trim()=="" || role.trim()=="" || password.trim()==""){
+        setError("Check the input field. Fill it");
+        setIsUploaded(false);
+        return;
+    }
+    if(email.trim()=="" || !email.includes("@") ){
+      setError("Invalid Email");
+      setIsUploaded(false);
+      return;
+
+    }
+
     const updatedUser = {
       _id: id,
       name: name,
