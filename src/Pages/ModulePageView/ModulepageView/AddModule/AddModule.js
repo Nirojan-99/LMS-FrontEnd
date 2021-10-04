@@ -128,7 +128,7 @@ const AddModule = (props) => {
     } else {
       setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/Module/UpdateModule", Moduledata, {
+        .put("http://localhost:5000/Module/UpdateModule", Moduledata, {
           headers: { Authorization: "lmsvalidation " + token },
         })
         .then((res) => {
