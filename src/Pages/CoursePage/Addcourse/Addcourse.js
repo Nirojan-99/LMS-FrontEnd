@@ -104,7 +104,7 @@ const Addcourse = (props) => {
     } else {
       setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/course/Updatecourse", coursedata, {
+        .put("http://localhost:5000/course/Updatecourse", coursedata, {
           headers: { Authorization: "lmsvalidation " + token },
         })
         .then((res) => {
