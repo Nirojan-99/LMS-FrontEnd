@@ -117,7 +117,7 @@ const AddFaculties = (props) => {
     } else {
       setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/Faculty/UpdateFaculty", Facultydata, {
+        .put("http://localhost:5000/Faculty/UpdateFaculty", Facultydata, {
           headers: { Authorization: "lmsvalidation " + token },
         })
         .then((res) => {
