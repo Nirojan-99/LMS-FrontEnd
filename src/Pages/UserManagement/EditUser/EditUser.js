@@ -97,7 +97,7 @@ const EditUser = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/userManagement/update_user", updatedUser, {
+      .put("http://localhost:5000/userManagement/update_user", updatedUser, {
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
@@ -114,11 +114,11 @@ const EditUser = (props) => {
             dispatch(logout());
           }, 600);
         } else if (res.data.updated === false) {
-          setError("Cann't find user");
+          setError("Not Updated");
           setIsUploaded(false);
           setTimeout(() => {
             history.goBack();
-          }, 600);
+          }, 700);
         } else {
           setSuccess(true);
           // history.replace("/user-report");
