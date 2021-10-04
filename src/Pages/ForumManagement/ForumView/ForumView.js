@@ -86,7 +86,20 @@ const ForumView = (props) => {
             "http://localhost:5000/ForumManagement/get_normalForums?moduleID=" +moduleID+"&weekID="+weekID
           )
           .then((res) => {
-            setNormalForums(res.data);
+            if(res.data.noData===true){
+              setError("No NormalForum Available");
+            setIsUploaded(false);
+
+            }
+            else if(res.data.error===true){
+              setError("Something wrong. Try again later");
+            setIsUploaded(false);
+
+            }
+            else{
+              setNormalForums(res.data);
+            }
+            
             
           })
           .catch((er) => {

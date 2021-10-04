@@ -39,7 +39,8 @@ const ReplyForumView = (props) => {
       )
       .then((res) => {
         if (res.data.noData === true) {
-          console.log("No reply Forum");
+          setError("No Reply Forums");
+          setIsUploaded(false);
         } else {
           setReplyForum(res.data);
           setPostedDate(res.data.postedDate);
@@ -48,9 +49,10 @@ const ReplyForumView = (props) => {
           axios
             .get(
               "http://localhost:5000/ForumManagement/get_userName?userID=" +
-                res.data.userID, {
-                  headers: { Authorization: "lmsvalidation " + token },
-                }
+                res.data.userID,
+              {
+                headers: { Authorization: "lmsvalidation " + token },
+              }
             )
             .then((res) => {
               if (res.data.auth === false) {
@@ -68,16 +70,13 @@ const ReplyForumView = (props) => {
               } else if (res.data.noData === true) {
                 setError("No Data Avialable");
                 setIsUploaded(false);
-              }
-              else if(res.data.error===true){
+              } else if (res.data.error === true) {
                 setError("Something wrong. Try again later");
                 setIsUploaded(false);
+              } else {
+                setUserName(res.data.name);
+                setLmsID(res.data.ID);
               }
-              else{
-              setUserName(res.data.name);
-              setLmsID(res.data.ID);
-              }
-              
             })
             .catch((er) => {
               setError("Something wrong. Try again later");
@@ -248,16 +247,20 @@ const ReplyForumView = (props) => {
                 </button>
               </>
             )}
-             <span className={classes.icons}>
-          {(userID === currentLoginUserID) && <a>
-            <div
-              className={classes.delete}
-              onClick={() => {
-                clickD(replyForumID);
-              }}
-            >Delete</div>
-          </a>}
-        </span>
+            <span className={classes.icons}>
+              {userID === currentLoginUserID && (
+                <a>
+                  <div
+                    className={classes.delete}
+                    onClick={() => {
+                      clickD(replyForumID);
+                    }}
+                  >
+                    Delete
+                  </div>
+                </a>
+              )}
+            </span>
           </div>
         </form>
         {/* <span className={classes.icons}>
