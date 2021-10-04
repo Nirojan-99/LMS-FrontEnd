@@ -36,7 +36,7 @@
 
 .Name {
   margin-top: 30px;
-  font-size: 23px;
+  font-size: 20px;
   color: #046666;
   font-weight: bold;
 }
@@ -44,20 +44,20 @@
 .Time {
   margin-top: 36px;
   margin-left: 50px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
   color: gray;
 }
 
 .ContentTopic {
-  font-size: 25px;
+  font-size: 20px;
   margin: 10px 20px 15px 20px;
   font-family: roboto;
-  font-weight: bold;
+
 }
 
 .Content {
-  font-size: 22px;
+  font-size: 18px;
   margin: 10px 20px 15px 20px;
   font-family: roboto;
 }

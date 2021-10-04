@@ -25,7 +25,7 @@
     margin: 0px;
     text-transform: uppercase;
     font-family: roboto;
-    font-size: 27px;
+    font-size: 20px;
     color: #046666;
   }
   .line {
@@ -52,7 +52,7 @@
   
   .Name {
     margin-top: 30px;
-    font-size: 23px;
+    font-size: 18px;
     color: #046666;
     font-weight: bold;
   }
@@ -76,7 +76,7 @@
     margin-top: 5px;
     border: 2px solid #046666;
     font-family: roboto;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     outline: none;
     color: #333;
     background-color: white;
@@ -110,7 +110,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -127,7 +127,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -143,8 +143,8 @@
   .inline {
     display: flex;
     margin-left: 80%;
-    margin-bottom: 0%;
-    margin-top: 0%;
+    /* margin-bottom: 0%;
+    margin-top: 0%; */
     justify-content: space-evenly;
     
   }
@@ -153,6 +153,13 @@
     margin-left: 90%;
     margin-bottom: 0%;
     margin-top: 0%;
+  }
+
+  .inlineEdit {
+    margin-left: 2%;
+    margin-bottom: 0%;
+    margin-top: 0%;
+    display: flex;
   }
   
   .invalid_inputs {
@@ -164,7 +171,7 @@
     padding: 2%;
     margin-top: 2%;
     font-family: roboto;
-    font-size: 1.1rem;
+    font-size: 1rem;
     outline: none;
     color: #333;
     font-weight: bold;
@@ -187,7 +194,7 @@
   .Time {
     margin-top: 36px;
     margin-left: 50px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
     color: gray;
   }
@@ -197,7 +204,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 10px;
     color: white;
     font-family: roboto;
@@ -220,7 +227,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 10px;
     color: white;
     font-family: roboto;
@@ -250,4 +257,42 @@
 
   .repliesbtn{
     float: left;
+  }
+
+
+  .update {
+    background-color: rgb(63, 63, 63);
+    border: 2px solid black;
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+    font-family: roboto;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .update:hover {
+    cursor: pointer;
+    background-color: #14b6c8;
+    color: #333;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
+
+  .img_buttonsD {
+    /* margin: auto; */
+    padding: 8px 8px;
+    background-color: #e95541;
+    margin: 0 2px 0 2px;
+    /* border-radius: 2px; */
+    width: 13px;
+    border-radius: 7px;
+    height: 13px;
+    margin-left: 10%;
+  }
+  
+  .img_buttonsD:hover {
+    cursor: pointer;
+    background-color: #bb3422;
   }

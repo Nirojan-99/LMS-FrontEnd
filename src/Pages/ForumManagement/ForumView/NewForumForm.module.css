@@ -25,7 +25,7 @@
   margin: 0px;
   text-transform: uppercase;
   font-family: roboto;
-  font-size: 27px;
+  font-size: 23px;
   color: #046666;
 }
 .line {
@@ -52,7 +52,7 @@
 
 .Name {
   margin-top: 30px;
-  font-size: 23px;
+  font-size: 18px;
   color: #046666;
   font-weight: bold;
 }
@@ -76,7 +76,7 @@
   margin-top: 5px;
   border: 2px solid #046666;
   font-family: roboto;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   outline: none;
   color: #333;
   background-color: white;
@@ -110,7 +110,7 @@
   background-color: rgb(63, 63, 63);
   border: 2px solid black;
   font-family: roboto;
-  font-size: 15px;
+  font-size: 12px;
   border-radius: 10px;
   color: white;
   font-weight: bold;
@@ -127,7 +127,7 @@
   background-color: rgb(63, 63, 63);
   border: 2px solid black;
   font-family: roboto;
-  font-size: 15px;
+  font-size: 12px;
   border-radius: 10px;
   color: white;
   font-weight: bold;
@@ -142,7 +142,7 @@
 
 .inline {
   display: flex;
-  margin-left: 80%;
+  margin-left: 85%;
   margin-bottom: 0%;
   margin-top: 0%;
   justify-content: space-evenly;
@@ -150,7 +150,7 @@
 }
 
 .inlineNew {
-  margin-left: 90%;
+  padding-left: 93%;
   margin-bottom: 0%;
   margin-top: 0%;
 }
