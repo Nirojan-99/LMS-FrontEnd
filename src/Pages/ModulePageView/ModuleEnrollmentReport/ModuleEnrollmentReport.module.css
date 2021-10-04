@@ -68,3 +68,18 @@
     transition-property: all;
     transition-duration: .5s;
 }
+.head_cont{
+    display: flex;
+    justify-content: space-between;
+    justify-content: baseline;
+  }
+  .head_cont a{
+    background-color: #046666;
+    padding: .5rem .5rem;
+    border-radius: .3rem;
+    color: #fff;
+    font-family: "open sans";
+    font-weight: 700;
+    font-size: .8rem;
+    cursor: pointer;
+  }

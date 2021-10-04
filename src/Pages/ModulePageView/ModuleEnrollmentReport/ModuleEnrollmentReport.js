@@ -8,6 +8,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../Store/auth";
 import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import GeneratePDF from "./generateEnrollReport";
 
 const ModuleEnrollmentReport = (props) => {
   const moduleId = props.match.params.moduleId;
@@ -104,22 +105,20 @@ const ModuleEnrollmentReport = (props) => {
       });
 
     axios
-      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId,   {
+      .get("http://localhost:5000/Enroll/get_enroll?id=" + moduleId, {
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
-        if (res.data) {
+        console.log("ho");
+        console.log(res.data);
+        if (res.data.ack === false) {
+          setLoaded(false);
+         
+        } else if (res.data) {
+          setLoaded(true);
           setList(res.data);
           setStudents(res.data);
-        } else if (res.data.ack === false) {
-        } else if (res.data.auth === false) {
-          setError("You Are not Authorized to get faculty !");
-          setIsUploaded(false);
-          setTimeout(() => {
-            dispatch(logout());
-          }, 1600);
         }
-
       });
   }, []);
 
@@ -130,44 +129,47 @@ const ModuleEnrollmentReport = (props) => {
       {!isUploaded && (
         <ErrorPopup error={error} clickedHandler={clickedHandler} />
       )}
-      <button className={classes.save}>generatePDF</button>
-      <h2 className={classes.title}>
-        {/* {Module.map((row1) => (
-          <div>{row1.Modulename}</div>
-        ))} */}
-      </h2>
+      <div className={classes.head_cont}>
+        <h2 className={classes.title}>
+          {Module.map((row1) => (
+            <div>{row1.Modulename.toUpperCase() + " REPORT"}</div>
+          ))}
+        </h2>
+        {/* <h2 className={classes.title}>BOOK DOWNLOAD REPORT</h2> */}
+        <a
+          onClick={() => {
+            GeneratePDF(students, moduleId,Module);
+          }}
+        >
+          Generate PDF
+        </a>
+      </div>
+
       <hr className={classes.line}></hr>
 
-      {loaded &&
-        Module.map((row) => {
-          return (
-            <Table
-              ModuleName={row.Modulename}
-              ModuleCode={row.ModuleCode}
-              LectureInCharage={row.ModuleLectureIncharge}
-              EnrollmentsKey={row.ModuleEnrollmentkey}
-              TotalEnrollments={totalEnrollments}
-            />
-          );
-        })}
-      {/* <Table
-        ModuleName={Module.Modulename}
-        ModuleCode={Module.ModuleCode}
-        LectureInCharage={Module.ModuleLectureIncharge}
-        EnrollmentsKey={Module.ModuleEnrollmentkey}
-        TotalEnrollments={100}
-      /> */}
+      {Module.map((row) => {
+        return (
+          <Table
+            ModuleName={row.Modulename.toUpperCase()}
+            ModuleCode={row.ModuleCode.toUpperCase()}
+            LectureInCharage={row.ModuleLectureIncharge.toUpperCase()}
+            EnrollmentsKey={row.ModuleEnrollmentkey}
+            TotalEnrollments={totalEnrollments}
+          />
+        );
+      })}
+
       <SearchBar onSearch={getSearchValue} />
       <div className={classes.report_container}>
         <span>Student ID</span>
         <span>Name</span>
         <span>Type</span>
         <span>Faculty</span>
-        {/* <span>Email</span> */}
       </div>
-      {updatedList.map((row) => {
+      {loaded && updatedList.map((row) => {
         return <Details data={row} key={row.id} />;
       })}
+      {!loaded && <div className={classes.message}>no data found !</div> }
       {isEmptyList && <div className={classes.message}>no results found !</div>}
     </div>
   );
