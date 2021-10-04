@@ -142,9 +142,10 @@
   
   .inline {
     
-    margin-left: 2%;
+    margin-left: 0%;
     margin-bottom: 0%;
     margin-top: 0%;
+    display: flex;
     
   }
   
@@ -192,14 +193,14 @@
   }
 
   .img_buttonsD {
-    margin: auto;
-    padding: 10px 10px;
+
+    padding: 9px 9px;
     background-color: #e95541;
     margin: 0 2px 0 2px;
     border-radius: 2px;
-    width: 15px;
-    border-radius: 10px;
-    height: 15px;
+    width: 13px;
+    border-radius: 8px;
+    height: 13px;
   }
   
   .img_buttonsD:hover {
