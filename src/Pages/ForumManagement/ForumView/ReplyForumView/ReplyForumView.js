@@ -224,13 +224,12 @@ const ReplyForumView = (props) => {
             )}
              <span className={classes.icons}>
           {(userID === currentLoginUserID) && <a>
-            <img
-              src={deleteI}
-              className={classes.img_buttonsD}
+            <div
+              className={classes.delete}
               onClick={() => {
                 clickD(replyForumID);
               }}
-            ></img>
+            >Delete</div>
           </a>}
         </span>
           </div>

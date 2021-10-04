@@ -110,7 +110,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -127,7 +127,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 10px;
     color: white;
     font-weight: bold;
@@ -204,7 +204,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 10px;
     color: white;
     font-family: roboto;
@@ -227,7 +227,7 @@
     background-color: rgb(63, 63, 63);
     border: 2px solid black;
     font-family: roboto;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 10px;
     color: white;
     font-family: roboto;
@@ -295,4 +295,24 @@
   .img_buttonsD:hover {
     cursor: pointer;
     background-color: #bb3422;
+  }
+
+
+  .delete {
+    background-color: #f7533d;
+    border-radius: 3px;
+    border: 2px solid #cf2f2f;
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    padding: 2px 4px 2px 4px;
+    margin-left: 5px;
+  }
+  .delete:hover {
+    cursor: pointer;
+    background-color: #b6210a;
+    transition-property: all;
+    transition-duration: 0.5s;
   }

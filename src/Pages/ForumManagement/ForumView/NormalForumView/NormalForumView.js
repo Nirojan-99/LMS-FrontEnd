@@ -220,13 +220,12 @@ const NormalForumView = (props) => {
             )}
             <span className={classes.icons}>
          {(userID === currentLoginUserID) && <a>
-            <img
-              src={deleteI}
-              className={classes.img_buttonsD}
+          <div
+              className={classes.delete}
               onClick={() => {
                 clickD(normalForumID);
               }}
-            ></img>
+            >Delete</div>
           </a>} 
         </span>
           </div>
