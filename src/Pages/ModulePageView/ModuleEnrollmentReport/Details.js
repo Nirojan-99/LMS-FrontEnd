@@ -10,7 +10,7 @@ const Details = (props) => {
         <div>{props.data.faculty}</div>
         {/* <div>{props.data.email}</div> */}
       </div>
-      <hr className={classes.line}></hr>
+      {/* <hr className={classes.line}></hr> */}
     </>
   );
 };

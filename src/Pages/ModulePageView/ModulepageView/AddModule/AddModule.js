@@ -12,6 +12,7 @@ const AddModule = (props) => {
   const year = props.match.params.Year;
   const semester = props.match.params.semester;
   const moduleID = props.match.params.moduleid1;
+  const [btn, setBtn] = useState("ADD");
   const token = useSelector((state) => state.loging.token);
 
   const history = useHistory();
@@ -21,6 +22,8 @@ const AddModule = (props) => {
 
   useEffect(() => {
     if (moduleID) {
+      setBtn("SAVE");
+
       axios
         .get("http://localhost:5000/Module/get_module?moduleID=" + moduleID, {
           headers: { Authorization: "lmsvalidation " + token },
@@ -37,16 +40,17 @@ const AddModule = (props) => {
             //setIsUploaded(false);
             history.replace("/faculties");
           } else {
-          setModuleNameHandler(res.data.Modulename);
-          setModuleCodeHandler(res.data.ModuleCode);
-          setModuleEnrollmentkeyHandler(res.data.ModuleEnrollmentkey);
-          setModuleWeekCountsHandler(res.data.ModuleWeekCounts);
-          setModuleLectureInchargeHandler(res.data.ModuleLectureIncharge);
+            setModuleNameHandler(res.data.Modulename);
+            setModuleCodeHandler(res.data.ModuleCode);
+            setModuleEnrollmentkeyHandler(res.data.ModuleEnrollmentkey);
+            setModuleWeekCountsHandler(res.data.ModuleWeekCounts);
+            setModuleLectureInchargeHandler(res.data.ModuleLectureIncharge);
           }
         })
         .catch((er) => {
           console.log(er);
         });
+    } else {
     }
   }, []);
 
@@ -98,6 +102,7 @@ const AddModule = (props) => {
       semester,
     };
     if (!moduleID) {
+      setBtn("ADD..");
       axios
         .post("http://localhost:5000/Module/addModule", {
           data: Moduledata,
@@ -121,34 +126,30 @@ const AddModule = (props) => {
           console.log(er);
         });
     } else {
+      setBtn("SAVE..");
       axios
-        .post("http://localhost:5000/Module/UpdateModule", Moduledata, {
+        .put("http://localhost:5000/Module/UpdateModule", Moduledata, {
           headers: { Authorization: "lmsvalidation " + token },
         })
         .then((res) => {
           if (res.data.auth === false) {
             setError("You Are not Authorized to update module !");
-           // setIsUploaded(false);
+            // setIsUploaded(false);
             setTimeout(() => {
               dispatch(logout());
             }, 300);
-          }else if (res.data.uploaded === true) {
-           
-            
+          } else if (res.data.uploaded === true) {
             // history.replace("/faculties");
-          setSuccess(true);
-          setTimeout(() => {
             setSuccess(true);
-            setError(null);
-            history.goBack();
-          }, 2200);
-            
-          }else if (res.data.uploaded === false) {
-           
+            setTimeout(() => {
+              setSuccess(true);
+              setError(null);
+              history.goBack();
+            }, 2200);
+          } else if (res.data.uploaded === false) {
             //setIsUploaded(false);
-           // history.replace("/faculties");
-           setError("You Are nothing to Update, make changes!");
-            
+            // history.replace("/faculties");
+            setError("You Are nothing to Update, make changes!");
           }
           // setError(" Module successfully update !!");
           // setSuccess(true);
@@ -268,7 +269,7 @@ const AddModule = (props) => {
           <option value="DR.Jayatha">Prof.Nimal</option>
         </select>
 
-        <button className={classes.save}>ADD</button>
+        <button className={classes.save}>{btn}</button>
       </form>
     </div>
   );

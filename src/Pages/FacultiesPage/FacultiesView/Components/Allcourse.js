@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../../Store/auth";
 import { useHistory } from "react-router";
 import ErrorPopup from "../../../../Components/ErrorPopup/ErrorPopup";
+import Loader from "../../../../Components/Loader/Loader";
 
 
 const Allcourse = (props) => {
@@ -19,6 +20,7 @@ const Allcourse = (props) => {
   const [courses, setCourse] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const [load, setLoad] = useState(false);
   const clickedHandler = (event) => {
     setError(null);
   };
@@ -47,9 +49,11 @@ const Allcourse = (props) => {
           //setIsUploaded(false);
           history.replace("/faculties");
           
+          
         }else
         setCourse(res.data);
         setLoaded(true);
+        setLoad(true);
       
       })
       .catch((er) => {
@@ -57,8 +61,8 @@ const Allcourse = (props) => {
       });
   }, []);
 
-  return (
-    <div className={classes.Allcontent}>
+  return (<>
+     {load && (<div className={classes.Allcontent}>
        {error && <ErrorPopup clickedHandler={clickedHandler} error={error} />}
       {setLoaded &&
         courses.map((row) => {
@@ -82,7 +86,13 @@ const Allcourse = (props) => {
           </div>
         </div>
       )}
-    </div>
+    </div>)}
+    {!load && (
+        <div className={classes.loader}>
+          <Loader />
+        </div>
+      )} 
+    </>
   );
 };
 export default Allcourse;
