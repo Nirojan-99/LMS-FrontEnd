@@ -135,6 +135,7 @@ const AddNotes = (props) => {
 
   const onRedirect = () => {
     if (MaterialID) {
+      history.goBack()
     } else {
       axios
         .get("http://localhost:5000/admin/get_module?week=" + week)
