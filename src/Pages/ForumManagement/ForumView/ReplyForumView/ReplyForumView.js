@@ -39,7 +39,8 @@ const ReplyForumView = (props) => {
       )
       .then((res) => {
         if (res.data.noData === true) {
-          console.log("No reply Forum");
+          setError("No Reply Forums");
+          setIsUploaded(false);
         } else {
           setReplyForum(res.data);
           setPostedDate(res.data.postedDate);
@@ -48,14 +49,38 @@ const ReplyForumView = (props) => {
           axios
             .get(
               "http://localhost:5000/ForumManagement/get_userName?userID=" +
-                res.data.userID
+                res.data.userID,
+              {
+                headers: { Authorization: "lmsvalidation " + token },
+              }
             )
             .then((res) => {
-              setUserName(res.data.name);
-              setLmsID(res.data.ID);
+              if (res.data.auth === false) {
+                setError("You Are not Authorized!");
+                setIsUploaded(false);
+                setTimeout(() => {
+                  dispatch(logout());
+                }, 500);
+              } else if (res.data.fetch === false) {
+                setError("Requested ID is wrong");
+                setIsUploaded(false);
+                setTimeout(() => {
+                  dispatch(logout());
+                }, 600);
+              } else if (res.data.noData === true) {
+                setError("No Data Avialable");
+                setIsUploaded(false);
+              } else if (res.data.error === true) {
+                setError("Something wrong. Try again later");
+                setIsUploaded(false);
+              } else {
+                setUserName(res.data.name);
+                setLmsID(res.data.ID);
+              }
             })
             .catch((er) => {
-              console.log("error");
+              setError("Something wrong. Try again later");
+              setIsUploaded(false);
             });
         }
       })
@@ -73,7 +98,7 @@ const ReplyForumView = (props) => {
     };
 
     axios
-      .post(
+      .put(
         "http://localhost:5000/ForumManagement/update_replyForum",
         updatedReplyForum,
         {
@@ -222,17 +247,20 @@ const ReplyForumView = (props) => {
                 </button>
               </>
             )}
-             <span className={classes.icons}>
-          {(userID === currentLoginUserID) && <a>
-            <img
-              src={deleteI}
-              className={classes.img_buttonsD}
-              onClick={() => {
-                clickD(replyForumID);
-              }}
-            ></img>
-          </a>}
-        </span>
+            <span className={classes.icons}>
+              {userID === currentLoginUserID && (
+                <a>
+                  <div
+                    className={classes.delete}
+                    onClick={() => {
+                      clickD(replyForumID);
+                    }}
+                  >
+                    Delete
+                  </div>
+                </a>
+              )}
+            </span>
           </div>
         </form>
         {/* <span className={classes.icons}>

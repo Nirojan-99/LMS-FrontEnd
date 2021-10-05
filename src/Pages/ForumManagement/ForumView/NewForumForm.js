@@ -5,6 +5,9 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import classes from "./NewForumForm.module.css";
 import useInput from "../../UserManagement/AddUser/useInput";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+import { logout } from "../../../Store/auth";
+
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -16,6 +19,12 @@ const NewForumForm = (props) => {
   const [userName, setUserName] = useState();
   const [lmsID, setLmsID] = useState();
   const history=useHistory();
+
+  const [error, setError] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(true);
+
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loging.token);
 
 
  //For New Forum
@@ -38,14 +47,40 @@ const NewForumForm = (props) => {
       axios
         .get(
           "http://localhost:5000/ForumManagement/get_userName?userID=" +
-            userID
-        )
+            userID, {
+              headers: { Authorization: "lmsvalidation " + token },
+            })
         .then((res) => {
+          if (res.data.auth === false) {
+            setError("You Are not Authorized!");
+            setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 500);
+          } else if (res.data.fetch === false) {
+            setError("Requested ID is wrong");
+            setIsUploaded(false);
+            setTimeout(() => {
+              dispatch(logout());
+            }, 600);
+          } else if (res.data.noData === true) {
+            setError("No Data Avialable");
+            setIsUploaded(false);
+          }
+          else if(res.data.error===true){
+            setError("Something wrong. Try again later");
+            setIsUploaded(false);
+  
+          }
+          else{
           setUserName(res.data.name);
           setLmsID(res.data.ID);
+          }
+          
         })
         .catch((er) => {
-          console.log("error");
+           setError("Something wrong. Try again later");
+            setIsUploaded(false);
         });
     
 }, []);
@@ -59,6 +94,8 @@ const NewForumForm = (props) => {
     event.preventDefault();
 
     if (!formIsValid) {
+      setError("Forum should not be Empty");
+        setIsUploaded(false);
       return;
     }
     if (forumtype == "newforum") {
@@ -71,15 +108,35 @@ const NewForumForm = (props) => {
       };
 
       axios
-      .post("http://localhost:5000/ForumManagement/add_normalForum", normalForum)
+      .post("http://localhost:5000/ForumManagement/add_normalForum", normalForum, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        if(res.data){
+        if(res.data.auth===false){
+          setError("You Are not Authorized to Create Forum !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 700);
+        }
+        else if(res.data.inValidReq===true){
+          setError("Forum sholud not be empty");
+          setIsUploaded(false);
+
+        }
+        else if(res.data.error===true){
+          setError("Something wrong. Try again later");
+          setIsUploaded(false);
+
+        }
+        else if(res.data.added===true){
          window.location.reload();
         };
         
       })
       .catch((er) => {
-        console.log(er);
+        setError("Something wrong. Try again later");
+        setIsUploaded(false);
       });
     } else if (forumtype == "replyforum") {
 
@@ -91,15 +148,35 @@ const NewForumForm = (props) => {
       };
 
       axios
-      .post("http://localhost:5000/ForumManagement/add_replyForum", replyForum)
+      .post("http://localhost:5000/ForumManagement/add_replyForum", replyForum, {
+        headers: { Authorization: "lmsvalidation " + token },
+      })
       .then((res) => {
-        if(res.data){
+        if(res.data.auth===false){
+          setError("You Are not Authorized to Create Forum !");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 700);
+        }
+        else if(res.data.inValidReq===true){
+          setError("Reply Forum sholud not be empty");
+          setIsUploaded(false);
+
+        }
+        else if(res.data.inserted===false){
+          setError("Something wrong. Try again later");
+          setIsUploaded(false);
+
+        }
+        else if(res.data.inserted===true){
          window.location.reload();
         };
         
       })
       .catch((er) => {
-        console.log(er);
+        setError("Something wrong. Try again later");
+        setIsUploaded(false);
       });
 
     }
@@ -112,7 +189,18 @@ const NewForumForm = (props) => {
       : classes.inputs;
   const cardClass =
     forumtype == "replyforum" ? classes.replyCardView : classes.newCardView;
+
+
+    const clickedHandler = (event) => {
+      setIsUploaded(true);
+    };
+
+
   return (
+    <>
+    {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
     <div className={cardClass}>
       <div className={classes.User}>
         <div className={classes.Avatar}>
@@ -140,7 +228,7 @@ const NewForumForm = (props) => {
             <button
               type="submit"
               className={classes.add}
-              disabled={!formIsValid}
+              
             >
               Post
             </button>
@@ -159,7 +247,6 @@ const NewForumForm = (props) => {
             <button
               type="submit"
               className={classes.add}
-              disabled={!formIsValid}
             >
               Post
             </button>
@@ -167,6 +254,7 @@ const NewForumForm = (props) => {
         )}
       </form>
     </div>
+    </>
   );
 };
 

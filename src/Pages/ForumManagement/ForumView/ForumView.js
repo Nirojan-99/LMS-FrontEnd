@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import axios from "axios";
 
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../Store/auth";
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+
 import classes from "./ForumView.module.css";
 import React, { useState } from "react";
 import NewForumForm from "./NewForumForm";
@@ -18,6 +22,11 @@ const ForumView = (props) => {
   const [postedDate, setPostedDate] = useState();
   const [normalForums, setNormalForums]=useState([]);
 
+  const dispatch = useDispatch();
+  const [isUploaded, setIsUploaded] = useState(true);
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.loging.token);
+
   useEffect(() => {
     axios
       .get(
@@ -33,14 +42,39 @@ const ForumView = (props) => {
         axios
           .get(
             "http://localhost:5000/ForumManagement/get_userName?userID=" +
-              res.data.userID
+              res.data.userID, {
+                headers: { Authorization: "lmsvalidation " + token },
+              }
           )
           .then((res) => {
+            if (res.data.auth === false) {
+              setError("You Are not Authorized!");
+              setIsUploaded(false);
+              setTimeout(() => {
+                dispatch(logout());
+              }, 500);
+            } else if (res.data.fetch === false) {
+              setError("Requested ID is wrong");
+              setIsUploaded(false);
+              setTimeout(() => {
+                dispatch(logout());
+              }, 600);
+            } else if (res.data.noData === true) {
+              setError("No Data Avialable");
+              setIsUploaded(false);
+            }
+            else if(res.data.error===true){
+              setError("Something wrong. Try again later");
+              setIsUploaded(false);
+            }
+            else{
             setUserName(res.data.name);
             setLmsID(res.data.ID);
+            }
           })
           .catch((er) => {
-            console.log("error");
+            setError("Something wrong. Try again later");
+            setIsUploaded(false);
           });
       })
       .catch((er) => {
@@ -52,7 +86,20 @@ const ForumView = (props) => {
             "http://localhost:5000/ForumManagement/get_normalForums?moduleID=" +moduleID+"&weekID="+weekID
           )
           .then((res) => {
-            setNormalForums(res.data);
+            if(res.data.noData===true){
+              setError("No NormalForum Available");
+            setIsUploaded(false);
+
+            }
+            else if(res.data.error===true){
+              setError("Something wrong. Try again later");
+            setIsUploaded(false);
+
+            }
+            else{
+              setNormalForums(res.data);
+            }
+            
             
           })
           .catch((er) => {

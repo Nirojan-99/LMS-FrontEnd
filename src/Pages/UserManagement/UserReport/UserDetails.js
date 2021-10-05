@@ -31,7 +31,7 @@ const UserDetails = (props) => {
 
   const deleteMaterial = () => {
     axios
-    .post("http://localhost:5000/userManagement/delete_user",{_id:deleteID}, {
+    .delete("http://localhost:5000/userManagement/delete_user?_id="+deleteID, {
       headers: { Authorization: "lmsvalidation " + token },
     })
     .then((res) => {
@@ -106,7 +106,7 @@ const UserDetails = (props) => {
         </div>
       </div>
 
-      <hr className={classes.line}></hr>
+      {/* <hr className={classes.line}></hr> */}
     </>
   );
 };

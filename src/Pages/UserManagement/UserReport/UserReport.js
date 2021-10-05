@@ -105,7 +105,7 @@ const clickedHandler = (event) => {
        {!isUploaded && (<ErrorPopup error={error} clickedHandler={clickedHandler}/>)}
       <h2 className={classes.title}>USER REPORT</h2>
       <hr className={classes.line}></hr>
-      <UserTable totalUsers={users.length} allUsers={users}/>
+      <UserTable allUsers={users}/>
 
       <UserReportSearchBar onSearch={getSearchValue} />     
       <div className={classes.report_container}>

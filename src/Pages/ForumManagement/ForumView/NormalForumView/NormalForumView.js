@@ -37,14 +37,38 @@ const NormalForumView = (props) => {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:5000/ForumManagement/get_userName?userID=" + userID
-      )
+        "http://localhost:5000/ForumManagement/get_userName?userID=" + userID, {
+          headers: { Authorization: "lmsvalidation " + token },
+        })
       .then((res) => {
+        if (res.data.auth === false) {
+          setError("You Are not Authorized!");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 500);
+        } else if (res.data.fetch === false) {
+          setError("Requested ID is wrong");
+          setIsUploaded(false);
+          setTimeout(() => {
+            dispatch(logout());
+          }, 600);
+        } else if (res.data.noData === true) {
+          setError("No Data Avialable");
+          setIsUploaded(false);
+        }
+        else if(res.data.error===true){
+          setError("Something wrong. Try again later");
+          setIsUploaded(false);
+        }
+        else{
         setUserName(res.data.name);
         setLmsID(res.data.ID);
+        }
       })
       .catch((er) => {
-        console.log("error");
+        setError("Something wrong. Try again later");
+        setIsUploaded(false);
       });
   }, []);
 
@@ -57,7 +81,7 @@ const NormalForumView = (props) => {
     };
 
     axios
-      .post(
+      .put(
         "http://localhost:5000/ForumManagement/update_normalForum",
         updatedNormalForum,
         {
@@ -165,7 +189,7 @@ const NormalForumView = (props) => {
         } else {
           setOnDelete((state) => !state);
           setIsUploaded(false);
-          setError("ReplyForum Deleted!");
+          setError("NormalForum Deleted!");
           setTimeout(() => {
             window.location.reload();
           }, 900);
@@ -220,13 +244,12 @@ const NormalForumView = (props) => {
             )}
             <span className={classes.icons}>
          {(userID === currentLoginUserID) && <a>
-            <img
-              src={deleteI}
-              className={classes.img_buttonsD}
+          <div
+              className={classes.delete}
               onClick={() => {
                 clickD(normalForumID);
               }}
-            ></img>
+            >Delete</div>
           </a>} 
         </span>
           </div>

@@ -84,6 +84,18 @@ const EditUser = (props) => {
   const updateHandler = (event) => {
     event.preventDefault();
 
+    if(name.trim()=="" || dob.trim()=="" || contact.trim()=="" || address.trim()=="" || faculty.trim()=="" || role.trim()=="" || password.trim()==""){
+        setError("Check the input field. Fill it");
+        setIsUploaded(false);
+        return;
+    }
+    if(email.trim()=="" || !email.includes("@") ){
+      setError("Invalid Email");
+      setIsUploaded(false);
+      return;
+
+    }
+
     const updatedUser = {
       _id: id,
       name: name,
@@ -97,7 +109,7 @@ const EditUser = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/userManagement/update_user", updatedUser, {
+      .put("http://localhost:5000/userManagement/update_user", updatedUser, {
         headers: { Authorization: "lmsvalidation " + token },
       })
       .then((res) => {
@@ -114,11 +126,11 @@ const EditUser = (props) => {
             dispatch(logout());
           }, 600);
         } else if (res.data.updated === false) {
-          setError("Cann't find user");
+          setError("Not Updated");
           setIsUploaded(false);
           setTimeout(() => {
             history.goBack();
-          }, 600);
+          }, 700);
         } else {
           setSuccess(true);
           // history.replace("/user-report");

@@ -144,6 +144,8 @@ const AddUser = () => {
     event.preventDefault();
 
     if (!formIsValid) {
+      setError("Please Check that you filled all the field");
+      setIsUploaded(false);
       return;
     }
 
@@ -176,7 +178,9 @@ const AddUser = () => {
         }else if(res.data.error === true){
           setError("Something wrong. Try again later");
           setIsUploaded(false);
-
+        }else if(res.data.inValidReq === true){
+          setError("Invalid Request. or Empty Request");
+          setIsUploaded(false);
         }
          else {
           resetEmail();
@@ -188,9 +192,6 @@ const AddUser = () => {
           resetRole();
           setIsEmailExist(false);
           setSuccess(true);
-
-
-          // window.location.reload();
         }
       })
       .catch((er) => {
@@ -393,7 +394,7 @@ const AddUser = () => {
             {/* <label for="password" className={classes.lables}>Password :</label><br/>
                <input type="password" id="password"  name="password" className={classes.inputs}></input> */}
 
-            <button disabled={!formIsValid} className={classes.add}>
+            <button  className={classes.add}>
               ADD
             </button>
           </form>
