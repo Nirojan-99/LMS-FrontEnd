@@ -1,42 +1,63 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
+const generateUserReport = (users, allTypeUsers) => {
+  const computingUsers = allTypeUsers.computingUsers;
+  const enginneringUsers = allTypeUsers.enginneringUsers;
+  const bussinessUsers = allTypeUsers.bussinessUsers;
+  const HumSciUsers = allTypeUsers.HumSciUsers;
 
-const generateUserReport = (users) => {
-    const doc=new jsPDF();
+  const doc = new jsPDF();
 
-    // define the columns we want and their titles
-  const tableColumn = ["UserID", "Name", "UserRole", "Faculty", "Email", "ContactNo"];
-  // define an empty array of rows
+  // colums
+  const tableColumn = [
+    "UserID",
+    "Name",
+    "UserRole",
+    "Faculty",
+    "Email",
+    "ContactNo",
+  ];
+  // array
   const tableRows = [];
 
-  // for each ticket pass all its data into an array
-  users.forEach(user => {
+  users.forEach((user) => {
     const userData = [
-     user.ID,
-     user.name,
-     user.type,
-     user.faculty,
-     user.email,
-     user.contact
-
+      user.ID,
+      user.name,
+      user.type,
+      user.faculty,
+      user.email,
+      user.contact,
     ];
-    // push each tickcet's info into a row
+    // push data
     tableRows.push(userData);
   });
 
-
-  // startY is basically margin-top
-  doc.autoTable(tableColumn, tableRows, {startY: 20, theme: 'grid'});
+  doc.autoTable(tableColumn, tableRows, { startY: 60, theme: "grid" });
   const date = Date().split(" ");
-  // we use a date string to generate our filename.
-  const dateStr = date[3]+ "-"+ date[1] +"-"+ date[2] ;
-  // ticket title. and margin-top + margin-left
-  doc.text("All LMS User", 14, 15);
-  // we define the name of our PDF file.
-  doc.save(`LmsUserReport_${dateStr}.pdf`);
 
-    
+  const dateStr = date[3] + "-" + date[1] + "-" + date[2];
+
+  doc.setFontSize(20);
+  doc.text("All LMS User", 80, 15);
+  doc.setFontSize(10);
+  doc.text(
+    "\n\n TOTAL USERS : " +
+      users.length +
+      "\n\n COMPUTING USERS : " +
+      computingUsers.length +
+      "\n\n ENGINNERING USERS : " +
+      enginneringUsers.length +
+      "\n\n BUSSINESS USERS : " +
+      bussinessUsers.length +
+      "\n\n HUMANITIES & SCIENCE USERS : " +
+      HumSciUsers.length,
+    13,
+    15
+  );
+
+  doc.save(`LmsUserReport_${dateStr}.pdf`);
 };
 
 export default generateUserReport;

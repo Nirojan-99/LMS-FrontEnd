@@ -1,8 +1,19 @@
+.MainView{
+  border-radius: 10px;
+  margin-bottom: 25px;
+  margin-top: 30px;
+  background-color: hsl(0, 0%, 37%);
+  padding: 15px 5px 25px 5px;
+  /* width: 90%;
+  margin-left: 5%; */
+
+}
+
 .CardView {
   border-radius: 20px;
   width: 60%;
   /* background-color: #ffffff; */
-  background-color: hsl(0, 0%, 87%);
+  background-color: hsl(0, 0%, 100%);
   padding: 5px;
   margin: auto;
   margin-top: 20px;
@@ -111,3 +122,5 @@
   transition-property: all;
   transition-duration: 0.5s;
 }
+
+

@@ -19,7 +19,7 @@
     
   .search {
     margin: auto;
-    margin-left: 400px;
+    margin-left: 26%;
     margin-top: 10px;
    
     
@@ -46,7 +46,7 @@
   }
   .icon {
     padding: 10px;
-    background-color: #046666;
+    background-color: #0ca7a7;
     border-radius: 100%;
     margin: 0;
     width: 20px;

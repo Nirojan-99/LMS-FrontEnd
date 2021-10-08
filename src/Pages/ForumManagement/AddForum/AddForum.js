@@ -5,6 +5,9 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./AddForum.module.css";
 
+import ErrorPopup from "../../../Components/ErrorPopup/ErrorPopup";
+
+
 const AddForum = (props) => {
   const history = useHistory();
   const weekID = props.match.params.week;
@@ -19,6 +22,8 @@ const AddForum = (props) => {
   const [moduleID, setModuleID] = useState();
   const [weekNo, setWeekNo] = useState();
 
+  const [isUploaded, setIsUploaded] = useState(true);
+  const [error, setError] = useState(null);
 
 
   const TopicHandler = (event) => {
@@ -53,6 +58,12 @@ const AddForum = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    if(topic ==null || msg==null){
+      setError("Please Fill the Field");
+      setIsUploaded(false);
+      return;
+    }
+
     const forum = {
       topic: topic,
       weekID: weekID,
@@ -77,10 +88,15 @@ const AddForum = (props) => {
         console.log(er);
       });
   }
-
+  const clickedHandler = (event) => {
+    setIsUploaded(true);
+  };
   
   return (
     <>
+    {!isUploaded && (
+        <ErrorPopup error={error} clickedHandler={clickedHandler} />
+      )}
     {userType==="admin" && (
     <div className={classes.CardView}>
       <h2 className={classes.title}>ADD DISCUSSION FORUM</h2>

@@ -206,7 +206,7 @@ const NewForumForm = (props) => {
         <div className={classes.Avatar}>
           <img src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         </div>
-        <div className={classes.Name}>{userName}{"  "}{lmsID}</div>
+        <div className={classes.Name}>{userName}{"  ||  "}{lmsID}</div>
       </div>
       <hr className={classes.line}></hr>
       <form onSubmit={submitHandler}>
