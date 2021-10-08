@@ -25,7 +25,6 @@ const AddUser = () => {
   const [isUploaded, setIsUploaded] = useState(true);
   const [success, setSuccess] = useState(false);
 
-
   //get today date
   const getTodayDate = () => {
     var today = new Date();
@@ -54,12 +53,20 @@ const AddUser = () => {
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 500)
-        }else {setUserID(res.data);}
-        
+          }, 800);
+        } else if (res.data.error === true) {
+          setError("Something wrong. Try again later");
+          setIsUploaded(false);
+        } else if (res.data.noData === true) {
+          setError("Error to get LMS ID Details. Try Again Later");
+          setIsUploaded(false);
+        } else {
+          setUserID(res.data);
+        }
       })
       .catch((er) => {
-        console.log("error");
+        setError("Somethin Wrong. Error is " + er);
+        setIsUploaded(false);
       });
   }, []);
 
@@ -150,6 +157,7 @@ const AddUser = () => {
     }
 
     const user = {
+      userIdNo: userID,
       name: nameValue,
       email: emailValue,
       date: dateValue,
@@ -175,14 +183,17 @@ const AddUser = () => {
           resetEmail();
           setError("Email is Already Exsist. Enter New One");
           setIsUploaded(false);
-        }else if(res.data.error === true){
+        } else if (res.data.contactExist === true) {
+          resetContact();
+          setError("Contact Number is Already Exist. Enter New One");
+          setIsUploaded(false);
+        } else if (res.data.error === true) {
           setError("Something wrong. Try again later");
           setIsUploaded(false);
-        }else if(res.data.inValidReq === true){
+        } else if (res.data.inValidReq === true) {
           setError("Invalid Request. or Empty Request");
           setIsUploaded(false);
-        }
-         else {
+        } else {
           resetEmail();
           resetName();
           resetDate();
@@ -250,7 +261,7 @@ const AddUser = () => {
               id="uID"
               name="uID"
               className={IDClass}
-              value={userID}
+              value={"LMS" + userID}
               readonly
             ></input>
             <label for="email" className={lables}>
@@ -394,9 +405,7 @@ const AddUser = () => {
             {/* <label for="password" className={classes.lables}>Password :</label><br/>
                <input type="password" id="password"  name="password" className={classes.inputs}></input> */}
 
-            <button  className={classes.add}>
-              ADD
-            </button>
+            <button className={classes.add}>ADD</button>
           </form>
           <button className={classes.add} onClick={BackHandler}>
             Back
