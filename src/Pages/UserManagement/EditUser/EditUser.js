@@ -89,13 +89,13 @@ const EditUser = (props) => {
         setIsUploaded(false);
         return;
     }
-    if(contact.trim()=="" || contact.trim().length<10){
+    if(contact.trim()=="" || contact.length !== 10){
       setError("Invalid Contact Number");
       setIsUploaded(false);
       return;
 
     }
-    if(email.trim()=="" || !email.includes("@") ){
+    if(email.trim()=="" || !email.includes("@") || !email.includes(".com")){
       setError("Invalid Email");
       setIsUploaded(false);
       return;
@@ -265,7 +265,7 @@ const EditUser = (props) => {
         <br />
         <input
           onChange={ContactHandler}
-          type="tel"
+          type="number"
           id="contactNo"
           name="contactNo"
           value={contact}

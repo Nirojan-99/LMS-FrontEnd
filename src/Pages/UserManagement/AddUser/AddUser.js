@@ -12,7 +12,8 @@ import Success from "../../../Components/SuccessPopup/Success";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@") && value.includes(".com");
-const isContactNo = (value) => value.trim() !== "" && value.trim().length>9;
+const isContactNo = (value) => value.trim() !== "" && value.trim().length == 10 && !value.includes("e");
+// value.trim().length>9
 
 const AddUser = () => {
   const dispatch = useDispatch();
@@ -191,7 +192,7 @@ const AddUser = () => {
           setError("Something wrong. Try again later");
           setIsUploaded(false);
         } else if (res.data.inValidReq === true) {
-          setError("Invalid Request. or Empty Request");
+          setError("Invalid Request. or Empty Field Request");
           setIsUploaded(false);
         } else {
           resetEmail();
