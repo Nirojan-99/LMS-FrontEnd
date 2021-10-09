@@ -11,8 +11,8 @@ import { logout } from "../../../Store/auth";
 import Success from "../../../Components/SuccessPopup/Success";
 
 const isNotEmpty = (value) => value.trim() !== "";
-const isEmail = (value) => value.includes("@");
-const isContactNo = (value) => value.trim() !== "";
+const isEmail = (value) => value.includes("@") && value.includes(".com");
+const isContactNo = (value) => value.trim() !== "" && value.trim().length>9;
 
 const AddUser = () => {
   const dispatch = useDispatch();
