@@ -144,61 +144,68 @@ const WeekContainer = (props) => {
   };
   return (
     <>
-      <div className={classes.containerM}>
-        {!didDeleted && (
-          <ErrorPopup
-            error={"Unable to Delete !"}
-            clickedHandler={clickedHandler}
-          />
-        )}
-        <div className={classes.popup}>
-          {onDelete && (
-            <DeletePopup
-              hide={hide}
-              onDelete={() => deleteMaterial(props.data._id)}
-            />
-          )}
-        </div>
+      {userType !== "admin" && props.data.visibility === "invisible" ? null : (
+        <div>
+          <div className={classes.containerM}>
+            {!didDeleted && (
+              <ErrorPopup
+                error={"Unable to Delete !"}
+                clickedHandler={clickedHandler}
+              />
+            )}
+            <div className={classes.popup}>
+              {onDelete && (
+                <DeletePopup
+                  hide={hide}
+                  onDelete={() => deleteMaterial(props.data._id)}
+                />
+              )}
+            </div>
 
-        <span className={classes.left_items}>
-          <img src={logo} className={classes.iconM} />
-          <span className={classes.title}>
-            <a onClick={insightHandler} href={option}>
-              {props.data.title}
-            </a>
-          </span>
-          {userType === "admin" && props.data.visibility === "invisible" && (
-            <span className={classes.hidden_popup}>Hidden to Students</span>
-          )}
-        </span>
-        {userType === "admin" && (
-          <span className={classes.right_items}>
-            <span className={classes.icons}>
-              <a href={"./insight/" + props.data._id}>
-                <img src={insight1} className={classes.img_buttons}></img>
-              </a>
-              <a href={edit + props.data._id}>
-                <img src={pencil} className={classes.img_buttons}></img>
-              </a>
-              <a
-                onClick={() => {
-                  clickH(props.data._id);
-                }}
-              >
-                <img src={deleteI} className={classes.img_buttonsD}></img>
-              </a>
+            <span className={classes.left_items}>
+              <img src={logo} className={classes.iconM} />
+              <span className={classes.title}>
+                <a onClick={insightHandler} href={option}>
+                  {props.data.title}
+                </a>
+              </span>
+              {userType === "admin" &&
+                props.data.visibility === "invisible" && (
+                  <span className={classes.hidden_popup}>
+                    Hidden to Students
+                  </span>
+                )}
             </span>
-            <span>
-              {/* <input
+            {userType === "admin" && (
+              <span className={classes.right_items}>
+                <span className={classes.icons}>
+                  <a href={"./insight/" + props.data._id}>
+                    <img src={insight1} className={classes.img_buttons}></img>
+                  </a>
+                  <a href={edit + props.data._id}>
+                    <img src={pencil} className={classes.img_buttons}></img>
+                  </a>
+                  <a
+                    onClick={() => {
+                      clickH(props.data._id);
+                    }}
+                  >
+                    <img src={deleteI} className={classes.img_buttonsD}></img>
+                  </a>
+                </span>
+                <span>
+                  {/* <input
               type="checkbox"
               value=""
               className={classes.check_box}
             ></input> */}
-            </span>
-          </span>
-        )}
-      </div>
-      <hr className={classes.line}></hr>
+                </span>
+              </span>
+            )}
+          </div>
+          <hr className={classes.line}></hr>
+        </div>
+      )}
     </>
   );
 };
