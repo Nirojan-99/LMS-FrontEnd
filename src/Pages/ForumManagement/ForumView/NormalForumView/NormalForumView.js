@@ -102,7 +102,7 @@ const NormalForumView = (props) => {
             dispatch(logout());
           }, 600);
         } else if (res.data.updated === false) {
-          setError("Cann't find user");
+          setError("No Update");
           setIsUploaded(false);
           setTimeout(() => {
             window.location.reload();
@@ -219,7 +219,7 @@ const NormalForumView = (props) => {
           </div>
           <div className={classes.Name}>
             {userName}
-            {"  "}
+            {"  ||  "}
             {lmsID}
           </div>
           <div className={classes.Time}>Posted on {postedDate}</div>

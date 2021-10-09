@@ -3,18 +3,26 @@ import generateUserReport from "./generateUserReport";
 
 const UserTable = (props) => {
   const allUsers = props.allUsers;
-  var computingUsers = allUsers.filter(function (el) {
+  const computingUsers = allUsers.filter(function (el) {
     return el.faculty === "Computing";
   });
-  var enginneringUsers = allUsers.filter(function (el) {
+  const enginneringUsers = allUsers.filter(function (el) {
     return el.faculty === "Enginnering";
   });
-  var bussinessUsers = allUsers.filter(function (el) {
+  const bussinessUsers = allUsers.filter(function (el) {
     return el.faculty === "Bussiness";
   });
-  var HumSciUsers = allUsers.filter(function (el) {
+  const HumSciUsers = allUsers.filter(function (el) {
     return el.faculty === "Humanities&Science";
   });
+
+  const allTypeUsers={
+    computingUsers:computingUsers,
+    enginneringUsers:enginneringUsers,
+    bussinessUsers:bussinessUsers,
+    HumSciUsers:HumSciUsers,
+
+  }
 
   
   return (
@@ -43,7 +51,7 @@ const UserTable = (props) => {
       </table>
       <button
         className={classes.add}
-        onClick={() => generateUserReport(allUsers)}
+        onClick={() => generateUserReport(allUsers,allTypeUsers)}
       >
         Generate Report
       </button>

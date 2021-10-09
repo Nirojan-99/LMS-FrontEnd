@@ -111,19 +111,19 @@ const ReplyForumView = (props) => {
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 500);
+          }, 700);
         } else if (res.data.fetch === false) {
           setError("Wrong Request");
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 600);
+          }, 700);
         } else if (res.data.updated === false) {
-          setError("Cann't find the ReplyForum");
+          setError("No Updates");
           setIsUploaded(false);
           setTimeout(() => {
             window.location.reload();
-          }, 600);
+          }, 700);
         } else {
           window.location.reload();
         }
@@ -133,7 +133,7 @@ const ReplyForumView = (props) => {
         setIsUploaded(false);
         setTimeout(() => {
           window.location.reload();
-        }, 600);
+        }, 700);
       });
   };
 
@@ -181,7 +181,7 @@ const ReplyForumView = (props) => {
             // dispatch(logout());
           }, 900);
         } else if (res.data.deleted === false) {
-          setError("Cann't find ReplyForum");
+          setError("Not Deleted ReplyForum");
           setIsUploaded(false);
           setTimeout(() => {
             window.location.reload();
@@ -221,7 +221,7 @@ const ReplyForumView = (props) => {
           </div>
           <div className={classes.Name}>
             {userName}
-            {"  "}
+            {"  ||  "}
             {lmsID}
           </div>
           <div className={classes.Time}>Posted on {postedDate}</div>

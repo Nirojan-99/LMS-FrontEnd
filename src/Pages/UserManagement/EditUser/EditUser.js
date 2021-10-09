@@ -40,13 +40,13 @@ const EditUser = (props) => {
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 500);
+          }, 800);
         } else if (res.data.fetch === false) {
           setError("Requested ID is wrong");
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 600);
+          }, 800);
         } else if (res.data.noData === true) {
           setError("Cann't find user");
           setIsUploaded(false);
@@ -84,12 +84,18 @@ const EditUser = (props) => {
   const updateHandler = (event) => {
     event.preventDefault();
 
-    if(name.trim()=="" || dob.trim()=="" || contact.trim()=="" || address.trim()=="" || faculty.trim()=="" || role.trim()=="" || password.trim()==""){
+    if(name.trim()=="" || dob.trim()=="" || address.trim()=="" || faculty.trim()=="" || role.trim()=="" || password.trim()==""){
         setError("Check the input field. Fill it");
         setIsUploaded(false);
         return;
     }
-    if(email.trim()=="" || !email.includes("@") ){
+    if(contact.trim()=="" || contact.length !== 10){
+      setError("Invalid Contact Number");
+      setIsUploaded(false);
+      return;
+
+    }
+    if(email.trim()=="" || !email.includes("@") || !email.includes(".com")){
       setError("Invalid Email");
       setIsUploaded(false);
       return;
@@ -118,15 +124,15 @@ const EditUser = (props) => {
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 500);
+          }, 800);
         } else if (res.data.fetch === false) {
           setError("Wrong Request");
           setIsUploaded(false);
           setTimeout(() => {
             dispatch(logout());
-          }, 600);
+          }, 800);
         } else if (res.data.updated === false) {
-          setError("Not Updated");
+          setError("No Updates");
           setIsUploaded(false);
           setTimeout(() => {
             history.goBack();
@@ -259,7 +265,7 @@ const EditUser = (props) => {
         <br />
         <input
           onChange={ContactHandler}
-          type="tel"
+          type="number"
           id="contactNo"
           name="contactNo"
           value={contact}

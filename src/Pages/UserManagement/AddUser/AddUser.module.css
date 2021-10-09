@@ -33,7 +33,7 @@
 .invalid_lables {
   font-family: "open sans";
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   color: #f11010;
 }
 .formContainer {
@@ -124,7 +124,7 @@
   padding: 10px;
   margin-top: 10px;
   font-family: roboto;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   outline: none;
   color: #333;
   font-weight: bold;
