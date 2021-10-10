@@ -227,7 +227,7 @@ const NormalForumView = (props) => {
         <hr className={classes.line}></hr>
         <form onSubmit={submitHandler}>
           <textarea
-            readOnly={!(userID === currentLoginUserID)}
+            readOnly={!((userID === currentLoginUserID) || (userType==="admin"))}
             id="discussForum"
             name="discussForum"
             className={roleClass}
@@ -237,13 +237,13 @@ const NormalForumView = (props) => {
           ></textarea>
 
           <div className={classes.inlineEdit}>
-            {userID === currentLoginUserID && (
+            {((userID === currentLoginUserID) || (userType==="admin")) && (
               <button type="submit" className={classes.add}>
                 Update
               </button>
             )}
             <span className={classes.icons}>
-         {(userID === currentLoginUserID) && <a>
+         {((userID === currentLoginUserID) || (userType==="admin")) && <a>
           <div
               className={classes.delete}
               onClick={() => {
