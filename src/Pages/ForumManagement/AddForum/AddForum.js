@@ -58,7 +58,7 @@ const AddForum = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if(topic ==null || msg==null){
+    if(topic ==null || msg==null || msg.trim()=="" || topic.trim()==""){
       setError("Please Fill the Field");
       setIsUploaded(false);
       return;
